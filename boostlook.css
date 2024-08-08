@@ -137,3 +137,53 @@ padding: 0.25em 0.55em;
 :root {
 --color-pasteboard: rgb(209, 213, 219);
 }
+
+body.article .doc {
+  min-height: 100vh;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  position: relative;
+}
+
+#toc > ul {
+  margin-left:.125em;
+}
+#toc ul {
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+  font-size: 0.85rem;
+  list-style: none;
+}
+
+#toc ul {
+  padding-left: 0.5rem;
+}
+
+.doc #header,
+.doc #content,
+.doc #footer {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+
+  body.toc2 {
+    padding-left: 15em;
+  }
+
+  #toc.toc2 {
+    position: fixed;
+    width: 15em;
+    left: 0;
+    top: 0;
+    padding: 1.25em 1em;
+    overflow: auto;
+    z-index: 1000;
+    height: 100%;
+  }
+}
