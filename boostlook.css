@@ -138,18 +138,20 @@ padding: 0.25em 0.55em;
 --color-pasteboard: rgb(209, 213, 219);
 }
 
-body.article .doc {
+body.article {
   min-height: 100vh;
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
   padding: 1rem;
   position: relative;
+  background-color: var(--color-pasteboard);
 }
 
-#toc > ul {
-  margin-left:.125em;
+#toc > ul.sectlevel1 {
+  padding-left: 0;
 }
+
 #toc ul {
   margin: 0;
   padding: 0;
@@ -162,28 +164,32 @@ body.article .doc {
   padding-left: 0.5rem;
 }
 
-.doc #header,
-.doc #content,
-.doc #footer {
+.doc,
+#toc.toc2 {
   background-color: white;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   padding: 1rem;
 }
 
+.doc pre {
+  /* needed for overflowing code blocks */
+  overflow-x: auto;
+}
+
 @media screen and (min-width: 768px) {
-
-  body.toc2 {
-    padding-left: 15em;
-  }
-
   #toc.toc2 {
     position: fixed;
-    width: 15em;
-    left: 0;
-    top: 0;
+    width: 17rem;
+    left: max(1rem, calc(50% - 39rem));
+    top: 1rem;
     padding: 1.25em 1em;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     z-index: 1000;
-    height: 100%;
+    height: calc(100vh - 2rem);
+  }
+
+  .doc {
+    margin-left: 18rem;
   }
 }
