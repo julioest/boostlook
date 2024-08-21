@@ -71,16 +71,16 @@ isolation: isolate;
 --color-cyan: rgb(0, 90, 156);
 }
 
-.doc {
+.boostlook {
 font-family: "Noto Sans", sans-serif;
 }
 
-.doc h1,
-.doc h2,
-.doc h3,
-.doc h4,
-.doc h5,
-.doc h6 {
+.boostlook h1,
+.boostlook h2,
+.boostlook h3,
+.boostlook h4,
+.boostlook h5,
+.boostlook h6 {
 display: block;
 line-height: 1;
 margin-top: 1em;
@@ -88,46 +88,50 @@ margin-bottom: 1em;
 font-weight: 500;
 }
 
-.doc h1 { font-size: 1.75em; }
-.doc h2 { font-size: 1.5em; }
-.doc h3 { font-size: 1.375em; }
-.doc h4 { font-size: 1.25em; }
-.doc h5 { font-size: 1.125em; }
-.doc h6 { font-size: 1em; }
-.doc p { margin: 1em 0em; }
-.doc a {
+.boostlook h1 { font-size: 1.75em; }
+.boostlook h2 { font-size: 1.5em; }
+.boostlook h3 { font-size: 1.375em; }
+.boostlook h4 { font-size: 1.25em; }
+.boostlook h5 { font-size: 1.125em; }
+.boostlook h6 { font-size: 1em; }
+.boostlook p { margin: 1em 0em; }
+.boostlook a {
 color: var(--color-cyan);
 text-decoration: none;
 }
-.doc a:hover {
+.boostlook a:hover {
 text-decoration: underline;
 }
-.doc code {
+.boostlook code {
 font-family: "Noto Sans Mono", monospace;
 }
-.doc pre {
+.boostlook pre {
 font-family: "Noto Sans Mono", monospace;
 background-color: #f8f8f8;
 margin: 1em;
 padding: 1em;
 border: 1px solid #e8e8e8;
+overflow: scroll;
 }
-.doc h6:has(+table)
+.boostlook h6:has(+table)
 {
 margin-left: 1em;
 }
-.doc table {
+.boostlook table {
 border-collapse: collapse;
 border: 1px solid #e8e8e8;
 margin: 1em;
 }
-.doc th {
+.boostlook div:has(table, pre, code) {
+	overflow: scroll;
+}
+.boostlook th {
 background-color: #f8f8f8;
 text-align: left;
 padding: 0.25em 0.55em;
 font-weight: 550;
 }
-.doc td {
+.boostlook td {
 border: 1px solid #e8e8e8;
 padding: 0.25em 0.55em;
 }
@@ -148,36 +152,47 @@ body.article {
   background-color: var(--color-pasteboard);
 }
 
-#toc > ul.sectlevel1 {
+.boostlook #toc > ul.sectlevel1 {
   padding-left: 0;
 }
 
-#toc ul {
+.boostlook #toc ul {
   margin: 0;
-  padding: 0;
-  line-height: 1.2;
+  padding: 0 0 0 0.5rem;
+  line-height: 1.5;
   font-size: 0.85rem;
   list-style: none;
 }
 
-#toc ul {
-  padding-left: 0.5rem;
+.boostlook #toc .sectlevel1 > li > a {
+  font-weight: bolder;
 }
 
-.doc,
-#toc.toc2 {
+.boostlook #toc #toctitle {
+  font-size: 1.5rem;
+}
+
+.boostlook #toc ul li a {
+  font-size: 1rem;
+}
+
+.boostlook,
+.boostlook #toc.toc2 {
   background-color: white;
   border-radius: 0.5rem;
   padding: 1rem;
 }
 
-.doc pre {
-  /* needed for overflowing code blocks */
+.boostlook #toc.toc2 {
+  padding-left: 0;
+}
+
+.boostlook #content {
   overflow-x: auto;
 }
 
 @media screen and (min-width: 768px) {
-  #toc.toc2 {
+  .boostlook #toc.toc2 {
     position: fixed;
     width: 17rem;
     left: max(1rem, calc(50% - 39rem));
@@ -189,7 +204,7 @@ body.article {
     height: calc(100vh - 2rem);
   }
 
-  .doc {
+  .boostlook {
     margin-left: 18rem;
   }
 }
