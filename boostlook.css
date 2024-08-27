@@ -72,7 +72,7 @@ isolation: isolate;
 }
 
 .boostlook {
-font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans" !important;
 }
 
 .boostlook h1,
@@ -110,29 +110,33 @@ font-family: "Noto Sans Mono", monospace;
 background-color: #f8f8f8;
 margin: 1em;
 padding: 1em;
-border: 1px solid #e8e8e8;
-overflow: scroll;
 }
+
 .boostlook h6:has(+table)
 {
 margin-left: 1em;
 }
 .boostlook table {
 border-collapse: collapse;
-border: 1px solid #e8e8e8;
 margin: 1em;
 }
 .boostlook div:has(table, pre, code) {
-	overflow: scroll;
+	overflow-x: scroll;
 }
+.boostlook code,
+.boostlook tt,
+.boostlook kbd,
+.boostlook samp,
+.boostlook pre 
+{
+    background: none;
+  }
 .boostlook th {
-background-color: #f8f8f8;
 text-align: left;
 padding: 0.25em 0.55em;
 font-weight: 550;
 }
 .boostlook td {
-border: 1px solid #e8e8e8;
 padding: 0.25em 0.55em;
 }
 
@@ -142,7 +146,7 @@ padding: 0.25em 0.55em;
 --color-pasteboard: rgb(209, 213, 219);
 }
 
-body.article {
+.boostlook:not(.body) {
   min-height: 100vh;
   max-width: 80rem;
   margin-left: auto;
@@ -176,8 +180,8 @@ body.article {
   font-size: 1rem;
 }
 
-.boostlook,
-.boostlook #toc.toc2 {
+.boostlook:not(.body),
+.boostlook:not(.body) #toc.toc2 {
   background-color: white;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -191,8 +195,12 @@ body.article {
   overflow-x: auto;
 }
 
+.boostlook #header, #content, #footer {
+  background-color: white;
+}
+
 @media screen and (min-width: 768px) {
-  .boostlook #toc.toc2 {
+  .boostlook:not(.body) #toc.toc2 {
     position: fixed;
     width: 17rem;
     left: max(1rem, calc(50% - 39rem));
@@ -204,7 +212,11 @@ body.article {
     height: calc(100vh - 2rem);
   }
 
-  .boostlook {
+  .content div:has(table,pre,code) {
+    overflow: initial;
+  }
+
+  .boostlook:not(.body) {
     margin-left: 18rem;
   }
 }
