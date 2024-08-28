@@ -1,3 +1,47 @@
+/**
+ * README:
+ * This stylesheet contains styles for both AsciiDoc and Antora templates.
+ * The `boostlook` class is applied across both, but due to differences in their HTML structure,
+ * specific CSS rules are necessary to target each appropriately.
+ *
+ * High-Level HTML Structure:
+ * 
+ * - Antora Template:
+ *   <div class="boostlook">
+ *     <div class="card nav-container">...</div>
+ *     <div class="doc">...</div>
+ *   </div>
+ *
+ * - AsciiDoc Template:
+ *   <div class="boostlook">
+ *     <div id="header">...</div>
+ *     <div id="content">...</div>
+ *     <div id="footer">...</div>
+ *   </div>
+ *
+ * - For Antora templates:
+ *   The `.boostlook .doc` selector targets elements within the `.doc` class, and the 
+ *   `.boostlook .nav-container` selector targets elements within the `.nav-container` class,
+ *   both of which are specific to the Antora HTML structure.
+ *
+ * - For AsciiDoc templates:
+ *   The `.boostlook:not(:has(.doc))` selector is used to target elements that do not have 
+ *   a `.doc` child, applying styles specific to AsciiDoc content.
+
+ *   Since the `.doc` class is not present in the structure above, the styles defined for 
+ *   `.boostlook:not(:has(.doc))` will apply.
+ */
+
+:root {
+  --bl-pasteboard-color: rgb(209, 213, 219);
+  --bl-pre-background: rgb(248, 248, 248);
+  --bl-table-border-color: rgb(232, 232, 232);
+  --bl-table-head-background: rgb(248, 248, 248);
+  --bl-background: rgb(255, 255, 255);
+  --bl-card-background-color: rgb(255, 255, 255);
+  --bl-cyan-color: rgb(0, 90, 156);
+}
+
 @font-face {
   font-family: "Noto Sans";
   font-style: normal;
@@ -40,7 +84,8 @@
     ;
 }
 
-/* css reset */
+/*----------------- CSS Reset start -----------------*/
+
 *, *::before, *::after {
 box-sizing: border-box;
 }
@@ -65,11 +110,7 @@ overflow-wrap: break-word;
 isolation: isolate;
 }
 
-/*----*/
-
-:root {
---color-cyan: rgb(0, 90, 156);
-}
+/*----------------- CSS Reset end -----------------*/
 
 .boostlook {
   font-family: "Noto Sans" !important;
@@ -94,9 +135,12 @@ font-weight: 500;
 .boostlook h4 { font-size: 1.25em; }
 .boostlook h5 { font-size: 1.125em; }
 .boostlook h6 { font-size: 1em; }
-.boostlook p { margin: 1em 0em; }
+.boostlook p { 
+  font-size: 1rem;
+  margin: 1em 0em; 
+}
 .boostlook a {
-color: var(--color-cyan);
+color: var(--bl-cyan-color);
 text-decoration: none;
 }
 .boostlook a:hover {
@@ -105,55 +149,59 @@ text-decoration: underline;
 .boostlook code {
 font-family: "Noto Sans Mono", monospace;
 }
-.boostlook pre {
-font-family: "Noto Sans Mono", monospace;
-background-color: #f8f8f8;
-margin: 1em;
-padding: 1em;
-}
 
 .boostlook h6:has(+table)
 {
 margin-left: 1em;
 }
-.boostlook table {
-border-collapse: collapse;
-margin: 1em;
-}
-.boostlook div:has(table, pre, code) {
-	overflow-x: scroll;
-}
-.boostlook code,
-.boostlook tt,
-.boostlook kbd,
-.boostlook samp,
-.boostlook pre 
-{
-    background: none;
-  }
-.boostlook th {
-text-align: left;
-padding: 0.25em 0.55em;
-font-weight: 550;
-}
-.boostlook td {
-padding: 0.25em 0.55em;
+
+.boostlook p code,
+.boostlook p tt,
+.boostlook p kbd,
+.boostlook p samp,
+.boostlook p pre {
+    background-color: transparent !important;
 }
 
-/*----------------------------------------------*/
-
-:root {
---color-pasteboard: rgb(209, 213, 219);
+.boostlook .content div:has(> table) {
+  overflow-x: auto;
 }
 
-.boostlook:not(.body) {
+/*----------------- Styles specific to AsciiDoc content start -----------------*/
+
+.boostlook:not(:has(.doc)) pre {
+  font-family: "Noto Sans Mono", monospace;
+  background-color: var(--bl-pre-background);
+  margin: 1em;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.boostlook:not(:has(.doc)) table {
+  border-collapse: collapse;
+  margin: 1em;
+  border: 1px solid var(--bl-table-border-color);
+}
+
+.boostlook:not(:has(.doc)) th {
+  background-color: var(--bl-table-head-background);
+  text-align: left;
+  padding: 0.25em 0.55em;
+  font-weight: 550;
+}
+
+.boostlook:not(:has(.doc)) td {
+  border: 1px solid var(--bl-table-border-color);
+  padding: 0.25em 0.55em;
+}
+
+.article.toc2.toc-left {
   min-height: 100vh;
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
   padding: 1rem;
-  position: relative;
-  background-color: var(--color-pasteboard);
+  background-color: var(--bl-pasteboard-color);
 }
 
 .boostlook #toc > ul.sectlevel1 {
@@ -180,27 +228,19 @@ padding: 0.25em 0.55em;
   font-size: 1rem;
 }
 
-.boostlook:not(.body),
-.boostlook:not(.body) #toc.toc2 {
-  background-color: white;
+.boostlook:not(:has(.doc)),
+.boostlook #toc.toc2 {
+  background-color: var(--bl-card-background-color);
   border-radius: 0.5rem;
   padding: 1rem;
-}
-
-.boostlook #toc.toc2 {
-  padding-left: 0;
 }
 
 .boostlook #content {
   overflow-x: auto;
 }
 
-.boostlook #header, #content, #footer {
-  background-color: white;
-}
-
 @media screen and (min-width: 768px) {
-  .boostlook:not(.body) #toc.toc2 {
+  .boostlook #toc.toc2 {
     position: fixed;
     width: 17rem;
     left: max(1rem, calc(50% - 39rem));
@@ -212,11 +252,9 @@ padding: 0.25em 0.55em;
     height: calc(100vh - 2rem);
   }
 
-  .content div:has(table,pre,code) {
-    overflow: initial;
-  }
-
-  .boostlook:not(.body) {
+  .boostlook:not(:has(.doc)) {
     margin-left: 18rem;
   }
 }
+
+/*----------------- Styles specific to AsciiDoc content end -----------------*/
