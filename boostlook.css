@@ -48,12 +48,9 @@
   font-weight: normal;
   font-stretch: semi-condensed;
   font-display: block;
-  src:
-    /*local('Noto Sans Display')*/
-    ,url('/_/fonts/NotoSansDisplay.ttf') format('truetype')
-    ,url('../../../../tools/boostlook/NotoSansDisplay.ttf') format('truetype')
-    ,url("https://cppalliance.org/fonts/NotoSansDisplay.ttf") format('truetype')
-    ;
+  src: url('/_/fonts/NotoSansDisplay.ttf') format('truetype'),
+       url('../../../../tools/boostlook/NotoSansDisplay.ttf') format('truetype'),
+       url("https://cppalliance.org/fonts/NotoSansDisplay.ttf") format('truetype');
 }
 
 @font-face {
@@ -62,12 +59,9 @@
   font-weight: normal;
   font-stretch: semi-condensed;
   font-display: block;
-  src:
-    /*local('Noto Sans Display Italic')*/
-    ,url("/font/NotoSansDisplay-Italic.ttf") format("truetype")
-    ,url("../../../../tools/boostlook/NotoSansDisplay-Italic.ttf") format("truetype")
-    ,url("https://cppalliance.org/fonts/NotoSansDisplayItalic.ttf") format('truetype')
-    ;
+  src: url("/font/NotoSansDisplay-Italic.ttf") format("truetype"),
+       url("../../../../tools/boostlook/NotoSansDisplay-Italic.ttf") format("truetype"),
+       url("https://cppalliance.org/fonts/NotoSansDisplayItalic.ttf") format('truetype');
 }
 
 @font-face {
@@ -76,12 +70,9 @@
   font-weight: normal;
   font-stretch: condensed;
   font-display: block;
-  src:
-    /*local('Noto sans Mono')*/
-    ,url("/_/boostlook/NotoSansMono.ttf") format("truetype")
-    ,url("../../../../tools/boostlook/NotoSansMono.ttf") format("truetype")
-    ,url("https://cppalliance.org/fonts/NotoSansMono.ttf") format('truetype')
-    ;
+  src: url("/_/boostlook/NotoSansMono.ttf") format("truetype"),
+       url("../../../../tools/boostlook/NotoSansMono.ttf") format("truetype"),
+       url("https://cppalliance.org/fonts/NotoSansMono.ttf") format('truetype');
 }
 
 /*----------------- CSS Reset start -----------------*/
@@ -156,6 +147,7 @@ margin-left: 1em;
 }
 
 .boostlook p code,
+.boostlook table code,
 .boostlook p tt,
 .boostlook p kbd,
 .boostlook p samp,
@@ -258,3 +250,78 @@ margin-left: 1em;
 }
 
 /*----------------- Styles specific to AsciiDoc content end -----------------*/
+
+/*----------------- Dark mode styles start -----------------*/
+
+:root {
+  --dark-bl-quote-background: rgb(11, 59, 82);
+  --dark-bl-border-color: rgb(209, 228, 242);
+  --dark-bl-text-color: rgb(209, 228, 242);
+  --dark-bl-quote-word-color: rgb(209, 228, 242);
+  --dark-bl-tabpanel-background: rgb(28, 50, 59);
+  --dark-bl-tabpanel-background: rgb(28, 50, 59);
+  --dark-hljs-keyword-color: rgb(173, 216, 230);
+  --dark-hljs-number-color: rgb(72, 209, 204);
+  --dark-hljs-doctag-color: rgb(255, 99, 132);
+  --dark-hljs-section-color: rgb(255, 69, 58);
+  --dark-hljs-attribute-color: rgb(70, 130, 180);
+}
+
+.dark .boostlook p code,
+.dark .boostlook .colist > table code {
+  color: var(--color-white);
+}
+
+.dark .boostlook .quoteblock, 
+.dark .boostlook .verseblock {
+  background: var(--dark-bl-quote-background);
+  border-left: 3px solid var(--dark-bl-border-color);
+  color: var(--dark-bl-text-color);
+}
+
+.dark .boostlook .quoteblock::before, 
+.dark .boostlook .verseblock::before {
+  color: var(--dark-bl-quote-word-color);
+}
+
+.dark .boostlook .tabpanel,
+.dark .boostlook .tablist .is-selected.tab {
+  background-color: var(--dark-bl-tabpanel-background);
+}
+
+.dark .boostlook .hljs-keyword, 
+.dark .boostlook .hljs-selector-tag, 
+.dark .boostlook .hljs-subst {
+  color: var(--dark-hljs-keyword-color);
+}
+
+.dark .boostlook .hljs-number {
+  color: var(--dark-hljs-number-color);
+}
+
+.dark .boostlook .hljs-doctag, 
+.dark .boostlook .hljs-string {
+  color: var(--dark-hljs-doctag-color);
+}
+
+.dark .boostlook .hljs-section, 
+.dark .boostlook .hljs-selector-id, 
+.dark .boostlook .hljs-title {
+  color: var(--dark-hljs-section-color);
+}
+
+.dark .boostlook .title a,
+.dark .boostlook p a:link,
+.dark .boostlook p a:visited,
+.dark .boostlook table a,
+.dark .boostlook .pagination a {
+  color: rgb(125 211 252);
+}
+
+.dark .boostlook .hljs-attribute, 
+.dark .boostlook .hljs-name, 
+.dark .boostlook .hljs-tag {
+  color: var(--dark-hljs-attribute-color);
+}
+
+/*----------------- Dark mode styles end -----------------*/
