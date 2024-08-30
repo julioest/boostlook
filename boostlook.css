@@ -1,6 +1,6 @@
 /**
  * README:
- * This stylesheet contains styles for both AsciiDoc and Antora templates.
+ * This stylesheet contains styles for both AsciiDoctor and Antora templates.
  * The `boostlook` class is applied across both, but due to differences in their HTML structure,
  * specific CSS rules are necessary to target each appropriately.
  *
@@ -12,7 +12,7 @@
  *     <div class="doc">...</div>
  *   </div>
  *
- * - AsciiDoc Template:
+ * - AsciiDoctor Template:
  *   <div class="boostlook">
  *     <div id="header">...</div>
  *     <div id="content">...</div>
@@ -24,23 +24,82 @@
  *   `.boostlook .nav-container` selector targets elements within the `.nav-container` class,
  *   both of which are specific to the Antora HTML structure.
  *
- * - For AsciiDoc templates:
+ * - For AsciiDoctor templates:
  *   The `.boostlook:not(:has(.doc))` selector is used to target elements that do not have 
- *   a `.doc` child, applying styles specific to AsciiDoc content.
+ *   a `.doc` child, applying styles specific to AsciiDoctor content.
 
  *   Since the `.doc` class is not present in the structure above, the styles defined for 
  *   `.boostlook:not(:has(.doc))` will apply.
  */
 
+/*----------------- Root Variables - Start -----------------*/
+
 :root {
-  --bl-pasteboard-color: rgb(209, 213, 219);
-  --bl-pre-background: rgb(248, 248, 248);
-  --bl-table-border-color: rgb(232, 232, 232);
-  --bl-table-head-background: rgb(248, 248, 248);
-  --bl-background: rgb(255, 255, 255);
-  --bl-card-background-color: rgb(255, 255, 255);
-  --bl-cyan-color: rgb(0, 90, 156);
+  --light-bl-pasteboard-color: rgb(209, 213, 219);
+  --light-bl-pre-background: rgb(248, 248, 248);
+  --light-bl-table-border-color: rgb(232, 232, 232);
+  --light-bl-table-head-background: rgb(248, 248, 248);
+  --light-bl-background: rgb(255, 255, 255);
+  --light-bl-card-background-color: rgb(255, 255, 255);
+  --light-bl-cyan-color: rgb(0, 90, 156);
+  --light-bl-quote-background: rgb(250, 250, 250);
+  --light-bl-quote-background: rgb(255, 255, 255);
+  --light-bl-code-background: rgb(255, 255, 255);
+  --light-bl-code-border-color: rgb(220 220 220);
+  --dark-bl-quote-background: rgb(11, 59, 82);
+  --dark-bl-border-color: rgb(209, 228, 242);
+  --dark-bl-text-color: rgb(209, 228, 242);
+  --dark-bl-quote-word-color: rgb(209, 228, 242);
+  --dark-bl-tabpanel-background: rgb(28, 50, 59);
+  --dark-bl-hljs-keyword-color: rgb(173, 216, 230);
+  --dark-bl-hljs-number-color: rgb(72, 209, 204);
+  --dark-bl-hljs-doctag-color: rgb(255, 99, 132);
+  --dark-bl-hljs-section-color: rgb(255, 69, 58);
+  --dark-bl-hljs-attribute-color: rgb(70, 130, 180);
+  --dark-bl-pagination-color: rgb(200, 200, 200);
+  --dark-bl-code-background: rgb(20, 20, 20);
+  --dark-bl-code-border-color: transparent;
 }
+
+/*----------------- Root Variables - End -----------------*/
+
+/*----------------- HTML Variables - Start -----------------*/
+
+html {
+  --bl-quote-background: var(--light-bl-quote-background);
+  --bl-code-background: var(--light-bl-code-background);
+  --bl-code-border-color: var(--light-bl-code-border-color);
+  --bl-quote-background: var(--light-bl-quote-background);
+  --bl-code-background: var(--light-bl-code-background);
+  --bl-code-border-color: var(--light-bl-code-border-color);
+  --bl-pasteboard-color: var(--light-bl-pasteboard-color);
+  --bl-pre-background: var(--light-bl-pre-background);
+  --bl-table-border-color: var(--light-bl-table-border-color);
+  --bl-table-head-background: var(--light-bl-table-head-background);
+  --bl-background: var(--light-bl-background);
+  --bl-card-background-color: var(--light-bl-card-background-color);
+  --bl-link-color: var(--light-bl-cyan-color);
+}
+
+html.dark {
+  --bl-quote-background: var(--dark-bl-quote-background);
+  --bl-code-background: var(--dark-bl-code-background);
+  --bl-code-border-color: var(--dark-bl-code-border-color);
+  --bl-border-color: var(--dark-bl-border-color);
+  --bl-text-color: var(--dark-bl-text-color);
+  --bl-quote-word-color: var(--dark-bl-quote-word-color);
+  --bl-tabpanel-background: var(--dark-bl-tabpanel-background);
+  --bl-hljs-keyword-color: var(--dark-bl-hljs-keyword-color);
+  --bl-hljs-number-color: var(--dark-bl-hljs-number-color);
+  --bl-hljs-doctag-color: var(--dark-bl-hljs-doctag-color);
+  --bl-hljs-section-color: var(--dark-bl-hljs-section-color);
+  --bl-hljs-attribute-color: var(--dark-bl-hljs-attribute-color);
+  --bl-pagination-color: var(--dark-bl-pagination-color);
+}
+
+/*----------------- HTML Variables - End -----------------*/
+
+/*----------------- Font-Face Declarations start -----------------*/
 
 @font-face {
   font-family: "Noto Sans";
@@ -68,40 +127,44 @@
   font-family: "Noto Sans Mono";
   font-style: normal;
   font-weight: normal;
-  font-stretch: condensed;
+  font-stretch: semi-condensed;
   font-display: block;
   src: url("/_/boostlook/NotoSansMono.ttf") format("truetype"),
        url("../../../../tools/boostlook/NotoSansMono.ttf") format("truetype"),
        url("https://cppalliance.org/fonts/NotoSansMono.ttf") format('truetype');
 }
 
+/*----------------- Font-Face Declarations end -----------------*/
+
 /*----------------- CSS Reset start -----------------*/
 
 *, *::before, *::after {
-box-sizing: border-box;
+  box-sizing: border-box;
 }
 * {
-margin: 0;
+  margin: 0;
 }
 body {
-line-height: 1.5;
--webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 img, picture, video, canvas, svg {
-display: block;
-max-width: 100%;
+  display: block;
+  max-width: 100%;
 }
 input, button, textarea, select {
-font: inherit;
+  font: inherit;
 }
 p, h1, h2, h3, h4, h5, h6 {
-overflow-wrap: break-word;
+  overflow-wrap: break-word;
 }
 #root, #__next {
-isolation: isolate;
+  isolation: isolate;
 }
 
 /*----------------- CSS Reset end -----------------*/
+
+/*----------------- Global Styles for .boostlook start -----------------*/
 
 .boostlook {
   font-family: "Noto Sans" !important;
@@ -113,11 +176,11 @@ isolation: isolate;
 .boostlook h4,
 .boostlook h5,
 .boostlook h6 {
-display: block;
-line-height: 1;
-margin-top: 1em;
-margin-bottom: 1em;
-font-weight: 500;
+  display: block;
+  line-height: 1;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-weight: 500;
 }
 
 .boostlook h1 { font-size: 1.75em; }
@@ -131,19 +194,18 @@ font-weight: 500;
   margin: 1em 0em; 
 }
 .boostlook a {
-color: var(--bl-cyan-color);
-text-decoration: none;
+  color: var(--bl-link-color);
+  text-decoration: none;
 }
 .boostlook a:hover {
-text-decoration: underline;
+  text-decoration: underline;
 }
 .boostlook code {
-font-family: "Noto Sans Mono", monospace;
+  font-family: "Noto Sans Mono", monospace;
 }
 
-.boostlook h6:has(+table)
-{
-margin-left: 1em;
+.boostlook h6:has(+table) {
+  margin-left: 1em;
 }
 
 .boostlook p code,
@@ -152,14 +214,85 @@ margin-left: 1em;
 .boostlook p kbd,
 .boostlook p samp,
 .boostlook p pre {
-    background-color: transparent !important;
+  background-color: transparent !important;
 }
 
 .boostlook .content div:has(> table) {
   overflow-x: auto;
 }
 
-/*----------------- Styles specific to AsciiDoc content start -----------------*/
+.boostlook p code,
+.boostlook .colist > table code {
+  color: var(--color-white) !important;
+}
+
+.boostlook .quoteblock, 
+.boostlook .verseblock {
+  background: var(--bl-quote-background);
+  border-left: 3px solid var(--bl-border-color);
+  color: var(--bl-text-color);
+}
+
+.boostlook .quoteblock::before, 
+.boostlook .verseblock::before {
+  color: var(--bl-quote-word-color);
+}
+
+.boostlook .tabpanel {
+  background-color: var(--bl-tabpanel-background);
+}
+
+.boostlook .hljs-keyword, 
+.boostlook .hljs-selector-tag, 
+.boostlook .hljs-subst {
+  color: var(--bl-hljs-keyword-color);
+}
+
+.boostlook .hljs-number {
+  color: var(--bl-hljs-number-color);
+}
+
+.boostlook .hljs-doctag, 
+.boostlook .hljs-string {
+  color: var(--bl-hljs-doctag-color);
+}
+
+.boostlook .hljs-section, 
+.boostlook .hljs-selector-id, 
+.boostlook .hljs-title {
+  color: var(--bl-hljs-section-color);
+}
+
+.boostlook p a:link,
+.boostlook p a:visited,
+.boostlook table a,
+.boostlook .pagination a {
+  color: var(--bl-link-color);
+}
+
+.boostlook .hljs-attribute, 
+.boostlook .hljs-name, 
+.boostlook .hljs-tag {
+  color: var(--bl-hljs-attribute-color);
+}
+
+.boostlook nav.pagination span::before {
+  color: var(--bl-pagination-color);
+}
+
+
+/*----------------- Global Styles for .boostlook end -----------------*/
+
+/*----------------- Styles specific to AsciiDoctor content start -----------------*/
+
+.article.toc2.toc-left {
+  min-height: 100vh;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--bl-pasteboard-color);
+  position: relative;
+}
 
 .boostlook:not(:has(.doc)) pre {
   font-family: "Noto Sans Mono", monospace;
@@ -187,13 +320,8 @@ margin-left: 1em;
   padding: 0.25em 0.55em;
 }
 
-.article.toc2.toc-left {
-  min-height: 100vh;
-  max-width: 80rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1rem;
-  background-color: var(--bl-pasteboard-color);
+.boostlook #header > h1 {
+  margin-top: 0;
 }
 
 .boostlook #toc > ul.sectlevel1 {
@@ -223,105 +351,124 @@ margin-left: 1em;
 .boostlook:not(:has(.doc)),
 .boostlook #toc.toc2 {
   background-color: var(--bl-card-background-color);
-  border-radius: 0.5rem;
   padding: 1rem;
+}
+
+.boostlook #toc.toc2 {
+  padding-left: 0;
 }
 
 .boostlook #content {
   overflow-x: auto;
 }
 
+.boostlook #toggle-toc {
+  display: none;
+}
+
 @media screen and (min-width: 768px) {
+  .article.toc2.toc-left {
+    padding: 1rem;
+  }
+
+  .boostlook:not(:has(.doc)),
+  .boostlook #toc.toc2 {
+    border-radius: 0.5rem;
+  }
+
   .boostlook #toc.toc2 {
     position: fixed;
-    width: 17rem;
+    width: 16rem;
     left: max(1rem, calc(50% - 39rem));
     top: 1rem;
-    padding: 1.25em 1em;
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 1000;
     height: calc(100vh - 2rem);
+    padding: 1rem;
   }
 
   .boostlook:not(:has(.doc)) {
     margin-left: 18rem;
   }
+
+  .boostlook #toggle-toc {
+    display: block;
+    position: fixed;
+    top: 1rem;
+    left: calc(max(1rem, calc(50% - 39rem)) + 16rem);
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    background-color: rgb(241 242 244);
+    background-image: url("data:image/svg+xml,%3Csvg width='8' height='14' viewBox='0 0 8 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 3V11L0 7L4 3Z' fill='%236B7280'/%3E%3Crect x='6' width='2' height='14' fill='%236B7280'/%3E%3C/svg%3E");
+    background-size: 0.75rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: calc(100vh - 2rem);
+    width: 1.5rem;
+    text-indent: -9999px;
+    z-index: 1001; 
+  }
+  
+  .boostlook.toc-hidden #toggle-toc {
+    background-image: url("data:image/svg+xml,%3Csvg width='8' height='14' viewBox='0 0 8 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 3V11L8 7L4 3Z' fill='%236B7280'/%3E%3Crect x='0' width='2' height='14' fill='%236B7280'/%3E%3C/svg%3E");
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    left: calc(max(1rem, calc(50% - 39rem)));
+  }
+  
+  .boostlook #toc.toc2 {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .boostlook.toc-hidden {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .boostlook.toc-hidden {
+    margin-left: 1.5rem;
+  }
 }
 
-/*----------------- Styles specific to AsciiDoc content end -----------------*/
+/*----------------- Styles specific to AsciiDoctor content end -----------------*/
 
-/*----------------- Dark mode styles start -----------------*/
+/*----------------- Styles specific to Antora Templates start -----------------*/
 
-:root {
-  --dark-bl-quote-background: rgb(11, 59, 82);
-  --dark-bl-border-color: rgb(209, 228, 242);
-  --dark-bl-text-color: rgb(209, 228, 242);
-  --dark-bl-quote-word-color: rgb(209, 228, 242);
-  --dark-bl-tabpanel-background: rgb(28, 50, 59);
-  --dark-bl-tabpanel-background: rgb(28, 50, 59);
-  --dark-hljs-keyword-color: rgb(173, 216, 230);
-  --dark-hljs-number-color: rgb(72, 209, 204);
-  --dark-hljs-doctag-color: rgb(255, 99, 132);
-  --dark-hljs-section-color: rgb(255, 69, 58);
-  --dark-hljs-attribute-color: rgb(70, 130, 180);
+.boostlook .nav-menu .title {
+  font-size: 1.5rem;
 }
 
-.dark .boostlook p code,
-.dark .boostlook .colist > table code {
-  color: var(--color-white);
+.boostlook .nav-menu > .nav-list > .nav-list {
+  margin-left: 0;
 }
 
-.dark .boostlook .quoteblock, 
-.dark .boostlook .verseblock {
-  background: var(--dark-bl-quote-background);
-  border-left: 3px solid var(--dark-bl-border-color);
-  color: var(--dark-bl-text-color);
+.boostlook .nav-menu > .nav-list > .nav-list > li {
+  font-weight: bolder;
 }
 
-.dark .boostlook .quoteblock::before, 
-.dark .boostlook .verseblock::before {
-  color: var(--dark-bl-quote-word-color);
+.boostlook .nav-menu .nav-list li {
+  line-height: 1.5;
 }
 
-.dark .boostlook .tabpanel,
-.dark .boostlook .tablist .is-selected.tab {
-  background-color: var(--dark-bl-tabpanel-background);
+.boostlook .breadcrumbs ul li {
+  font-size: 0.875rem !important;
 }
 
-.dark .boostlook .hljs-keyword, 
-.dark .boostlook .hljs-selector-tag, 
-.dark .boostlook .hljs-subst {
-  color: var(--dark-hljs-keyword-color);
+.boostlook #toc #toctitle {
+  font-size: 1.5rem;
 }
 
-.dark .boostlook .hljs-number {
-  color: var(--dark-hljs-number-color);
+.boostlook .doc .content pre code {
+  background-color: var(--bl-code-background) !important;
+  border-color: var(--bl-code-border-color) !important;
 }
 
-.dark .boostlook .hljs-doctag, 
-.dark .boostlook .hljs-string {
-  color: var(--dark-hljs-doctag-color);
-}
-
-.dark .boostlook .hljs-section, 
-.dark .boostlook .hljs-selector-id, 
-.dark .boostlook .hljs-title {
-  color: var(--dark-hljs-section-color);
-}
-
-.dark .boostlook .title a,
-.dark .boostlook p a:link,
-.dark .boostlook p a:visited,
-.dark .boostlook table a,
-.dark .boostlook .pagination a {
-  color: rgb(125 211 252);
-}
-
-.dark .boostlook .hljs-attribute, 
-.dark .boostlook .hljs-name, 
-.dark .boostlook .hljs-tag {
-  color: var(--dark-hljs-attribute-color);
-}
-
-/*----------------- Dark mode styles end -----------------*/
+/*----------------- Styles specific to Antora Templates end -----------------*/
