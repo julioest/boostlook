@@ -501,8 +501,6 @@ html.toc-hidden .boostlook:not(:has(.doc)) {
 }
 
 /* Navigation Menu */
-
-
 .boostlook .nav-panel-menu {
   overflow: visible;
 }
@@ -555,6 +553,15 @@ html.toc-hidden .boostlook:not(:has(.doc)) {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 16px;
+}
+
+/* Breadcrumbs */
+.boostlook .breadcrumbs {
+  display: block;
+}
+
+.boostlook .breadcrumbs ul li:first-of-type {
+  display: flex;
 }
 
 /* Code Block */
