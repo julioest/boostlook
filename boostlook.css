@@ -333,7 +333,7 @@ p, h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-.boostlook:not(:has(.doc)) pre {
+.boostlook pre {
   font-family: "Noto Sans Mono", monospace;
   background-color: var(--bl-pre-background);
   margin: 1em;
@@ -341,20 +341,20 @@ p, h1, h2, h3, h4, h5, h6 {
   overflow-x: auto;
 }
 
-.boostlook:not(:has(.doc)) table {
+.boostlook table {
   border-collapse: collapse;
   margin: 1em;
   border: 1px solid var(--bl-table-border-color);
 }
 
-.boostlook:not(:has(.doc)) th {
+.boostlook th {
   background-color: var(--bl-table-head-background);
   text-align: left;
   padding: 0.25em 0.55em;
   font-weight: 550;
 }
 
-.boostlook:not(:has(.doc)) td {
+.boostlook td {
   border: 1px solid var(--bl-table-border-color);
   padding: 0.25em 0.55em;
 }
@@ -387,7 +387,7 @@ p, h1, h2, h3, h4, h5, h6 {
   font-size: 1rem;
 }
  
-.boostlook:not(:has(.doc)),
+.boostlook,
 .boostlook #toc.toc2 {
   background-color: var(--bl-card-background-color);
   padding: 1rem 1.5rem;
@@ -395,10 +395,6 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .boostlook #toc.toc2 {
   padding-left: 0;
-}
-
-.boostlook #content {
-  overflow-x: auto;
 }
 
 .boostlook #toggle-toc {
@@ -414,7 +410,7 @@ p, h1, h2, h3, h4, h5, h6 {
     padding: 1rem;
   }
 
-  .boostlook:not(:has(.doc)),
+  .boostlook,
   .boostlook #toc.toc2 {
     border-radius: 0.5rem;
   }
@@ -431,7 +427,7 @@ p, h1, h2, h3, h4, h5, h6 {
     padding: 1rem;
   }
 
-  .boostlook:not(:has(.doc)) {
+  .boostlook {
     margin-left: 18rem;
   }
 
@@ -477,7 +473,7 @@ html.toc-hidden .boostlook #toc {
   display: none;
 }
 
-html.toc-hidden .boostlook:not(:has(.doc)) {
+html.toc-hidden .boostlook {
   margin-left: 0;
 }
 
@@ -489,6 +485,7 @@ html.toc-hidden .boostlook:not(:has(.doc)) {
 /* Typography */
 .boostlook .doc,
 .boostlook .doc i {
+  line-height: 1.5;
   font-family: "Noto Sans Display";
 }
 
@@ -505,8 +502,8 @@ html.toc-hidden .boostlook:not(:has(.doc)) {
   overflow: visible;
 }
 
-.boostlook .nav-menu {
-  padding-left: 1rem;
+.boostlook .nav-close {
+  display: none;
 }
 
 .boostlook .nav-menu > .nav-list > .nav-list {
@@ -573,6 +570,10 @@ html.toc-hidden .boostlook:not(:has(.doc)) {
 /* Layout */
 .boostlook .article .content {
   gap: 1rem;
+}
+
+.boostlook #content:has(.toc.sidebar) {
+  display: flex;
 }
 
 /* Table of Contents */
