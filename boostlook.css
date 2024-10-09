@@ -35,11 +35,13 @@
 /*----------------- Root Variables - Start -----------------*/
 
 :root {
+  /* General Variables */
   --bl-primary-color: rgb(255, 159, 0);
   --bl-header-height: 2.5rem;
 
   /* Light Theme Variables */
   --light-bl-background: rgb(255, 255, 255);
+  --light-bl-breadcrumbs-svg-color: rgb(0, 0, 0);
   --light-bl-caret-svg: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20height='24px'%20viewBox='0%20-960%20960%20960'%20width='24px'%20fill='%23000000'%3E%3Cpath%20d='M320-200v-560l440%20280-440%20280Z'/%3E%3C/svg%3E");
   --light-bl-card-background-color: rgb(255, 255, 255);
   --light-bl-code-background: rgb(255, 255, 255);
@@ -53,6 +55,7 @@
   --light-bl-hljs-number-color: rgb(0, 128, 128);
   --light-bl-hljs-section-color: rgb(153, 0, 0);
   --light-bl-nav-link-color: rgb(0, 0, 0);
+  --light-bl-nav-fade-color: rgb(255, 255, 255, 1);
   --light-bl-pasteboard-color: rgb(209, 213, 219);
   --light-bl-pre-background: rgb(248, 248, 248);
   --light-bl-primary-color: rgb(255, 159, 0);
@@ -62,7 +65,9 @@
 
   /* Dark Theme Variables */
   --dark-bl-border-color: rgb(209, 228, 242);
+  --dark-bl-breadcrumbs-svg-color: rgb(255, 255, 255);
   --dark-bl-caret-svg: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20height='24px'%20viewBox='0%20-960%20960%20960'%20width='24px'%20fill='%23ccc'%3E%3Cpath%20d='M320-200v-560l440%20280-440%20280Z'/%3E%3C/svg%3E");
+  --dark-bl-card-background-color: rgb(23, 42, 52);
   --dark-bl-code-background: rgb(20, 20, 20);
   --dark-bl-code-border-color: transparent;
   --dark-bl-code-text-color: rgb(255, 255, 255);
@@ -74,6 +79,8 @@
   --dark-bl-hljs-number-color: rgb(72, 209, 204);
   --dark-bl-hljs-section-color: rgb(255, 69, 58);
   --dark-bl-nav-link-color: rgb(0, 0, 0);
+  --dark-bl-nav-fade-color: rgb(23, 42, 52);
+  --dark-bl-pasteboard-color: rgb(04, 06, 07);
   --dark-bl-pagination-color: rgb(200, 200, 200);
   --dark-bl-quote-background: rgb(11, 59, 82);
   --dark-bl-quote-word-color: rgb(209, 228, 242);
@@ -87,6 +94,7 @@
 
 html {
   --bl-background: var(--light-bl-background);
+  --bl-breadcrumbs-svg-color: var(--light-bl-breadcrumbs-svg-color);
   --bl-caret-svg: var(--light-bl-caret-svg);
   --bl-card-background-color: var(--light-bl-card-background-color);
   --bl-code-background: var(--light-bl-code-background);
@@ -100,17 +108,19 @@ html {
   --bl-link-color: var(--light-bl-link-color);
   --bl-link-hover-color: var(--light-bl-link-hover-color);
   --bl-nav-link-color: var(--light-bl-nav-link-color);
+  --bl-nav-fade-color: var(--light-bl-nav-fade-color);
   --bl-pasteboard-color: var(--light-bl-pasteboard-color);
   --bl-pre-background: var(--light-bl-pre-background);
   --bl-quote-background: var(--light-bl-quote-background);
   --bl-table-border-color: var(--light-bl-table-border-color);
   --bl-table-head-background: var(--light-bl-table-head-background);
-  
 }
 
 html.dark {
   --bl-border-color: var(--dark-bl-border-color);
+  --bl-breadcrumbs-svg-color: var(--dark-bl-breadcrumbs-svg-color);
   --bl-caret-svg: var(--dark-bl-caret-svg);
+  --bl-card-background-color: var(--dark-bl-card-background-color);
   --bl-code-background: var(--dark-bl-code-background);
   --bl-code-border-color: var(--dark-bl-code-border-color);
   --bl-code-text-color: var(--dark-bl-code-text-color);
@@ -122,12 +132,13 @@ html.dark {
   --bl-link-color: var(--dark-bl-link-color);
   --bl-link-hover-color: var(--dark-bl-link-hover-color);
   --bl-nav-link-color: var(--dark-bl-nav-link-color);
+  --bl-nav-fade-color: var(--dark-bl-nav-fade-color);
+  --bl-pasteboard-color: var(--dark-bl-pasteboard-color);
   --bl-pagination-color: var(--dark-bl-pagination-color);
   --bl-quote-background: var(--dark-bl-quote-background);
   --bl-quote-word-color: var(--dark-bl-quote-word-color);
   --bl-tabpanel-background: var(--dark-bl-tabpanel-background);
   --bl-text-color: var(--dark-bl-text-color);
-
 }
 
 /*----------------- HTML Variables - End -----------------*/
@@ -146,7 +157,7 @@ html.dark {
 }
 
 @font-face {
-  font-family: "Noto Sans Italic";
+  font-family: "Noto Sans Display";
   font-style: italic;
   font-weight: normal;
   font-stretch: semi-condensed;
@@ -333,7 +344,7 @@ p, h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-.boostlook pre {
+.boostlook:not(:has(.doc)) pre {
   font-family: "Noto Sans Mono", monospace;
   background-color: var(--bl-pre-background);
   margin: 1em;
@@ -341,20 +352,20 @@ p, h1, h2, h3, h4, h5, h6 {
   overflow-x: auto;
 }
 
-.boostlook table {
+.boostlook:not(:has(.doc)) table {
   border-collapse: collapse;
   margin: 1em;
   border: 1px solid var(--bl-table-border-color);
 }
 
-.boostlook th {
+.boostlook:not(:has(.doc)) th {
   background-color: var(--bl-table-head-background);
   text-align: left;
   padding: 0.25em 0.55em;
   font-weight: 550;
 }
 
-.boostlook td {
+.boostlook:not(:has(.doc)) td {
   border: 1px solid var(--bl-table-border-color);
   padding: 0.25em 0.55em;
 }
@@ -371,7 +382,7 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0 0 0 0.5rem;
   line-height: 1.5;
-  font-size: 0.85rem;
+  font-size: 1rem;
   list-style: none;
 }
 
@@ -382,10 +393,6 @@ p, h1, h2, h3, h4, h5, h6 {
 .boostlook #toc #toctitle {
   font-size: 1.5rem;
 }
-
-.boostlook #toc ul li a {
-  font-size: 1rem;
-}
  
 .boostlook,
 .boostlook #toc.toc2 {
@@ -394,7 +401,17 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .boostlook #toc.toc2 {
+  position: static;
   padding-left: 0;
+}
+
+.boostlook #toc.toc2 > ul {
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 4rem;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 0;
 }
 
 .boostlook #toggle-toc {
@@ -420,11 +437,10 @@ p, h1, h2, h3, h4, h5, h6 {
     width: 17rem;
     left: max(1rem, calc(50% - 39rem));
     top: 1rem;
-    overflow-y: auto;
-    overflow-x: hidden;
     z-index: 1000;
     height: calc(100vh - 2rem);
     padding: 1rem;
+    overflow: hidden;
   }
 
   .boostlook {
@@ -542,7 +558,7 @@ html.toc-hidden .boostlook {
 .boostlook .is-current-page.is-active::before {
   content: "";
   position: absolute;
-  top: 38%;
+  top: 0.3125rem;
   width: 16px;
   height: 16px;
   margin-left: -1.25rem;
@@ -561,6 +577,10 @@ html.toc-hidden .boostlook {
   display: flex;
 }
 
+.boostlook .breadcrumbs svg {
+  fill: var(--bl-breadcrumbs-svg-color);
+}
+
 /* Code Block */
 .boostlook .doc .content pre code {
   background-color: var(--bl-code-background);
@@ -577,9 +597,32 @@ html.toc-hidden .boostlook {
 }
 
 /* Table of Contents */
+.boostlook .nav {
+  height: 100%;
+  padding-bottom: 2rem;
+}
+
 .boostlook .toc .toc-menu a {
   border-left: 0;
   padding: .25rem 0 0 0;
 }
 
+.boostlook .nav-menu .title {
+  padding-left: 1rem;
+}
+
 /*----------------- Styles specific to Antora Templates end -----------------*/
+
+/*----------------- Unified Styles -----------------*/
+
+.boostlook #toc.toc2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), var(--bl-nav-fade-color) 70%);
+  pointer-events: none;
+  z-index: 1;
+}
