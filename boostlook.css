@@ -78,7 +78,7 @@
   --dark-bl-hljs-keyword-color: rgb(173, 216, 230);
   --dark-bl-hljs-number-color: rgb(72, 209, 204);
   --dark-bl-hljs-section-color: rgb(255, 69, 58);
-  --dark-bl-nav-link-color: rgb(0, 0, 0);
+  --dark-bl-nav-link-color: rgb(255, 255, 255);
   --dark-bl-nav-fade-color: rgb(23, 42, 52);
   --dark-bl-pasteboard-color: rgb(04, 06, 07);
   --dark-bl-pagination-color: rgb(200, 200, 200);
@@ -228,15 +228,32 @@ p, h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
-.boostlook h1 { font-size: 1.75em; }
-.boostlook h2 { font-size: 1.5em; }
-.boostlook h3 { font-size: 1.375em; }
-.boostlook h4 { font-size: 1.25em; }
-.boostlook h5 { font-size: 1.125em; }
-.boostlook h6 { font-size: 1em; }
+.boostlook h1 { font-size: 2.5rem; }
+.boostlook h2 { font-size: 2rem; }  
+.boostlook h3 { font-size: 1.5rem; }
+.boostlook h4 { font-size: 1.35rem; }
+.boostlook h5 { font-size: 1.25rem; }
+.boostlook h6 { font-size: 1rem; } 
+
+.boostlook h1,
+.boostlook h2,
+.boostlook h3,
+.boostlook h4,
+.boostlook h5,
+.boostlook h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
 .boostlook p { 
   font-size: 1rem;
-  margin: 1em 0em; 
+  line-height: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.boostlook table p,
+.boostlook ul p {
+  margin: 0;
 }
 
 .boostlook a, 
@@ -254,6 +271,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .boostlook code {
   font-family: "Noto Sans Mono", monospace;
+  margin-bottom: 1.25rem;
 }
 
 .boostlook h6:has(+table) {
@@ -331,6 +349,14 @@ p, h1, h2, h3, h4, h5, h6 {
   color: var(--bl-pagination-color);
 }
 
+.boostlook #toc a {
+  color: var(--bl-nav-link-color);
+}
+
+.boostlook #toc.toc2 {
+  padding-bottom: 1.5rem;
+}
+
 /*----------------- Global Styles for .boostlook end -----------------*/
 
 /*----------------- Styles specific to AsciiDoctor content start -----------------*/
@@ -347,7 +373,7 @@ p, h1, h2, h3, h4, h5, h6 {
 .boostlook:not(:has(.doc)) pre {
   font-family: "Noto Sans Mono", monospace;
   background-color: var(--bl-pre-background);
-  margin: 1em;
+  margin-bottom: 1.25rem;
   padding: 1rem;
   overflow-x: auto;
 }
@@ -381,7 +407,7 @@ p, h1, h2, h3, h4, h5, h6 {
 .boostlook #toc ul {
   margin: 0;
   padding: 0 0 0 0.5rem;
-  line-height: 1.5;
+  line-height: 1.725;
   font-size: 1rem;
   list-style: none;
 }
@@ -403,26 +429,46 @@ p, h1, h2, h3, h4, h5, h6 {
 .boostlook #toc.toc2 {
   position: static;
   padding-left: 0;
+  overflow-y: auto;
 }
 
 .boostlook #toc.toc2 > ul {
-  height: 100%;
-  overflow-y: auto;
-  padding-bottom: 4rem;
+  padding-bottom: 2rem;
   box-sizing: border-box;
   position: relative;
   z-index: 0;
 }
 
 .boostlook #toggle-toc {
-  display: none;
+  visibility: hidden;
+  height: 0;
+  width: 0;
 }
 
 .boostlook #content .sect3:has(.tableblock) {
   overflow-x: auto;
 }
 
+.boostlook .title {
+  font-weight: bolder;
+  margin-bottom: 0.5rem;
+}
+
+.boostlook pre.rouge .o {
+  font-weight: normal;
+}
+
+.boostlook pre.rouge code span {
+  font-style: normal;
+}
+
 @media screen and (min-width: 768px) {
+  .boostlook #toggle-toc {
+    visibility: visible;
+    height: auto;
+    width: auto;
+  }
+
   .article.toc2.toc-left {
     padding: 1rem;
   }
@@ -435,12 +481,14 @@ p, h1, h2, h3, h4, h5, h6 {
   .boostlook #toc.toc2 {
     position: fixed;
     width: 17rem;
-    left: max(1rem, calc(50% - 39rem));
+    left: max(1rem, 50% - 39rem);
     top: 1rem;
     z-index: 1000;
     height: calc(100vh - 2rem);
     padding: 1rem;
-    overflow: hidden;
+    padding: 1rem 1rem 1.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .boostlook {
@@ -448,51 +496,68 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 
   .boostlook #toggle-toc {
-    display: block;
     position: fixed;
-    top: 2.375rem;
-    left: calc(max(1rem, calc(50% - 39rem)) + 14rem);
-    background-color: rgb(255, 255, 255); 
+    top: 2rem;
+    left: max(1rem, 50% - 39rem - 1rem);
+    background-color: rgb(255, 255, 255, 0.5);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border: 0;
     padding: 0;
     cursor: pointer;
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%235f6368"><path d="m680-280-56-56 103-104H520v-80h207L624-624l56-56 200 200-200 200Zm-400 0L80-480l200-200 56 56-103 104h207v80H233l103 104-56 56Z"/></svg>');
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224px%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2224px%22%20fill%3D%22%235f6368%22%3E%3Cpath%20d%3D%22M400-240l240-240-240-240-56%2056%20184%20184-184%20184%2056%2056Z%22%2F%3E%3C%2Fsvg%3E");
     background-repeat: no-repeat;
     background-position: center;
-    border-radius: 0.3125rem;
+    border-radius: 1rem;
+    height: 2rem;
     width: 2rem;
     text-indent: -9999px;
     z-index: 1001; 
   }
+}
 
-  .boostlook #toggle-toc:hover {
-    background-color: #f0f0f0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+@media screen and (min-width: 768px) {
+  html.toc-hidden .boostlook {
+    margin-left: 0;
   }
 
-  .boostlook #toggle-toc:active {
-    background-color: #e0e0e0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  html.toc-hidden .boostlook #toggle-toc {
+    left: max(0rem, 50% - 39rem - 1rem);
+  }
+
+  html.toc-visible .boostlook #toggle-toc {
+    left: max(0rem, 50% - 39rem - 1rem);
+    background-color: rgb(255, 255, 255, 1);
+  }
+
+  html.toc-visible .boostlook {
+    margin-left: 0;
+  }
+
+  html.toc-hidden .boostlook #toc.toc2 {
+    width: 0;
+    opacity: 0;
+    visibility: hidden;
   }
   
-  html.toc-hidden .boostlook #toggle-toc {
-    left: calc(max(1rem, calc(50% - 39rem)) - 1rem);
+  html.toc-visible #toc.toc2 {
+    opacity: 1;
+    visibility: visible;
+    width: 250px;
+    padding-left: 1.5rem;
+  }
+
+  html.toc-visible:not(.toc-pinned) #toc.toc2 {
+    box-shadow: 4px 0 12px 0px rgba(0, 0, 0, 0.10);
+  }
+
+  html.toc-visible.toc-pinned #toggle-toc {
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224px%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2224px%22%20fill%3D%22%235f6368%22%3E%3Cpath%20d%3D%22M560-240%20320-480l240-240%2056%2056-184%20184%20184%20184-56%2056Z%22%2F%3E%3C%2Fsvg%3E");
+  }
+
+  html.toc-visible.toc-pinned .boostlook {
+    margin-left: 17rem;
   }
 }
-
-html:not(.toc-hidden) .boostlook #toc {
-  display: block;
-}
-
-html.toc-hidden .boostlook #toc {
-  display: none;
-}
-
-html.toc-hidden .boostlook {
-  margin-left: 0;
-}
-
 
 /*----------------- Styles specific to AsciiDoctor content end -----------------*/
 
@@ -528,10 +593,6 @@ html.toc-hidden .boostlook {
 
 .boostlook .nav-menu > .nav-list > .nav-list > li {
   font-weight: bolder;
-}
-
-.boostlook .nav-menu .nav-list li {
-  line-height: 1.5;
 }
 
 .boostlook .nav-link,
@@ -599,7 +660,6 @@ html.toc-hidden .boostlook {
 /* Table of Contents */
 .boostlook .nav {
   height: 100%;
-  padding-bottom: 2rem;
 }
 
 .boostlook .toc .toc-menu a {
@@ -612,17 +672,3 @@ html.toc-hidden .boostlook {
 }
 
 /*----------------- Styles specific to Antora Templates end -----------------*/
-
-/*----------------- Unified Styles -----------------*/
-
-.boostlook #toc.toc2::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 4rem;
-  background: linear-gradient(to bottom, rgba(255,255,255,0), var(--bl-nav-fade-color) 70%);
-  pointer-events: none;
-  z-index: 1;
-}
