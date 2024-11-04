@@ -55,13 +55,18 @@
   --light-bl-hljs-number-color: rgb(0, 128, 128);
   --light-bl-hljs-section-color: rgb(153, 0, 0);
   --light-bl-nav-link-color: rgb(0, 0, 0);
+  --light-bl-nav-link-hover-color: rgba(0, 0, 0, 0.6);
   --light-bl-nav-fade-color: rgb(255, 255, 255, 1);
+  --light-bl-paragraph-color: rgb(0, 0, 0);
   --light-bl-pasteboard-color: rgb(229, 231, 235);
   --light-bl-pre-background: rgb(248, 248, 248);
   --light-bl-primary-color: rgb(255, 159, 0);
   --light-bl-quote-background: rgb(255, 255, 255);
   --light-bl-table-border-color: rgb(232, 232, 232);
   --light-bl-table-head-background: rgb(248, 248, 248);
+  --light-bl-table-stripe-color: rgb(248, 248, 248);
+  --light-bl-tabpanel-background: rgb(255, 255, 255);
+  --light-bl-text-color: rgb(0, 0, 0);
 
   /* Dark Theme Variables */
   --dark-bl-border-color: rgb(209, 228, 242);
@@ -79,13 +84,17 @@
   --dark-bl-hljs-number-color: rgb(72, 209, 204);
   --dark-bl-hljs-section-color: rgb(255, 69, 58);
   --dark-bl-nav-link-color: rgb(255, 255, 255);
+  --dark-bl-nav-link-hover-color: rgba(255, 255, 255, 0.6);
   --dark-bl-nav-fade-color: rgb(23, 42, 52);
+  --dark-bl-paragraph-color: rgb(255, 255, 255);
   --dark-bl-pasteboard-color: rgb(04, 06, 07);
   --dark-bl-pagination-color: rgb(200, 200, 200);
   --dark-bl-quote-background: rgb(11, 59, 82);
   --dark-bl-quote-word-color: rgb(209, 228, 242);
-  --dark-bl-tabpanel-background: rgb(28, 50, 59);
-  --dark-bl-text-color: rgb(209, 228, 242);
+  --dark-bl-tab-background: rgb(23, 42, 52);
+  --dark-bl-table-stripe-color: rgb(49,74,87);
+  --dark-bl-tabpanel-background: rgb(49 74 87);
+  --dark-bl-text-color: rgb(255, 255, 255);
 }
 
 /*----------------- Root Variables - End -----------------*/
@@ -108,12 +117,18 @@ html {
   --bl-link-color: var(--light-bl-link-color);
   --bl-link-hover-color: var(--light-bl-link-hover-color);
   --bl-nav-link-color: var(--light-bl-nav-link-color);
+  --bl-nav-link-hover-color: var(--light-bl-nav-link-hover-color);
   --bl-nav-fade-color: var(--light-bl-nav-fade-color);
+  --bl-paragraph-color: var(--light-bl-paragraph-color);
   --bl-pasteboard-color: var(--light-bl-pasteboard-color);
   --bl-pre-background: var(--light-bl-pre-background);
   --bl-quote-background: var(--light-bl-quote-background);
+  --bl-tab-background: var(--light-bl-tab-background);
   --bl-table-border-color: var(--light-bl-table-border-color);
   --bl-table-head-background: var(--light-bl-table-head-background);
+  --bl-table-stripe-color: var(--light-bl-table-stripe-color);
+  --bl-tabpanel-background: var(--light-bl-tabpanel-background);
+  --bl-text-color: var(--light-bl-text-color);
 }
 
 html.dark {
@@ -132,11 +147,15 @@ html.dark {
   --bl-link-color: var(--dark-bl-link-color);
   --bl-link-hover-color: var(--dark-bl-link-hover-color);
   --bl-nav-link-color: var(--dark-bl-nav-link-color);
+  --bl-nav-link-hover-color: var(--dark-bl-nav-link-hover-color);
   --bl-nav-fade-color: var(--dark-bl-nav-fade-color);
+  --bl-paragraph-color: var(--dark-bl-paragraph-color);
   --bl-pasteboard-color: var(--dark-bl-pasteboard-color);
   --bl-pagination-color: var(--dark-bl-pagination-color);
   --bl-quote-background: var(--dark-bl-quote-background);
   --bl-quote-word-color: var(--dark-bl-quote-word-color);
+  --bl-tab-background: var(--dark-bl-tab-background);
+  --bl-table-stripe-color: var(--dark-bl-table-stripe-color);
   --bl-tabpanel-background: var(--dark-bl-tabpanel-background);
   --bl-text-color: var(--dark-bl-text-color);
 }
@@ -247,7 +266,6 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .boostlook p { 
   font-size: 1rem;
-  line-height: 1.75rem;
   margin-bottom: 1.5rem;
 }
 
@@ -272,6 +290,12 @@ p, h1, h2, h3, h4, h5, h6 {
 .boostlook code {
   font-family: "Noto Sans Mono", monospace;
   margin-bottom: 1.25rem;
+}
+
+.boostlook em,
+.boostlook code em {
+  font-family: "Noto Sans Display";
+  font-size: inherit;
 }
 
 .boostlook h6:has(+table) {
@@ -351,6 +375,11 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .boostlook #toc a {
   color: var(--bl-nav-link-color);
+}
+
+.boostlook #toc a:hover,
+.boostlook #toc a:focus {
+  color: var(--bl-nav-link-hover-color);
 }
 
 .boostlook #toc.toc2 {
@@ -564,9 +593,13 @@ p, h1, h2, h3, h4, h5, h6 {
 /*----------------- Styles specific to Antora Templates start -----------------*/
 
 /* Typography */
+.boostlook .doc {
+  line-height: 1.5rem;
+}
+
 .boostlook .doc,
 .boostlook .doc i {
-  line-height: 1.5;
+  color: var(--bl-text-color);
   font-family: "Noto Sans Display";
 }
 
@@ -576,6 +609,12 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .boostlook .breadcrumbs ul li {
   font-size: 0.875rem !important;
+}
+
+.boostlook p {
+  color: var(--bl-text-color);
+  padding-top: initial !important;
+  padding-bottom: initial !important;
 }
 
 /* Navigation Menu */
@@ -609,6 +648,11 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .boostlook .nav-text { 
   color: #828282;
+}
+
+/* TODO: Remove when docs wrapper is resolved in website-v2 */ 
+.source-docs-antora .boostlook #toc.toc2 {
+  top: 1rem !important;
 }
 
 /* Active Page Indicator */
@@ -648,6 +692,10 @@ p, h1, h2, h3, h4, h5, h6 {
   border-color: var(--bl-code-border-color);
 }
 
+.boostlook .doc pre {
+  padding: initial;
+}
+
 /* Layout */
 .boostlook .article .content {
   gap: 1rem;
@@ -669,6 +717,40 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .boostlook .nav-menu .title {
   padding-left: 1rem;
+}
+
+/* Admonitions */
+.boostlook .admonitionblock p {
+  line-height: normal;
+}
+
+.boostlook .doc .admonitionblock {
+  background-color: var(--bl-tabpanel-background);
+}
+
+/* Tabs */
+.boostlook .tabs:not(.is-loading) .tablist li:not(.is-selected) {
+  background-color: var(--bl-tab-background);
+}
+
+.boostlook .tablist > ul li {
+  background-color: var(--bl-tabpanel-background);
+}
+
+/* Tables */
+.boostlook .doc table.tableblock tr th {
+  background-color: transparent;
+}
+
+.dark .doc table.stripes-even>tbody>tr:nth-of-type(2n) {
+  background-color: var(--bl-table-stripe-color);
+}
+
+/* Toolbar */
+
+.boostlook .toolbar .breadcrumbs a, 
+.boostlook .toolbar .breadcrumbs li {
+  color: var(--bl-text-color);
 }
 
 /*----------------- Styles specific to Antora Templates end -----------------*/
