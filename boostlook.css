@@ -46,7 +46,7 @@
   --light-bl-card-background-color: rgb(255, 255, 255);
   --light-bl-code-background: rgb(255, 255, 255);
   --light-bl-code-border-color: rgb(220, 220, 220);
-  --light-bl-code-text-color: inherit;
+  --light-bl-code-text-color: rgb(0, 0, 0);
   --light-bl-link-color: rgb(0, 90, 156);
   --light-bl-link-hover-color: rgba(0, 90, 156, 0.7);
   --light-bl-hljs-attribute-color: rgb(70, 130, 180);
@@ -87,7 +87,7 @@
   --dark-bl-nav-link-hover-color: rgba(255, 255, 255, 0.6);
   --dark-bl-nav-fade-color: rgb(23, 42, 52);
   --dark-bl-paragraph-color: rgb(255, 255, 255);
-  --dark-bl-pasteboard-color: rgb(04, 06, 07);
+  --dark-bl-pasteboard-color: rgb(05, 26, 38);
   --dark-bl-pagination-color: rgb(200, 200, 200);
   --dark-bl-quote-background: rgb(11, 59, 82);
   --dark-bl-quote-word-color: rgb(209, 228, 242);
@@ -653,6 +653,7 @@ p, h1, h2, h3, h4, h5, h6 {
 /* TODO: Remove when docs wrapper is resolved in website-v2 */ 
 .source-docs-antora .boostlook #toc.toc2 {
   top: 1rem !important;
+  max-height: calc(100vh - 1rem) !important;
 }
 
 /* Active Page Indicator */
@@ -690,6 +691,7 @@ p, h1, h2, h3, h4, h5, h6 {
 .boostlook .doc .content pre code {
   background-color: var(--bl-code-background);
   border-color: var(--bl-code-border-color);
+  color: var(--bl-code-text-color);
 }
 
 .boostlook .doc pre {
@@ -747,7 +749,6 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 /* Toolbar */
-
 .boostlook .toolbar .breadcrumbs a, 
 .boostlook .toolbar .breadcrumbs li {
   color: var(--bl-text-color);
