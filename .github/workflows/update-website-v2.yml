@@ -31,5 +31,7 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git add static/css/boostlook.css
-          git commit -m "Update boostlook.css from boostlook repository"
-          git push origin develop
+          if ! git diff-index --quiet HEAD; then
+              git commit -m "Update boostlook.css from boostlook repository"
+              git push origin develop
+          fi
