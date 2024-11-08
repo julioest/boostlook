@@ -25,7 +25,7 @@ jobs:
         run: |
           cp boostlook.css website-v2/static/css/boostlook.css
 
-      - name: Commit and push changes
+      - name: Commit and push changes to a new branch
         working-directory: website-v2
         run: |
           git config user.name "${{ github.actor }}"
@@ -33,5 +33,15 @@ jobs:
           git add static/css/boostlook.css
           if ! git diff-index --quiet HEAD; then
               git commit -m "Update boostlook.css from boostlook repository"
-              git push origin develop
+              branch_name="update-boostlook-css-$(date +%Y%m%d%H%M%S)"
+              git checkout -b $branch_name
+              git push origin $branch_name
           fi
+
+      - name: Create a pull request
+        working-directory: website-v2
+        run: |
+          gh pr create --title "Update boostlook.css from boostlook repository" \
+                       --body "Automated PR to update boostlook.css" \
+                       --base develop \
+                       --head $branch_name
