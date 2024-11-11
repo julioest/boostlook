@@ -6,42 +6,65 @@ on:
     paths:
       - 'boostlook.css'
 
+permissions:
+  pull-requests: write
+
 jobs:
   update-css:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout boostlook repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          repository: boostorg/boostlook
 
       - name: Checkout website-v2 repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: boostorg/website-v2
           ref: develop
           path: website-v2
           token: ${{ secrets.WEBSITE_V2_PAT }}
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
       - name: Copy boostlook.css to website-v2
         run: |
           cp boostlook.css website-v2/static/css/boostlook.css
 
-      - name: Commit and push changes to a new branch
+      - name: Install pre-commit
+        if: success()
+        run: |
+          pip install pre-commit
+
+      - name: Run pre-commit hooks on boostlook.css
+        if: success()
         working-directory: website-v2
+        run: |
+          pre-commit run --files static/css/boostlook.css
+        continue-on-error: false
+
+      - name: Commit and push changes to a new branch
+        if: success()
+        working-directory: website-v2
+        env:
+          GH_TOKEN: ${{ secrets.WEBSITE_V2_PAT }}
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git add static/css/boostlook.css
           if ! git diff-index --quiet HEAD; then
               git commit -m "Update boostlook.css from boostlook repository"
-              branch_name="update-boostlook-css-$(date +%Y%m%d%H%M%S)"
-              git checkout -b $branch_name
-              git push origin $branch_name
+              branch_name="update-boostlook-css-$(date +'%Y%m%d%H%M%S')"
+              git checkout -b "$branch_name"
+              git push origin "$branch_name"
+              gh pr create --title "Update boostlook.css from boostlook repository" \
+                           --body "Automated PR to update boostlook.css" \
+                           --base develop \
+                           --head "$branch_name"
+          else
+              echo "No changes to commit. Skipping PR creation."
           fi
-
-      - name: Create a pull request
-        working-directory: website-v2
-        run: |
-          gh pr create --title "Update boostlook.css from boostlook repository" \
-                       --body "Automated PR to update boostlook.css" \
-                       --base develop \
-                       --head $branch_name
