@@ -12,11 +12,13 @@ jobs:
     steps:
       - name: Checkout boostlook repository
         uses: actions/checkout@v3
+        with:
+          repository: julioest/boostlook
 
       - name: Checkout website-v2 repository
         uses: actions/checkout@v3
         with:
-          repository: boostorg/website-v2
+          repository: julioest/website-v2
           ref: develop
           path: website-v2
           token: ${{ secrets.WEBSITE_V2_PAT }}
@@ -25,7 +27,18 @@ jobs:
         run: |
           cp boostlook.css website-v2/static/css/boostlook.css
 
+      - name: Install pre-commit
+        run: |
+          pip install pre-commit
+
+      - name: Run pre-commit hooks on boostlook.css
+        working-directory: website-v2
+        run: |
+          pre-commit run --files static/css/boostlook.css
+        continue-on-error: false
+
       - name: Commit and push changes to a new branch
+        if: success()
         working-directory: website-v2
         run: |
           git config user.name "${{ github.actor }}"
@@ -39,6 +52,7 @@ jobs:
           fi
 
       - name: Create a pull request
+        if: success()
         working-directory: website-v2
         run: |
           gh pr create --title "Update boostlook.css from boostlook repository" \

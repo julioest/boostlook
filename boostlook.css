@@ -1,8 +1,8 @@
 /**
  * README:
- * This stylesheet provides styles for both AsciiDoctor and Antora templates, using the 
+ * This stylesheet provides styles for both AsciiDoctor and Antora templates, using the
  * `boostlook` class for a consistent appearance across both templates.
- * 
+ *
  * Note: This is a work-in-progress and may continue to evolve as templates and requirements
  * change.
  *
@@ -50,7 +50,7 @@
  *   Use `.boostlook:not(:has(.doc))` for AsciiDoctor-specific styles and
  *   `.boostlook .doc` for Antora-specific styles to target unique elements accordingly.
  *
- * This CSS file aims to simplify maintenance by aligning the HTML structure and 
+ * This CSS file aims to simplify maintenance by aligning the HTML structure and
  * reducing the need for complex selectors.
  */
 
