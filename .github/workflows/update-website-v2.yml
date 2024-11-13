@@ -2,7 +2,7 @@ name: Update boostlook.css in website-v2
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "develop" ]
     paths:
       - 'boostlook.css'
 
