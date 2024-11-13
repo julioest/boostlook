@@ -542,8 +542,12 @@ p, h1, h2, h3, h4, h5, h6 {
     overflow-y: auto;
   }
 
-  .boostlook:not(#libraryReadMe) {
+  .boostlook {
     margin-left: 18rem;
+  }
+
+  .boostlook#libraryReadMe {
+     margin-left: 0;
   }
 
   .boostlook #toggle-toc {
@@ -585,8 +589,6 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 
   html.toc-hidden .boostlook #toc.toc2 {
-    width: 0;
-    opacity: 0;
     visibility: hidden;
   }
 
