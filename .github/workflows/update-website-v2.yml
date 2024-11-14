@@ -1,4 +1,4 @@
-name: Update boostlook.css in website-v2
+name: Update boostlook.css in website-v2 repository
 
 on:
   push:
@@ -12,6 +12,7 @@ permissions:
 jobs:
   update-css:
     runs-on: ubuntu-latest
+    if: github.repository == 'boostorg/boostlook'
     steps:
       - name: Checkout boostlook repository
         uses: actions/checkout@v4
@@ -33,7 +34,7 @@ jobs:
 
       - name: Copy boostlook.css to website-v2
         run: |
-          cp boostlook.css website-v2/static/css/boostlook.css
+          cp -v boostlook.css website-v2/static/css/boostlook.css
 
       - name: Install pre-commit
         if: success()
@@ -45,7 +46,6 @@ jobs:
         working-directory: website-v2
         run: |
           pre-commit run --files static/css/boostlook.css
-        continue-on-error: false
 
       - name: Commit and push changes to a new branch
         if: success()
