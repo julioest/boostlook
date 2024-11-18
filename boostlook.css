@@ -287,6 +287,26 @@ p, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1rem;
 }
 
+.boostlook .doc h2:not(.discrete) {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.boostlook .doc h1 .anchor {
+  margin: 3px 0 0 -1.3ex;
+}
+
+.boostlook .doc h2 .anchor,
+.boostlook .doc h3 .anchor {
+  margin: 2px 0 0 -1.3ex;
+}
+
+.boostlook .doc h4 .anchor,
+.boostlook .doc h5 .anchor,
+.boostlook .doc h6 .anchor {
+  margin: 1px 0 0 -1.3ex;
+}
+
 .boostlook p {
   font-size: 1rem;
   margin-bottom: 1.5rem;
