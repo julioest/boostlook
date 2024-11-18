@@ -785,6 +785,11 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 /* Tables */
+.boostlook .doc table.tableblock {
+  display: block;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
 .boostlook .doc table.tableblock tr th {
   background-color: transparent;
   font-size: 1rem;
