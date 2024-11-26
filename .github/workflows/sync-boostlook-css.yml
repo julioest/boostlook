@@ -5,6 +5,7 @@ on:
     branches: ["develop"]
     paths:
       - "boostlook.css"
+  workflow_dispatch:
 
 permissions:
   contents: write
