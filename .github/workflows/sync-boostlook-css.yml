@@ -1,4 +1,4 @@
-name: Sync boostlook.css to website-v2 and website-v2-docs repositories
+name: Sync boostlook.css to website-v2 & website-v2-docs
 
 on:
   push:
@@ -59,9 +59,13 @@ jobs:
           fi
       - name: Trigger website-v2-docs ui-release workflow
         if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh workflow run ui-release.yml --repo boostorg/website-v2-docs --ref develop
       - name: Trigger website-v2-docs publish workflow
         if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh workflow run publish.yml --repo boostorg/website-v2-docs --ref develop
