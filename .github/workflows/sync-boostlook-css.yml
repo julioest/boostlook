@@ -13,7 +13,7 @@ permissions:
 jobs:
   update-css:
     runs-on: ubuntu-latest
-    if: github.repository == 'boostorg/boostlook'
+    # if: github.repository == 'boostorg/boostlook'
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
       - name: Checkout website-v2 repository
         uses: actions/checkout@v4
         with:
-          repository: boostorg/website-v2
+          repository: julioest/website-v2
           ref: develop
           path: website-v2
           token: ${{ secrets.WEBSITE_V2_PAT }}
@@ -61,12 +61,12 @@ jobs:
       - name: Trigger website-v2-docs ui-release workflow
         if: success()
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.WEBSITE_V2_PAT }}
         run: |
-          gh workflow run ui-release.yml --repo boostorg/website-v2-docs --ref develop
+          gh workflow run ui-release.yml --repo julioest/website-v2-docs --ref develop
       - name: Trigger website-v2-docs publish workflow
         if: success()
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.WEBSITE_V2_PAT }}
         run: |
-          gh workflow run publish.yml --repo boostorg/website-v2-docs --ref develop
+          gh workflow run publish.yml --repo julioest/website-v2-docs --ref develop
