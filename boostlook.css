@@ -503,7 +503,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .boostlook:not(:has(.doc)) table {
   border-collapse: collapse;
-  margin: 1em;
+  margin: 1em 0;
   border: 1px solid var(--bl-table-border-color);
 }
 
@@ -589,9 +589,11 @@ p, h1, h2, h3, h4, h5, h6 {
   overflow-x: auto;
 }
 
+#boost-legacy-docs-wrapper h2.title,
 .boostlook .title {
   font-weight: bolder;
   margin-bottom: 0.5rem;
+  margin-top: 0;
 }
 
 .boostlook pre.rouge .o {
@@ -934,6 +936,7 @@ p, h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--bl-border-color);
   border-radius: 8px;
   background-color: var(--bl-tabpanel-background);
+  margin: 1pc 0 0 0;
 }
 
 .boostlook div.note table,
@@ -975,6 +978,10 @@ p, h1, h2, h3, h4, h5, h6 {
   border-radius: 0;
 }
 
+.boostlook .programlisting {
+  margin: 1rem 0;
+}
+
 .boostlook table h1,
 .boostlook table h2,
 .boostlook table h3 {
@@ -989,6 +996,7 @@ p, h1, h2, h3, h4, h5, h6 {
 .boostlook div.toc {
   border-radius: 8px;
   padding: 1rem;
+  margin: 1rem 0;
 }
 
 #boost-legacy-docs-wrapper.boostlook div.toc > p {
