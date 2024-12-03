@@ -590,6 +590,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 #boost-legacy-docs-wrapper h2.title,
+#boost-legacy-docs-wrapper h3.title,
 .boostlook .title {
   font-weight: bolder;
   margin-bottom: 0.5rem;
@@ -1030,4 +1031,39 @@ body > .chapter,
   padding: 1rem;
   background-color: var(--card-color);
   border-radius: 0.5rem;
+}
+
+/* qbk spirit nav hack */
+.boostlook:not(:has(.doc)) .spirit-nav a img {
+  display: none;
+}
+
+.boostlook:not(:has(.doc)) .spirit-nav a,
+#boost-legacy-docs-wrapper.boostlook:not(:has(.doc)) .spirit-nav a {
+  font-family: 'Material Symbols Outlined';
+  font-size: 18px;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  color: var(--bl-nav-link-color);
+}
+
+.boostlook:not(:has(.doc)) .spirit-nav a[accesskey='p']::after {
+  content: "arrow_back";
+}
+.boostlook:not(:has(.doc)) .spirit-nav a[accesskey='u']::after {
+  content: "arrow_upward";
+}
+.boostlook:not(:has(.doc)) .spirit-nav a[accesskey='h']::after {
+  content: "home";
+}
+.boostlook:not(:has(.doc)) .spirit-nav a[accesskey='n']::after {
+  content: "arrow_forward";
+}
+
+@media screen and (max-width: 768px) {
+  .boostlook:not(:has(.doc)) .spirit-nav {
+    right: 2rem;
+    top: 0.2rem;
+  }
 }
