@@ -71,7 +71,7 @@
   --light-bl-code-border-color: rgb(220, 220, 220);
   --light-bl-code-text-color: rgb(0, 0, 0);
   --light-bl-link-color: rgb(2, 132, 199);
-  --light-bl-link-hover-color: rgba(0, 90, 156, 0.7);
+  --light-bl-link-hover-color: rgba(255, 159, 0);
   --light-bl-hljs-attribute-color: rgb(70, 130, 180);
   --light-bl-hljs-doctag-color: rgb(221, 17, 68);
   --light-bl-hljs-keyword-color: rgb(51, 51, 51);
@@ -100,7 +100,7 @@
   --dark-bl-code-border-color: transparent;
   --dark-bl-code-text-color: rgb(255, 255, 255);
   --dark-bl-link-color: rgb(125 211 252);
-  --dark-bl-link-hover-color: rgb(100, 160, 210);
+  --dark-bl-link-hover-color: rgb(255, 159, 0);
   --dark-bl-hljs-attribute-color: rgb(70, 130, 180);
   --dark-bl-hljs-doctag-color: rgb(255, 99, 132);
   --dark-bl-hljs-keyword-color: rgb(173, 216, 230);
@@ -374,6 +374,37 @@ p, h1, h2, h3, h4, h5, h6 {
   padding: 0;
   font-weight: 600;
   color: var(--bl-code-text-color) !important;
+}
+
+.boostlook code a,
+.boostlook p code a,
+.boostlook li code a,
+.boostlook .doc p code a,
+.boostlook .doc table code a,
+.boostlook .doc .colist > table code a,
+.boostlook a code,
+.boostlook p a code,
+.boostlook li a code,
+.boostlook .doc p a code,
+.boostlook .doc table a code,
+.boostlook .doc .colist > table a code {
+  font-weight: 500;
+  color: var(--bl-link-color) !important;
+}
+
+.boostlook code a:hover,
+.boostlook p code a:hover,
+.boostlook li code a:hover,
+.boostlook .doc p code a:hover,
+.boostlook .doc table code a:hover,
+.boostlook .doc .colist > table code a:hover,
+.boostlook a:hover code,
+.boostlook p a:hover code,
+.boostlook li a:hover code,
+.boostlook .doc p a:hover code,
+.boostlook .doc table a:hover code,
+.boostlook .doc .colist > table a:hover code {
+  color: var(--bl-link-hover-color) !important;
 }
 
 .boostlook .quoteblock,
