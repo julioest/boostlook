@@ -372,7 +372,7 @@ p, h1, h2, h3, h4, h5, h6 {
 .boostlook .doc .colist > table code {
   background: none;
   padding: 0;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--bl-code-text-color) !important;
 }
 
