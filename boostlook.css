@@ -271,7 +271,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .boostlook {
   font-family: "Noto Sans Display" !important;
-  font-stretch: condensed;
+  font-stretch: 90%;
 }
 
 .boostlook h1,
@@ -347,7 +347,8 @@ p, h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
 }
 
-.boostlook code {
+.boostlook code,
+.boostlook pre code {
   font-family: "Noto Sans Mono", monospace;
   margin-bottom: 1.25rem;
 }
