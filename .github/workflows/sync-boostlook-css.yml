@@ -2,9 +2,10 @@ name: Sync boostlook.css to website-v2 & website-v2-docs
 
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "develop"]
     paths:
       - "boostlook.css"
+      - "boostlook_tino.css"
   workflow_dispatch:
 
 permissions:
@@ -33,7 +34,13 @@ jobs:
 
       - name: Copy boostlook.css to website-v2
         run: |
-          cp -v boostlook.css website-v2/static/css/boostlook.css
+          if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "Copying boostlook_tino.css and renaming to boostlook.css"
+            cp -v boostlook_tino.css website-v2/static/css/boostlook.css
+          else
+            echo "Copying boostlook.css"
+            cp -v boostlook.css website-v2/static/css/boostlook.css
+          fi
       - name: Install pre-commit
         if: success()
         run: |
@@ -59,11 +66,11 @@ jobs:
               echo "No changes to commit. Skipping commit to develop."
           fi
       - name: Trigger website-v2-docs ui-release workflow
-        if: success()
+        if: ${{ (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop') && github.event_name == 'push' }}
         env:
           GH_TOKEN: ${{ secrets.WEBSITE_V2_PAT }}
         run: |
-          gh workflow run ui-release.yml --repo boostorg/website-v2-docs --ref develop
+          gh workflow run ui-release.yml --repo boostorg/website-v2-docs --ref develop -f boostlook_branch=${{ github.ref_name }}
       - name: Trigger website-v2-docs publish workflow
         if: success()
         env:
