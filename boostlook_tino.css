@@ -2957,8 +2957,20 @@ html.is-clipped--nav:has(.boostlook) div#content {
     padding: 1rem 1.5rem;
   }
 
-  .boostlook {
+  .boostlook:has(.nav-container) {
     margin-left: var(--main-max-width-leftbar);
+  }
+
+  /* For 1-column layout libs */
+  .boostlook:not(:has(.nav-container.toc2)) {
+    max-width: var(--main-content-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* For nested boostlook instances, e.g. learn docs */
+  .boostlook .boostlook {
+    margin-left: 0;
   }
 
   /* TOC Toggle Button */
@@ -3021,7 +3033,7 @@ html.is-clipped--nav:has(.boostlook) div#content {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224px%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2224px%22%20fill%3D%22%235f6368%22%3E%3Cpath%20d%3D%22M560-240%20320-480l240-240%2056%2056-184%20184%20184%20184-56%2056Z%22%2F%3E%3C%2Fsvg%3E");
   }
 
-  html.toc-visible.toc-pinned .boostlook {
+  html.toc-visible.toc-pinned {
     margin-left: var(--main-max-width-leftbar);
   }
 }
