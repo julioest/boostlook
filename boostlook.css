@@ -667,8 +667,9 @@ html:has(.boostlook) {
   font-stretch: semi-condensed;
   font-display: block;
   /* Prevents FOIT */
-  src: url("/_/fonts/NotoSansDisplay.ttf") format("truetype"), url("../../../../tools/boostlook/NotoSansDisplay.ttf") format("truetype"),
-    url("https://cppalliance.org/fonts/NotoSansDisplay.ttf") format("truetype");
+  src: url("/static/font/notosans.woff2") format("woff2"),
+       url("../../../../tools/boostlook/NotoSansDisplay.ttf") format("truetype"),
+       url("https://cppalliance.org/fonts/NotoSansDisplay.ttf") format("truetype");
 }
 
 /* Noto Sans Display - Italic */
@@ -681,8 +682,9 @@ html:has(.boostlook) {
   font-stretch: semi-condensed;
   font-display: block;
   /* Prevents FOIT */
-  src: url("/font/NotoSansDisplay-Italic.ttf") format("truetype"), url("../../../../tools/boostlook/NotoSansDisplay-Italic.ttf") format("truetype"),
-    url("https://cppalliance.org/fonts/NotoSansDisplay-Italic.ttf") format("truetype");
+  src: url("/static/font/notosans_mono_ext.woff") format("woff"),
+       url("../../../../tools/boostlook/NotoSansMono.ttf") format("truetype"),
+       url("https://cppalliance.org/fonts/NotoSansMono.ttf") format("truetype");
 }
 
 /* Noto Sans Mono - Variable Weight */
@@ -695,8 +697,9 @@ html:has(.boostlook) {
   font-stretch: semi-condensed;
   font-display: block;
   /* Prevents FOIT */
-  src: url("/_/boostlook/NotoSansMono.ttf") format("truetype"), url("../../../../tools/boostlook/NotoSansMono.ttf") format("truetype"),
-    url("https://cppalliance.org/fonts/NotoSansMono.ttf") format("truetype");
+  src: url("/static/font/notosans_mono.woff") format("woff"),
+       url("../../../../tools/boostlook/NotoSansMono.ttf") format("truetype"),
+       url("https://cppalliance.org/fonts/NotoSansMono.ttf") format("truetype");
 }
 
 /* Noto Sans Mono - Fixed Weight */
