@@ -2849,7 +2849,6 @@ html:has(#docsiframe)::-webkit-scrollbar {
 /* Antora template - Scrollable content area */
 .boostlook #content:has(> .doc) {
   overflow-y: auto;
-  height: 100vh;
 }
 
 /* Asciidoc template - Content overflow handling */
