@@ -3001,6 +3001,7 @@ html:has(#docsiframe)::-webkit-scrollbar {
   margin-right: auto;
   background: var(--surface-background-main-base-primary, #fff);
   position: relative;
+  overflow-y: auto;
 }
 
 /* TOC Common start */
