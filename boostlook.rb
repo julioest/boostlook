@@ -3,21 +3,13 @@ Asciidoctor::Extensions.register do
     process do |doc, output|
       output = output.sub(/(<body[^>]*>)/, '\1<div class="boostlook">')
       output = output.sub('</body>', '</div></body>')
-      # Comment out toggle button - TOC should always be visible
-      # output = output.sub(/(<body.*?<div[^>]*id="toc"[^>]*>)/m, '\1<button id="toggle-toc" title="Show Table of Contents" aria-expanded="false" aria-controls="toc">☰</button>')
+      output = output.sub(/(<body.*?<div[^>]*id="toc"[^>]*>)/m, '\1<button id="toggle-toc" title="Show Table of Contents" aria-expanded="false" aria-controls="toc">☰</button>')
       output = output.sub(/(<body.*?<div[^>]*id="footer"[^>]*>)/m, '</div>\1')
 
       script_tag = <<~SCRIPT
         <script>
         (function() {
           const html = document.documentElement;
-          // Always show TOC - no toggle functionality needed
-          html.classList.add('toc-visible');
-          html.classList.add('toc-pinned');
-          html.classList.remove('toc-hidden');
-
-          // Comment out toggle functionality since TOC should always be visible
-          /*
           const isPinned = localStorage.getItem('tocPinned') === 'true';
 
           html.classList.add('toc-hidden');
@@ -64,7 +56,6 @@ Asciidoctor::Extensions.register do
 
             updateTocVisibility(isPinned);
           });
-          */
         })();
         </script>
       SCRIPT
