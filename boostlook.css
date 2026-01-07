@@ -106,6 +106,7 @@
  *    - Ensures consistent README presentation
  */
 
+/* MARK: - Root Variables */
 /*----------------- Root Variables - Start -----------------*/
 
 /* Root CSS Variables
@@ -384,6 +385,7 @@
   /*----------------- New Look Variables End -----------------*/
 }
 
+/* MARK: - Responsive Desktop (768px+) */
 /*----------------- New Look Responsive Desktop Start -----------------*/
 @media (min-width: 768px) {
   :root {
@@ -451,6 +453,7 @@
 
 /*----------------- Root Variables - End -----------------*/
 
+/* MARK: - HTML Theme Variables */
 /*----------------- HTML Variables - Start -----------------*/
 
 /**
@@ -703,6 +706,7 @@ html:has(.boostlook) {
   scroll-behavior: smooth;
 }
 
+/* MARK: - Font Face Declarations */
 /*----------------- Font-Face Declarations start -----------------*/
 
 /**
@@ -787,6 +791,7 @@ html:has(.boostlook) {
 
 /*----------------- Font-Face Declarations end -----------------*/
 
+/* MARK: - CSS Reset */
 /*----------------- CSS Reset start -----------------*/
 
 /**
@@ -890,6 +895,7 @@ body :not(pre):not([class^="L"]) > code {
 
 /*----------------- CSS Reset end -----------------*/
 
+/* MARK: - Global Styles (.boostlook) */
 /*----------------- Global Styles for .boostlook start -----------------*/
 
 /**
@@ -939,7 +945,7 @@ body :not(pre):not([class^="L"]) > code {
   position: relative;
 }
 
-/* Heading Sizes */
+/* MARK: Heading Sizes */
 .boostlook h1,
 .boostlook .doc h1 {
   font-size: var(--typography-font-size-h1, 1.75rem);
@@ -1039,7 +1045,7 @@ body :not(pre):not([class^="L"]) > code {
   color: inherit;
 }
 
-/* Heading Anchors */
+/* MARK: Heading Anchors */
 .boostlook .doc h1 .anchor,
 .boostlook .doc h2 .anchor,
 .boostlook .doc h3 .anchor,
@@ -1151,7 +1157,7 @@ body :not(pre):not([class^="L"]) > code {
   opacity: 1;
 }
 
-/* Paragraph Styling */
+/* MARK: Paragraph Styling */
 .boostlook p {
   padding-top: initial !important;
   padding-bottom: initial !important;
@@ -1252,7 +1258,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   margin: 0;
 }
 
-/* Link Styling */
+/* MARK: Link Styling */
 .boostlook a,
 .boostlook .doc a {
   color: var(--text-main-text-link-blue, #026a9f);
@@ -1302,7 +1308,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   font-style: italic;
 }
 
-/* Code Block Styling */
+/* MARK: Code Block Styling */
 .boostlook .doc .listingblock,
 .boostlook .listingblock {
   position: relative;
@@ -1736,7 +1742,7 @@ html.dark .boostlook#libraryReadMe div.highlight:has(> pre):not(:is(dd pre, td p
   text-decoration-color: var(--border-border-blue, #92cbe9);
 }
 
-/* Syntax Highlighting */
+/* MARK: Syntax Highlighting */
 .boostlook .hljs-keyword,
 .boostlook .hljs-selector-tag,
 .boostlook .hljs-subst,
@@ -1939,7 +1945,7 @@ html.dark .boostlook .hljs-code {
   color: inherit;
 }
 
-/* Pagination */
+/* MARK: Pagination */
 .boostlook nav.pagination {
   border-top: revert;
   line-height: initial;
@@ -2061,7 +2067,7 @@ html.dark .boostlook .hljs-code {
   background: var(--surface-background-main-surface-blue-secondary, #daeef9);
 }
 
-/* Admonitions */
+/* MARK: Admonitions */
 .boostlook #content .admonitionblock,
 .boostlook:not(:has(.doc)) div.note,
 .boostlook:not(:has(.doc)) div.tip,
@@ -2481,7 +2487,7 @@ html.dark .boostlook .hljs-code {
   letter-spacing: var(--spacing-size-size-0, 0rem);
 }
 
-/* Unordered Lists */
+/* MARK: Unordered Lists */
 /* Reset Legacy and Common */
 .boostlook .doc .dlist .dlist,
 .boostlook .doc .dlist .olist,
@@ -2598,7 +2604,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   color: var(--text-main-text-primary, #18191b);
 }
 
-/* Ordered Lists */
+/* MARK: Ordered Lists */
 .boostlook .olist.arabic > ol,
 .boostlook .olist.loweralpha > ol,
 .boostlook:not(:has(.doc)) .orderedlist > ol {
@@ -2744,7 +2750,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   padding-top: 0;
 }
 
-/* Tables */
+/* MARK: Tables */
 /* Reset Antora Table Styles */
 .boostlook #content table.tableblock tr,
 .boostlook #content table.tableblock td,
@@ -2971,7 +2977,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   padding: var(--padding-padding-xs) 0;
 }
 
-/* Image Styles */
+/* MARK: Image Styles */
 .boostlook .doc .imageblock,
 .boostlook .doc .videoblock {
   display: flex;
@@ -3016,6 +3022,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 
 /*----------------- Global Styles for .boostlook end -----------------*/
 
+/* MARK: - Scrollbar Styles */
 /* ----------- Scrollbars Styles Start ------------- */
 
 /**
@@ -3459,6 +3466,7 @@ html.is-clipped--nav:has(.boostlook) div#content {
 }
 /* TOC Common End */
 
+/* MARK: - AsciiDoctor Styles */
 /*----------------- Styles specific to AsciiDoctor content start -----------------*/
 
 /**
@@ -3560,6 +3568,7 @@ html.dark .boostlook pre.rouge .cm {
 
 /*----------------- Styles specific to AsciiDoctor content end -----------------*/
 
+/* MARK: - Antora Template Styles */
 /*----------------- Styles specific to Antora Templates start -----------------*/
 
 /**
@@ -3973,6 +3982,7 @@ html.dark .boostlook pre.rouge .cm {
 
 /*----------------- Styles specific to Antora Templates end -----------------*/
 
+/* MARK: - Quickbook Styles */
 /*---------- Quickbook docs styling fixes -----------*/
 
 /**
@@ -4486,6 +4496,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) > #cont
 
 /*----------------- Quickbook Documentation Styles end -----------------*/
 
+/* MARK: - Library README Styles */
 /*----------------- Library README Styles start -----------------*/
 
 .boostlook#libraryReadMe {
@@ -4524,6 +4535,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) > #cont
 
 /*----------------- Library README Styles end -----------------*/
 
+/* MARK: - Responsive TOC Layout */
 /*----------------- AsciiDoctor-Specific Responsive TOC Layout start -----------------*/
 
 /* Prevent header/content/footer padding from jumping at 990px breakpoint */
