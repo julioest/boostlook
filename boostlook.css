@@ -1153,6 +1153,18 @@ body :not(pre):not([class^="L"]) > code {
   opacity: 1;
 }
 
+/* Inline math (stem/latexmath) — override reset's svg { display: block } */
+.boostlook .steminline {
+  display: inline;
+  white-space: nowrap;
+}
+
+.boostlook .steminline svg {
+  display: inline;
+  vertical-align: middle;
+  max-width: none;
+}
+
 /* Paragraph Styling */
 .boostlook p {
   padding-top: initial !important;
