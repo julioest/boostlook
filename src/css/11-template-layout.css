@@ -110,6 +110,7 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   text-decoration: none;
   padding: var(--leftbar-paddings-leftbar-padding-3xs, 0.25rem) var(--leftbar-paddings-leftbar-padding-2xs, 0.5rem);
   border-radius: var(--padding-padding-3xs, 0.25rem);
+  font-variation-settings: "wght" 600, "wdth" 87.5;
 }
 
 .boostlook .nav-menu .nav-list li:has(.nav-text),
