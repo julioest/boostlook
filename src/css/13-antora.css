@@ -279,7 +279,7 @@
 .boostlook .breadcrumbs ul li:first-of-type {
   display: flex;
   align-items: center;
-  padding: var(--spacing-size-3xs, 0.25rem);
+  padding: 0;
   margin-right: var(--padding-padding-xs, 0.75rem);
   gap: var(--spacing-size-2xs, 0.5rem);
   border-radius: var(--spacing-size-2xs, 0.5rem);
@@ -324,6 +324,23 @@
 
 .boostlook .breadcrumbs ul li:first-of-type a::before {
   content: var(--icon-home);
+  transform: scale(1.25);
+}
+
+.boostlook .breadcrumbs ul li:first-of-type a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid transparent;
+  border-radius: var(--spacing-size-2xs, 0.5rem);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.boostlook .breadcrumbs ul li:first-of-type a:hover {
+  border-color: var(--border-border-blue, #92cbe9);
+  background: var(--surface-background-main-surface-blue-secondary, #daeef9);
 }
 
 /* Spirit Navigation */
@@ -353,14 +370,13 @@
   justify-content: center;
   gap: var(--spacing-size-2xs, 0.5rem);
   border-radius: var(--spacing-size-2xs, 0.5rem);
-  /* border: 1px solid var(--border-border-primary, #e4e7ea); */
-  /* background: var(--surface-background-main-base-primary, #fff); */
+  border: 1px solid transparent;
   width: 32px;
   height: 32px;
   text-decoration: none;
   padding: 0;
   position: relative;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .boostlook .toolbar .spirit-nav a:hover,

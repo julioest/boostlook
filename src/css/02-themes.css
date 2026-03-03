@@ -81,6 +81,10 @@ html {
 
   --surface-page: #F7FDFE;
   --surface-background-main-base-primary: var(--surface-page);
+  --pagination-bg: #fff;
+  --table-bg: #fff;
+  --table-header-bg: #F7F7F8;
+  --table-stroke: #0508161A;
   background-color: var(--surface-page);
   --surface-background-main-surface-primary: var(--colors-primary-50);
   --surface-background-main-surface-secondary: var(--colors-primary-100);
@@ -218,6 +222,10 @@ html.dark {
 
   --surface-page: var(--colors-primary-950);
   --surface-background-main-base-primary: var(--surface-page);
+  --pagination-bg: var(--colors-primary-850);
+  --table-bg: var(--colors-primary-850);
+  --table-header-bg: #2F313D;
+  --table-stroke: #F7F7F81A;
   background-color: var(--surface-page);
   --surface-background-main-surface-primary: var(--colors-primary-850);
   --surface-background-main-surface-secondary: var(--colors-primary-800);

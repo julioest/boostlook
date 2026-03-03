@@ -589,6 +589,10 @@ html {
 
   --surface-page: #F7FDFE;
   --surface-background-main-base-primary: var(--surface-page);
+  --pagination-bg: #fff;
+  --table-bg: #fff;
+  --table-header-bg: #F7F7F8;
+  --table-stroke: #0508161A;
   background-color: var(--surface-page);
   --surface-background-main-surface-primary: var(--colors-primary-50);
   --surface-background-main-surface-secondary: var(--colors-primary-100);
@@ -726,6 +730,10 @@ html.dark {
 
   --surface-page: var(--colors-primary-950);
   --surface-background-main-base-primary: var(--surface-page);
+  --pagination-bg: var(--colors-primary-850);
+  --table-bg: var(--colors-primary-850);
+  --table-header-bg: #2F313D;
+  --table-stroke: #F7F7F81A;
   background-color: var(--surface-page);
   --surface-background-main-surface-primary: var(--colors-primary-850);
   --surface-background-main-surface-secondary: var(--colors-primary-800);
@@ -2270,7 +2278,7 @@ html.dark .boostlook code.cpp-highlight .cpp-attribute {
 .boostlook nav.pagination > span {
   display: flex;
   flex-direction: column;
-  flex: 1 0 0;
+  flex: 0 1 50%;
   backdrop-filter: blur(8px);
   padding-right: revert;
   padding-left: revert;
@@ -2278,6 +2286,7 @@ html.dark .boostlook code.cpp-highlight .cpp-attribute {
 }
 .boostlook nav.pagination > span.next {
   text-align: right;
+  margin-left: auto;
 }
 
 .boostlook nav.pagination span::before {
@@ -2295,6 +2304,7 @@ html.dark .boostlook code.cpp-highlight .cpp-attribute {
   height: 100%;
   border-radius: var(--padding-padding-xs, 0.75rem);
   border: 1px solid var(--border-border-primary, #e4e7ea);
+  background: var(--pagination-bg, #fff);
   padding: var(--padding-padding-xs, 0.75rem);
   color: var(--text-main-text-primary, #18191b);
   font-size: var(--typography-font-size-sm, 1rem);
@@ -2302,12 +2312,17 @@ html.dark .boostlook code.cpp-highlight .cpp-attribute {
   line-height: var(--typography-line-height-lg, 1.5rem); /* 150% */
   letter-spacing: var(--spacing-size-size-0, 0rem);
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .boostlook nav.pagination > span:hover a {
-  background: var(--surface-background-main-surface-primary, #f5f6f8);
-  color: inherit;
+  border-color: var(--border-border-blue, #92cbe9);
+  background: var(--surface-background-main-surface-blue-secondary, #daeef9);
+}
+
+html.dark .boostlook nav.pagination > span:hover a {
+  border-color: var(--border-border-blue, #92cbe9);
+  background: var(--colors-primary-850, #1A1C29);
 }
 
 .boostlook nav.pagination > span.prev a {
@@ -2350,10 +2365,7 @@ html.dark .boostlook code.cpp-highlight .cpp-attribute {
   height: var(--_arrow-size);
   align-items: center;
   justify-content: center;
-  border: 1px solid transparent;
   border-radius: var(--spacing-size-2xs, 0.5rem);
-  background: var(--surface-background-main-base-primary, #fff);
-  transition: all 0.2s ease;
   transform: translateY(-50%);
 }
 
@@ -2371,11 +2383,6 @@ html.dark .boostlook code.cpp-highlight .cpp-attribute {
 .boostlook nav.pagination > span.next a::after {
   content: var(--icon-arrow-right);
   right: var(--padding-padding-2xs, 0.5rem);
-}
-
-.boostlook nav.pagination > span:hover a::after {
-  border-color: var(--border-border-blue, #92cbe9);
-  background: var(--surface-background-main-surface-blue-secondary, #daeef9);
 }
 
 /* Admonitions */
@@ -2773,7 +2780,9 @@ html.dark .boostlook code.cpp-highlight .cpp-attribute {
 }
 
 .boostlook .edit-this-page a {
-  all: inherit;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
 }
 
 /* Layout Structure */
@@ -3146,8 +3155,8 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   padding: 12px 16px;
   min-height: 28px;
   text-align: left;
-  border-top: 1px solid var(--border-border-primary, #e4e7ea);
-  border-left: 1px solid var(--border-border-primary, #e4e7ea);
+  border-top: 1px solid var(--table-stroke, #0508161A);
+  border-left: 1px solid var(--table-stroke, #0508161A);
 }
 
 .boostlook #content table.tableblock th:last-child,
@@ -3156,13 +3165,13 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 .boostlook:not(:has(.doc)) table.table td:last-child,
 .boostlook#libraryReadMe > table th:last-child,
 .boostlook#libraryReadMe > table td:last-child {
-  border-right: 1px solid var(--border-border-primary, #e4e7ea);
+  border-right: 1px solid var(--table-stroke, #0508161A);
 }
 
 .boostlook #content table.tableblock tr:last-child td,
 .boostlook:not(:has(.doc)) table.table tr:last-child td,
 .boostlook#libraryReadMe > table tr:last-child td {
-  border-bottom: 1px solid var(--border-border-primary, #e4e7ea);
+  border-bottom: 1px solid var(--table-stroke, #0508161A);
 }
 
 .boostlook #content table.tableblock:has(thead) th:first-child,
@@ -3196,28 +3205,33 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 }
 
 /* Table header — Metalab 2.0: Surface-Mid bg */
-.boostlook #content table.tableblock th,
-.boostlook #content table.tableblock th strong,
+.boostlook #content .doc table.tableblock th,
+.boostlook #content .doc table.tableblock th strong,
+.boostlook #content .doc table.tableblock:not(:has(thead)) > tbody > tr:first-child > td,
+.boostlook:not(:has(.doc)) #content table.tableblock th,
+.boostlook:not(:has(.doc)) #content table.tableblock th strong,
 .boostlook:not(:has(.doc)) table.table th,
 .boostlook:not(:has(.doc)) table.table th strong,
 .boostlook#libraryReadMe > table th,
 .boostlook#libraryReadMe > table th strong {
-  background: var(--surface-background-main-surface-primary, #f7f7f7);
+  background-color: var(--table-header-bg, #F7F7F8);
   color: var(--text-main-text-primary, #050816);
-  font-size: 0.75rem;
-  font-variation-settings: "wght" 500, "wdth" 87.5;
-  line-height: 100%;
+  font-size: var(--typography-font-size-xs, 0.875rem);
+  font-variation-settings: "wght" 700, "wdth" 87.5;
+  line-height: 140%;
   letter-spacing: -0.12px;
 }
 
-/* Table data — Metalab 2.0: 12px, Text-Secondary */
-.boostlook #content table.tableblock td,
+/* Table data — Metalab 2.0: 14px, Text-Secondary */
+.boostlook #content .doc table.tableblock td,
+.boostlook:not(:has(.doc)) #content table.tableblock td,
 .boostlook:not(:has(.doc)) table.table td,
 .boostlook#libraryReadMe > table td {
+  background-color: var(--table-bg, #fff);
   color: var(--text-main-text-body-secondary, #585A64);
-  font-size: 0.75rem;
+  font-size: var(--typography-font-size-xs, 0.875rem);
   font-style: normal;
-  line-height: 100%;
+  line-height: 140%;
   letter-spacing: -0.12px;
 }
 
@@ -3277,6 +3291,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   background: transparent !important;
   padding: 0;
   border: none;
+  font-size: var(--typography-font-size-2xs, 0.75rem);
 }
 
 .boostlook #content table.tableblock .footnotes tr td,
@@ -3601,7 +3616,7 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 .boostlook .nav-menu .nav-item:has(> .nav-item-toggle),
 .boostlook .nav-menu li[data-depth="1"]:not(:has(> .nav-item-toggle)) {
   border-top: 1px solid var(--border-border-primary, #e4e7ea);
-  margin-top: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
+  margin-top: 0;
   padding-top: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
   padding-bottom: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
 }
@@ -3610,7 +3625,6 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 .boostlook .nav-menu > .nav-list > .nav-list > li[data-depth="1"]:first-child {
   border-top: none;
   margin-top: 0;
-  padding-top: 0;
 }
 
 /* Table of Contents Links */
@@ -3730,7 +3744,6 @@ html.is-clipped--nav:has(.boostlook) div#content {
     padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    border-right: 1px solid var(--border-border-primary, #e4e7ea);
     visibility: visible;
   }
 
@@ -4252,7 +4265,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
 .boostlook .breadcrumbs ul li:first-of-type {
   display: flex;
   align-items: center;
-  padding: var(--spacing-size-3xs, 0.25rem);
+  padding: 0;
   margin-right: var(--padding-padding-xs, 0.75rem);
   gap: var(--spacing-size-2xs, 0.5rem);
   border-radius: var(--spacing-size-2xs, 0.5rem);
@@ -4297,6 +4310,23 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
 
 .boostlook .breadcrumbs ul li:first-of-type a::before {
   content: var(--icon-home);
+  transform: scale(1.25);
+}
+
+.boostlook .breadcrumbs ul li:first-of-type a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid transparent;
+  border-radius: var(--spacing-size-2xs, 0.5rem);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.boostlook .breadcrumbs ul li:first-of-type a:hover {
+  border-color: var(--border-border-blue, #92cbe9);
+  background: var(--surface-background-main-surface-blue-secondary, #daeef9);
 }
 
 /* Spirit Navigation */
@@ -4326,14 +4356,13 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   justify-content: center;
   gap: var(--spacing-size-2xs, 0.5rem);
   border-radius: var(--spacing-size-2xs, 0.5rem);
-  /* border: 1px solid var(--border-border-primary, #e4e7ea); */
-  /* background: var(--surface-background-main-base-primary, #fff); */
+  border: 1px solid transparent;
   width: 32px;
   height: 32px;
   text-decoration: none;
   padding: 0;
   position: relative;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .boostlook .toolbar .spirit-nav a:hover,

@@ -86,7 +86,7 @@
 .boostlook nav.pagination > span {
   display: flex;
   flex-direction: column;
-  flex: 1 0 0;
+  flex: 0 1 50%;
   backdrop-filter: blur(8px);
   padding-right: revert;
   padding-left: revert;
@@ -94,6 +94,7 @@
 }
 .boostlook nav.pagination > span.next {
   text-align: right;
+  margin-left: auto;
 }
 
 .boostlook nav.pagination span::before {
@@ -111,6 +112,7 @@
   height: 100%;
   border-radius: var(--padding-padding-xs, 0.75rem);
   border: 1px solid var(--border-border-primary, #e4e7ea);
+  background: var(--pagination-bg, #fff);
   padding: var(--padding-padding-xs, 0.75rem);
   color: var(--text-main-text-primary, #18191b);
   font-size: var(--typography-font-size-sm, 1rem);
@@ -118,12 +120,17 @@
   line-height: var(--typography-line-height-lg, 1.5rem); /* 150% */
   letter-spacing: var(--spacing-size-size-0, 0rem);
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .boostlook nav.pagination > span:hover a {
-  background: var(--surface-background-main-surface-primary, #f5f6f8);
-  color: inherit;
+  border-color: var(--border-border-blue, #92cbe9);
+  background: var(--surface-background-main-surface-blue-secondary, #daeef9);
+}
+
+html.dark .boostlook nav.pagination > span:hover a {
+  border-color: var(--border-border-blue, #92cbe9);
+  background: var(--colors-primary-850, #1A1C29);
 }
 
 .boostlook nav.pagination > span.prev a {
@@ -166,10 +173,7 @@
   height: var(--_arrow-size);
   align-items: center;
   justify-content: center;
-  border: 1px solid transparent;
   border-radius: var(--spacing-size-2xs, 0.5rem);
-  background: var(--surface-background-main-base-primary, #fff);
-  transition: all 0.2s ease;
   transform: translateY(-50%);
 }
 
@@ -187,11 +191,6 @@
 .boostlook nav.pagination > span.next a::after {
   content: var(--icon-arrow-right);
   right: var(--padding-padding-2xs, 0.5rem);
-}
-
-.boostlook nav.pagination > span:hover a::after {
-  border-color: var(--border-border-blue, #92cbe9);
-  background: var(--surface-background-main-surface-blue-secondary, #daeef9);
 }
 
 /* Admonitions */
@@ -589,7 +588,9 @@
 }
 
 .boostlook .edit-this-page a {
-  all: inherit;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
 }
 
 /* Layout Structure */

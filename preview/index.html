@@ -36,8 +36,20 @@
     body {
       font-family: system-ui, -apple-system, sans-serif;
       background: var(--bg); color: var(--fg);
-      max-width: 640px; margin: 0 auto;
+      max-width: 960px; margin: 0 auto;
       padding: 3rem 1.5rem;
+    }
+    .two-col {
+      display: flex;
+      flex-direction: column;
+    }
+    @media (min-width: 640px) {
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        align-items: start;
+      }
     }
     header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
     h1 { font-size: 1.375rem; font-weight: 600; }
@@ -59,6 +71,7 @@
     html.light .icon-moon { display: block; }
     .subtitle { color: var(--muted); margin-bottom: 2.5rem; font-size: 0.9375rem; }
     h2 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 0.5rem; margin-top: 1.75rem; }
+    h2:first-child { margin-top: 0; }
     .links { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 0.5rem; }
     .link-row { display: flex; align-items: baseline; gap: 0.5rem; padding: 0.375rem 0; flex-wrap: wrap; }
     .link-row a { white-space: nowrap; }
@@ -91,23 +104,16 @@
 </head>
 <body>
   <header>
-    <h1>Boostlook v3</h1>
+    <h1>Boostlook v3 Preview</h1>
     <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
       <svg class="icon-sun" viewBox="0 0 512 512"><path d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0s-49.9-131.1 0-181 131.1-49.9 181 0 49.9 131.1 0 181z"/></svg>
       <svg class="icon-moon" viewBox="0 0 512 512"><path d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"/></svg>
     </button>
   </header>
   <p class="subtitle">Preview builds for the new Boost C++ Libraries site design, in collaboration with MetaLab.</p>
-  <p class="desc" style="margin-bottom: 1rem; line-height: 1.5;">These are standalone doc pages styled with boostlook-v3. In production, they are built and uploaded to S3, then pulled into the Django app (the Boost website) which wraps them in the site chrome.</p>
 
-  <h2>Design System</h2>
-  <div class="links">
-    <div class="link-row">
-      <a href="style-guide/index.html">Style Guide</a>
-      <span class="desc">Color primitives, typography, spacing tokens</span>
-    </div>
-  </div>
-
+  <div class="two-col">
+  <div class="col-nav">
   <h2>Library Docs</h2>
   <div class="links">
     <div class="link-row">
@@ -135,7 +141,9 @@
       <span class="tag">Antora</span>
     </div>
   </div>
+  </div>
 
+  <div class="col-changelog">
   <h2>Changelog</h2>
   <div class="changelog-wrap">
     <div class="changelog">
@@ -145,8 +153,10 @@
           <li>Top-level leaf nav links now match section header font weight (wght 600)</li>
           <li>Added divider lines and consistent vertical spacing for all top-level sidebar items</li>
           <li>Aligned indentation between leaf links and togglable sections in both Antora and Asciidoctor sidebars</li>
-          <li>Added missing --leftbar-paddings-leftbar-padding-xs CSS variable</li>
-          <li>Asciidoctor TOC: JS now adds nav-item class to top-level leaf items for proper styling</li>
+          <li>Redesigned tables to match Figma: white cell bg, themed header bg, 14px font, theme-aware strokes</li>
+          <li>Pagination: blue hover on entire block, removed arrow bg/border</li>
+          <li>Fixed spirit-nav hover flash and dark mode pagination text visibility</li>
+          <li>Home icon: hover styles, scaled size, aligned with h1</li>
         </ul></div>
       </div>
       <div class="changelog-item">
@@ -212,10 +222,12 @@
       </div>
     </div>
   </div>
+  </div>
+  </div>
 
   <hr>
   <footer>
-    <a href="https://github.com/boostorg/boostlook/pull/173">PR #173</a>
+    <a href="https://github.com/boostorg/boostlook/pull/173">boostlook PR #173</a> &middot; <a href="https://github.com/boostorg/website-v2-docs/pull/606">website-v2-docs PR #606</a>
   </footer>
 
   <script>

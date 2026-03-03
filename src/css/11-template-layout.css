@@ -147,7 +147,7 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 .boostlook .nav-menu .nav-item:has(> .nav-item-toggle),
 .boostlook .nav-menu li[data-depth="1"]:not(:has(> .nav-item-toggle)) {
   border-top: 1px solid var(--border-border-primary, #e4e7ea);
-  margin-top: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
+  margin-top: 0;
   padding-top: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
   padding-bottom: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
 }
@@ -156,7 +156,6 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 .boostlook .nav-menu > .nav-list > .nav-list > li[data-depth="1"]:first-child {
   border-top: none;
   margin-top: 0;
-  padding-top: 0;
 }
 
 /* Table of Contents Links */
@@ -276,7 +275,6 @@ html.is-clipped--nav:has(.boostlook) div#content {
     padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    border-right: 1px solid var(--border-border-primary, #e4e7ea);
     visibility: visible;
   }
 
