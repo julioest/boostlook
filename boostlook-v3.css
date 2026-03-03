@@ -381,6 +381,7 @@
   --padding-padding-3xs: var(--spacing-size-3xs);
   --padding-padding-xl: var(--spacing-size-xl);
   --leftbar-paddings-leftbar-padding-4xs: var(--spacing-size-4xs);
+  --leftbar-paddings-leftbar-padding-xs: var(--spacing-size-xs);
   --leftbar-paddings-leftbar-padding-2xs: var(--spacing-size-2xs);
   --leftbar-paddings-leftbar-padding-3xs: var(--spacing-size-3xs);
   --padding-padding-md: var(--spacing-size-sm);
@@ -454,6 +455,7 @@
     --padding-padding-2xs: var(--spacing-size-2xs);
     --padding-padding-3xs: var(--spacing-size-3xs);
     --leftbar-paddings-leftbar-padding-4xs: var(--spacing-size-4xs);
+    --leftbar-paddings-leftbar-padding-xs: var(--spacing-size-xs);
     --leftbar-paddings-leftbar-padding-2xs: var(--spacing-size-2xs);
     --leftbar-paddings-leftbar-padding-3xs: var(--spacing-size-3xs);
     --padding-padding-md: var(--spacing-size-md);
@@ -3562,34 +3564,50 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   text-decoration: none;
   padding: var(--leftbar-paddings-leftbar-padding-3xs, 0.25rem) var(--leftbar-paddings-leftbar-padding-2xs, 0.5rem);
   border-radius: var(--padding-padding-3xs, 0.25rem);
+}
+
+.boostlook .nav-menu li[data-depth="1"]:not(:has(> .nav-item-toggle)) > .nav-link {
+  color: var(--text-main-text-primary, #18191b);
   font-variation-settings: "wght" 600, "wdth" 87.5;
+  line-height: var(--typography-line-height-sm, 1rem);
+  letter-spacing: var(--spacing-size-size-0, 0rem);
 }
 
 .boostlook .nav-menu .nav-list li:has(.nav-text),
+.boostlook .nav-menu .nav-list li[data-depth="1"]:not(:has(> .nav-item-toggle)),
 .boostlook #toc > ul.sectlevel1 li:has(> ul):not(:first-of-type) {
   margin-top: var(--leftbar-paddings-leftbar-padding-4xs, 0.125rem);
 }
 
+.boostlook .nav-menu .nav-list li[data-depth="1"]:not(:has(> .nav-item-toggle)) {
+  padding-left: 0;
+}
+
 .boostlook .nav-text,
 .boostlook #toc > ul.sectlevel1 li:has(> ul) > a,
+.boostlook #toc > ul.sectlevel1 > li:not(:has(> ul)) > a,
 .boostlook .nav-menu .nav-item:has(> .nav-item-toggle) > .nav-link {
   color: var(--text-main-text-primary, #18191b);
   font-size: var(--typography-font-size-xs);
   font-variation-settings: "wght" 600, "wdth" 87.5;
   line-height: var(--typography-line-height-sm, 1rem);
+  padding-left: var(--leftbar-paddings-leftbar-padding-3xs, 0.25rem);
   letter-spacing: var(--spacing-size-size-0, 0rem);
 }
 
 /* Section separator lines */
 .boostlook .nav-menu > .nav-list > .nav-item,
 .boostlook .nav-menu .nav-item:has(> .nav-text),
-.boostlook .nav-menu .nav-item:has(> .nav-item-toggle) {
+.boostlook .nav-menu .nav-item:has(> .nav-item-toggle),
+.boostlook .nav-menu li[data-depth="1"]:not(:has(> .nav-item-toggle)) {
   border-top: 1px solid var(--border-border-primary, #e4e7ea);
   margin-top: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
   padding-top: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
+  padding-bottom: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
 }
 
-.boostlook .nav-menu > .nav-list > .nav-item:first-child {
+.boostlook .nav-menu > .nav-list > .nav-item:first-child,
+.boostlook .nav-menu > .nav-list > .nav-list > li[data-depth="1"]:first-child {
   border-top: none;
   margin-top: 0;
   padding-top: 0;
@@ -3792,14 +3810,17 @@ html.is-clipped--nav:has(.boostlook) div#content {
 }
 /* TOC Collapsible Sections (Asciidoctor) */
 
-/* Section separator lines for collapsible items */
-.boostlook #toc > ul.sectlevel1 > li:has(> ul) {
+/* Section separator lines for collapsible items and top-level leaf items */
+.boostlook #toc > ul.sectlevel1 > li:has(> ul),
+.boostlook #toc > ul.sectlevel1 > li:not(:has(> ul)) {
   border-top: 1px solid var(--border-border-primary, #e4e7ea);
   margin-top: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
   padding-top: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
+  padding-bottom: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
 }
 
-.boostlook #toc > ul.sectlevel1 > li:has(> ul):first-child {
+.boostlook #toc > ul.sectlevel1 > li:has(> ul):first-child,
+.boostlook #toc > ul.sectlevel1 > li:not(:has(> ul)):first-child {
   border-top: none;
   margin-top: 0;
   padding-top: 0;

@@ -266,6 +266,7 @@
   --padding-padding-3xs: var(--spacing-size-3xs);
   --padding-padding-xl: var(--spacing-size-xl);
   --leftbar-paddings-leftbar-padding-4xs: var(--spacing-size-4xs);
+  --leftbar-paddings-leftbar-padding-xs: var(--spacing-size-xs);
   --leftbar-paddings-leftbar-padding-2xs: var(--spacing-size-2xs);
   --leftbar-paddings-leftbar-padding-3xs: var(--spacing-size-3xs);
   --padding-padding-md: var(--spacing-size-sm);
@@ -339,6 +340,7 @@
     --padding-padding-2xs: var(--spacing-size-2xs);
     --padding-padding-3xs: var(--spacing-size-3xs);
     --leftbar-paddings-leftbar-padding-4xs: var(--spacing-size-4xs);
+    --leftbar-paddings-leftbar-padding-xs: var(--spacing-size-xs);
     --leftbar-paddings-leftbar-padding-2xs: var(--spacing-size-2xs);
     --leftbar-paddings-leftbar-padding-3xs: var(--spacing-size-3xs);
     --padding-padding-md: var(--spacing-size-md);
