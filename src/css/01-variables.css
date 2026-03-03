@@ -93,7 +93,7 @@
 
   /* Atom One Dark Theme Colors */
   --atom-one-dark-bg: #282c34;
-  --atom-one-dark-text: #abb2bf;
+  --atom-one-dark-text: #FFFFFF;
   --atom-one-dark-keyword: #c678dd;
   --atom-one-dark-operator: #e06c75;
   --atom-one-dark-constant: #56b6c2;
@@ -101,7 +101,7 @@
 
   /* Atom One Light Theme Colors */
   --atom-one-light-bg: #fafafa;
-  --atom-one-light-text: #383a42;
+  --atom-one-light-text: #050816;
   --atom-one-light-keyword: #a626a4;
   --atom-one-light-operator: #e45649;
   --atom-one-light-constant: #0184bb;

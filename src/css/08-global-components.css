@@ -498,7 +498,7 @@ html.dark .boostlook nav.pagination > span:hover a {
   border: initial;
   /* border-bottom-left-radius: unset; */
   background: initial;
-  color: var(--text-code-neutral, #0d0e0f);
+  color: var(--text-code-text, #050816);
   font-size: var(--typography-font-size-xs, 0.875rem);
   font-style: normal;
   font-variation-settings: "wght" 500, "wdth" 87.5;

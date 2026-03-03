@@ -72,7 +72,7 @@ h6 {
 
 body :not(pre):not([class^="L"]) > code {
   /* overrides builtin colors */
-  color: var(--text-code-neutral, #0d0e0f);
+  color: var(--text-code-text, #050816);
   border: 0;
   background-color: unset;
 }

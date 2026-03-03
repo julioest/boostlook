@@ -357,7 +357,7 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook .doc p code:not(:has(> code)),
 .boostlook .doc .colist > table code:not(:has(> code)) {
   display: inline;
-  color: var(--text-code-neutral, #0d0e0f);
+  color: var(--text-code-text, #050816);
   font-size: 0.88em;
   font-style: normal;
   font-variation-settings: "wght" 500, "wdth" 87.5;
@@ -450,16 +450,16 @@ html.dark .boostlook .listingblock > .content > pre {
   text-decoration-color: var(--border-border-blue, #92cbe9);
 }
 
-/* Syntax Highlighting — Figma mapping:
- * Blue  (#1345E8 / #38DDFF) — types & keywords (int, void, const, class, namespace…)
- * Green (#289D30 / #72FE92) — function names, strings
- * Yellow(#A3A38C / #FFF173) — punctuation, numbers, attributes
- * Pink  (#D31FA7 / #F358C0) — preprocessor, special identifiers
- * Grey  (#9E9E9E / #A3A3A3) — comments
- * Text  (--text-main-text-body-primary) — plain identifiers
+/* Syntax Highlighting — Figma 6-role palette:
+ * Keyword    (#1345E8 / #38DDFF) — keywords, types, titles, built-ins, operators
+ * Literal    (#289D30 / #72FE92) — strings, numbers
+ * Comment    (#A3A38C / #FFF173) — comments, quotes
+ * Preprocessor (#D31FA7 / #F358C0) — preprocessor directives
+ * Attribute  (#9E9E9E / #A3A3A3) — attributes, named constants
+ * Text       (#050816 / #FFFFFF) — default text, names, punctuation
  */
 
-/* Keywords & types → Blue */
+/* Keywords & types → Keyword */
 .boostlook .hljs-keyword,
 .boostlook .hljs-selector-tag,
 .boostlook .hljs-subst,
@@ -473,27 +473,33 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook pre span.kt,
 .boostlook pre span.keyword,
 .boostlook pre span.property {
-  color: var(--text-code-blue, #1345E8);
+  color: var(--text-code-keyword, #1345E8);
 }
 
-/* Function names & titles → Green */
+/* Titles, sections, built-ins → Keyword */
 .boostlook .hljs-title,
 .boostlook .hljs-section,
-.boostlook .hljs-selector-id {
-  color: var(--text-code-green, #289D30);
+.boostlook .hljs-selector-id,
+.boostlook .hljs-built_in,
+.boostlook pre span.nf,
+.boostlook pre span.nc {
+  color: var(--text-code-keyword, #1345E8);
 }
 
-/* Identifiers → neutral text */
-.boostlook pre span.n,
+/* Attributes → Attribute */
 .boostlook pre span.na,
+.boostlook pre span.no,
+.boostlook .hljs-attr {
+  color: var(--text-code-attribute, #9E9E9E);
+}
+
+/* Identifiers → Text */
+.boostlook pre span.n,
 .boostlook pre span.nb,
 .boostlook pre span.bp,
-.boostlook pre span.nc,
-.boostlook pre span.no,
 .boostlook pre span.nd,
 .boostlook pre span.ni,
 .boostlook pre span.ne,
-.boostlook pre span.nf,
 .boostlook pre span.py,
 .boostlook pre span.nl,
 .boostlook pre span.nn,
@@ -504,14 +510,13 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook pre span.vg,
 .boostlook pre span.vi,
 .boostlook pre span.identifier {
-  color: var(--text-main-text-body-primary, #2a2c30);
+  color: var(--text-code-text, #050816);
 }
 
-/* Comments → Grey italic */
+/* Comments → Comment */
 .boostlook pre span.c,
 .boostlook pre span.ch,
 .boostlook pre span.cm,
-.boostlook pre span.cp,
 .boostlook pre span.cpf,
 .boostlook pre span.c1,
 .boostlook pre span.cs,
@@ -523,17 +528,17 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook .hljs-quote,
 .boostlook .hljs-bullet,
 .boostlook .hljs-code {
-  color: var(--text-code-grey, #9E9E9E);
+  color: var(--text-code-comment, #A3A38C);
   font-family: "Monaspace Xenon", monospace;
   font-style: italic;
 }
 
-/* Built-in functions → Green (like function names) */
-.boostlook .hljs-built_in {
-  color: var(--text-code-green, #289D30);
+/* Preprocessor (Rouge span.cp) → Preprocessor */
+.boostlook pre span.cp {
+  color: var(--text-code-preprocessor, #D31FA7);
 }
 
-/* Strings → Green */
+/* Strings → Literal */
 .boostlook pre span.s,
 .boostlook pre span.sa,
 .boostlook pre span.sb,
@@ -549,10 +554,10 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook .hljs-doctag,
 .boostlook .hljs-string,
 .boostlook .hljs-addition {
-  color: var(--text-code-green, #289D30);
+  color: var(--text-code-literal, #289D30);
 }
 
-/* Numbers → Yellow */
+/* Numbers → Literal */
 .boostlook .hljs-number,
 .boostlook pre span.mi,
 .boostlook pre span.mf,
@@ -560,36 +565,39 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook pre span.mh,
 .boostlook pre span.mo,
 .boostlook pre span.il {
-  color: var(--text-code-yellow, #A3A38C);
+  color: var(--text-code-literal, #289D30);
 }
 
-/* Operators → Red */
+/* Operators → Keyword */
 .boostlook pre span.o,
 .boostlook pre span.ow {
-  color: var(--text-code-red, #e45649);
+  color: var(--text-code-keyword, #1345E8);
 }
 
-/* Punctuation → neutral (match surrounding code) */
+/* Punctuation → Text */
 .boostlook pre span.p {
-  color: var(--text-main-text-body-primary, #2a2c30);
+  color: var(--text-code-text, #050816);
 }
 
-/* Preprocessor / meta → Pink */
+/* Preprocessor / meta → Preprocessor */
 .boostlook .hljs-meta {
-  color: var(--text-code-pink, #D31FA7);
+  color: var(--text-code-preprocessor, #D31FA7);
 }
 
-/* Deletion, misc → Red */
+/* Deletion, misc → Keyword */
 .boostlook .hljs-deletion,
 .boostlook .hljs-selector-class,
 .boostlook .hljs-template-tag {
-  color: var(--text-code-red, #f9677f);
+  color: var(--text-code-keyword, #1345E8);
 }
 
-.boostlook .hljs-attribute,
+.boostlook .hljs-attribute {
+  color: var(--text-code-attribute, #9E9E9E);
+}
+
 .boostlook .hljs-name,
 .boostlook .hljs-tag {
-  color: var(--text-main-text-primary, #18191b);
+  color: var(--text-code-text, #050816);
 }
 
 /* Syntax Defaults */
@@ -609,28 +617,28 @@ html.dark .boostlook .hljs-keyword,
 html.dark .boostlook .hljs-selector-tag,
 html.dark .boostlook .hljs-subst,
 html.dark .boostlook .hljs-type {
-  color: var(--text-code-blue, #38DDFF);
+  color: var(--text-code-keyword, #38DDFF);
 }
 
 html.dark .boostlook .hljs-title,
 html.dark .boostlook .hljs-section,
 html.dark .boostlook .hljs-selector-id,
 html.dark .boostlook .hljs-built_in {
-  color: var(--text-code-green, #72FE92);
+  color: var(--text-code-keyword, #38DDFF);
 }
 
 html.dark .boostlook .hljs-comment,
 html.dark .boostlook .hljs-quote,
 html.dark .boostlook .hljs-bullet,
 html.dark .boostlook .hljs-code {
-  color: var(--text-code-grey, #A3A3A3);
+  color: var(--text-code-comment, #FFF173);
   font-style: italic;
 }
 
 html.dark .boostlook .hljs-doctag,
 html.dark .boostlook .hljs-string,
 html.dark .boostlook .hljs-addition {
-  color: var(--text-code-green, #72FE92);
+  color: var(--text-code-literal, #72FE92);
 }
 
 html.dark .boostlook .hljs-number,
@@ -643,32 +651,36 @@ html.dark .boostlook pre span.mb,
 html.dark .boostlook pre span.mh,
 html.dark .boostlook pre span.mo,
 html.dark .boostlook pre span.il {
-  color: var(--text-code-yellow, #FFF173);
+  color: var(--text-code-literal, #72FE92);
 }
 
 html.dark .boostlook pre span.o,
 html.dark .boostlook pre span.ow {
-  color: var(--text-code-red, #e06c75);
+  color: var(--text-code-keyword, #38DDFF);
 }
 
 html.dark .boostlook pre span.p {
-  color: var(--text-main-text-primary, #f5f6f8);
+  color: var(--text-code-text, #FFFFFF);
 }
 
 html.dark .boostlook .hljs-meta {
-  color: var(--text-code-pink, #F358C0);
+  color: var(--text-code-preprocessor, #F358C0);
 }
 
 html.dark .boostlook .hljs-deletion,
 html.dark .boostlook .hljs-selector-class,
 html.dark .boostlook .hljs-template-tag {
-  color: var(--text-code-red, #e06c75);
+  color: var(--text-code-keyword, #38DDFF);
 }
 
 html.dark .boostlook .hljs-attribute,
+html.dark .boostlook .hljs-attr {
+  color: var(--text-code-attribute, #A3A3A3);
+}
+
 html.dark .boostlook .hljs-name,
 html.dark .boostlook .hljs-tag {
-  color: var(--text-main-text-primary, #f5f6f8);
+  color: var(--text-code-text, #FFFFFF);
 }
 
 /* Override cpp-highlight theme from site.css */
@@ -681,25 +693,25 @@ html.dark .boostlook .hljs-tag {
 .boostlook .doc pre.highlight code.cpp-highlight .cpp-keyword,
 .boostlook pre.highlight code.cpp-highlight .cpp-keyword,
 .boostlook code.cpp-highlight .cpp-keyword {
-  color: var(--text-code-blue, #1345E8);
+  color: var(--text-code-keyword, #1345E8);
 }
 
 .boostlook .doc pre.highlight code.cpp-highlight .cpp-string,
 .boostlook pre.highlight code.cpp-highlight .cpp-string,
 .boostlook code.cpp-highlight .cpp-string {
-  color: var(--text-code-green, #289D30);
+  color: var(--text-code-literal, #289D30);
 }
 
 .boostlook .doc pre.highlight code.cpp-highlight .cpp-preprocessor,
 .boostlook pre.highlight code.cpp-highlight .cpp-preprocessor,
 .boostlook code.cpp-highlight .cpp-preprocessor {
-  color: var(--text-code-pink, #D31FA7);
+  color: var(--text-code-preprocessor, #D31FA7);
 }
 
 .boostlook .doc pre.highlight code.cpp-highlight .cpp-comment,
 .boostlook pre.highlight code.cpp-highlight .cpp-comment,
 .boostlook code.cpp-highlight .cpp-comment {
-  color: var(--text-code-grey, #9E9E9E);
+  color: var(--text-code-comment, #A3A38C);
   font-family: "Monaspace Xenon", monospace;
   font-style: italic;
 }
@@ -707,7 +719,7 @@ html.dark .boostlook .hljs-tag {
 .boostlook .doc pre.highlight code.cpp-highlight .cpp-attribute,
 .boostlook pre.highlight code.cpp-highlight .cpp-attribute,
 .boostlook code.cpp-highlight .cpp-attribute {
-  color: var(--text-code-yellow, #A3A38C);
+  color: var(--text-code-attribute, #9E9E9E);
 }
 
 /* Dark mode cpp-highlight overrides */
@@ -720,25 +732,25 @@ html.dark .boostlook code.cpp-highlight {
 html.dark .boostlook .doc pre.highlight code.cpp-highlight .cpp-keyword,
 html.dark .boostlook pre.highlight code.cpp-highlight .cpp-keyword,
 html.dark .boostlook code.cpp-highlight .cpp-keyword {
-  color: var(--text-code-blue, #38DDFF);
+  color: var(--text-code-keyword, #38DDFF);
 }
 
 html.dark .boostlook .doc pre.highlight code.cpp-highlight .cpp-string,
 html.dark .boostlook pre.highlight code.cpp-highlight .cpp-string,
 html.dark .boostlook code.cpp-highlight .cpp-string {
-  color: var(--text-code-green, #72FE92);
+  color: var(--text-code-literal, #72FE92);
 }
 
 html.dark .boostlook .doc pre.highlight code.cpp-highlight .cpp-preprocessor,
 html.dark .boostlook pre.highlight code.cpp-highlight .cpp-preprocessor,
 html.dark .boostlook code.cpp-highlight .cpp-preprocessor {
-  color: var(--text-code-pink, #F358C0);
+  color: var(--text-code-preprocessor, #F358C0);
 }
 
 html.dark .boostlook .doc pre.highlight code.cpp-highlight .cpp-comment,
 html.dark .boostlook pre.highlight code.cpp-highlight .cpp-comment,
 html.dark .boostlook code.cpp-highlight .cpp-comment {
-  color: var(--text-code-grey, #A3A3A3);
+  color: var(--text-code-comment, #FFF173);
   font-family: "Monaspace Xenon", monospace;
   font-style: italic;
 }
@@ -746,5 +758,5 @@ html.dark .boostlook code.cpp-highlight .cpp-comment {
 html.dark .boostlook .doc pre.highlight code.cpp-highlight .cpp-attribute,
 html.dark .boostlook pre.highlight code.cpp-highlight .cpp-attribute,
 html.dark .boostlook code.cpp-highlight .cpp-attribute {
-  color: var(--text-code-yellow, #FFF173);
+  color: var(--text-code-attribute, #A3A3A3);
 }

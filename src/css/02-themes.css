@@ -48,16 +48,12 @@ html {
   --text-states-text-additional-secondary: var(--colors-secondary-500);
   --text-states-text-additional-tetriary: var(--colors-secondary-600);
 
-  --text-code-red: var(--atom-one-light-operator);
-  --text-code-green: var(--colors-syntax-strong-green);
-  --text-code-blue: var(--colors-syntax-strong-blue);
-  --text-code-yellow: var(--colors-syntax-strong-yellow);
-  --text-code-pink: var(--colors-syntax-strong-pink);
-  --text-code-grey: var(--colors-syntax-strong-grey);
-  --text-code-purple: var(--atom-one-light-keyword);
-  --text-code-turquoise: var(--atom-one-light-constant);
-  --text-code-neutral: var(--atom-one-light-text);
-  --text-code-navy: var(--atom-one-light-class);
+  --text-code-keyword: var(--colors-syntax-strong-blue);
+  --text-code-text: #050816;
+  --text-code-literal: var(--colors-syntax-strong-green);
+  --text-code-comment: var(--colors-syntax-strong-yellow);
+  --text-code-preprocessor: var(--colors-syntax-strong-pink);
+  --text-code-attribute: var(--colors-syntax-strong-grey);
 
   --surface-background-states-surface-error-weak: var(--colors-error-weak);
   --text-states-text-error-strong: var(--colors-error-strong);
@@ -189,16 +185,12 @@ html.dark {
   --text-states-text-additional-secondary: var(--colors-secondary-500);
   --text-states-text-additional-tetriary: var(--colors-secondary-400);
 
-  --text-code-red: var(--atom-one-dark-operator);
-  --text-code-green: var(--colors-syntax-weak-green);
-  --text-code-blue: var(--colors-syntax-weak-blue);
-  --text-code-yellow: var(--colors-syntax-weak-yellow);
-  --text-code-pink: var(--colors-syntax-weak-pink);
-  --text-code-grey: var(--colors-syntax-weak-grey);
-  --text-code-purple: var(--atom-one-dark-keyword);
-  --text-code-turquoise: var(--atom-one-dark-constant);
-  --text-code-neutral: var(--atom-one-dark-text);
-  --text-code-navy: var(--atom-one-dark-class);
+  --text-code-keyword: var(--colors-syntax-weak-blue);
+  --text-code-text: #FFFFFF;
+  --text-code-literal: var(--colors-syntax-weak-green);
+  --text-code-comment: var(--colors-syntax-weak-yellow);
+  --text-code-preprocessor: var(--colors-syntax-weak-pink);
+  --text-code-attribute: var(--colors-syntax-weak-grey);
 
   --surface-background-states-surface-error-weak: var(--colors-error-strong);
   --text-states-text-error-strong: var(--colors-error-mid);
