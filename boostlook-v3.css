@@ -3079,21 +3079,13 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 }
 
 /* Tables */
-/* Horizontal scroll wrapper for tables on mobile */
 /* Horizontal scroll for tables on mobile */
 @media screen and (max-width: 767px) {
-  .boostlook .doc .sect1,
-  .boostlook .doc .sect2,
-  .boostlook .doc .sect3,
-  .boostlook .doc .sectionbody,
-  .boostlook:not(:has(.doc)) #content {
-    overflow-x: clip;
-  }
-
-  .boostlook #content table.tableblock,
-  .boostlook:not(:has(.doc)) table.table,
-  .boostlook#libraryReadMe > table {
-    display: block;
+  .boostlook .doc .sect1:has(table.tableblock),
+  .boostlook .doc .sect2:has(table.tableblock),
+  .boostlook .doc .sect3:has(table.tableblock),
+  .boostlook .doc .sectionbody:has(> table.tableblock),
+  .boostlook:not(:has(.doc)) #content:has(table.table) {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -3101,6 +3093,12 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   .boostlook #content table.tableblock colgroup,
   .boostlook:not(:has(.doc)) table.table colgroup {
     display: none;
+  }
+
+  .boostlook #content table.tableblock,
+  .boostlook:not(:has(.doc)) table.table,
+  .boostlook#libraryReadMe > table {
+    min-width: max-content;
   }
 }
 
