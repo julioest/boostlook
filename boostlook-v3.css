@@ -3080,14 +3080,27 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 
 /* Tables */
 /* Horizontal scroll wrapper for tables on mobile */
+/* Horizontal scroll for tables on mobile */
 @media screen and (max-width: 767px) {
+  .boostlook .doc .sect1,
+  .boostlook .doc .sect2,
+  .boostlook .doc .sect3,
+  .boostlook .doc .sectionbody,
+  .boostlook:not(:has(.doc)) #content {
+    overflow-x: clip;
+  }
+
   .boostlook #content table.tableblock,
   .boostlook:not(:has(.doc)) table.table,
   .boostlook#libraryReadMe > table {
     display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    max-width: 100%;
+  }
+
+  .boostlook #content table.tableblock colgroup,
+  .boostlook:not(:has(.doc)) table.table colgroup {
+    display: none;
   }
 }
 
