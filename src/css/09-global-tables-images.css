@@ -1,5 +1,22 @@
 
 /* Tables */
+/* Horizontal scroll wrapper for tables on mobile */
+@media screen and (max-width: 767px) {
+  .boostlook #content .tableblock,
+  .boostlook:not(:has(.doc)) .table,
+  .boostlook#libraryReadMe > table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .boostlook #content table.tableblock,
+  .boostlook:not(:has(.doc)) table.table,
+  .boostlook#libraryReadMe > table {
+    min-width: max-content;
+  }
+}
+
 /* Reset Antora Table Styles */
 .boostlook #content table.tableblock tr,
 .boostlook #content table.tableblock td,
