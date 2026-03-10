@@ -647,8 +647,6 @@
   .boostlook .toolbar {
     flex-wrap: wrap;
     gap: 0.75rem;
-    margin-left: calc(-1 * var(--main-margin));
-    margin-right: calc(-1 * var(--main-margin));
   }
 
   .search-container {
