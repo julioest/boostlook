@@ -607,7 +607,7 @@ html.dark .boostlook nav.pagination > span:hover a {
 
 .boostlook #footer {
   padding-top: var(--padding-padding-sm);
-  padding-bottom: var(--padding-padding-sm);
+  padding-bottom: calc(var(--padding-padding-sm) + env(safe-area-inset-bottom, 0px));
   color: var(--text-main-text-body-quaternary, #949a9e);
   font-size: var(--typography-font-size-xs);
   font-variation-settings: "wght" 500, "wdth" 87.5;
