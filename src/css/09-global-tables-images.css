@@ -70,6 +70,14 @@
     display: none;
   }
 
+  .boostlook #content table.tableblock th,
+  .boostlook #content table.tableblock td,
+  .boostlook:not(:has(.doc)) table.table th,
+  .boostlook:not(:has(.doc)) table.table td,
+  .boostlook#libraryReadMe > table th,
+  .boostlook#libraryReadMe > table td {
+    min-width: 100px !important;
+  }
 }
 
 .boostlook #content table.tableblock caption,
