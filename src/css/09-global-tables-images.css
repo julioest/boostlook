@@ -1,31 +1,5 @@
 
 /* Tables */
-/* Horizontal scroll for tables on mobile */
-@media screen and (max-width: 767px) {
-  .boostlook #content table.tableblock,
-  .boostlook:not(:has(.doc)) table.table,
-  .boostlook#libraryReadMe > table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    max-width: 100%;
-  }
-
-  .boostlook #content table.tableblock colgroup,
-  .boostlook:not(:has(.doc)) table.table colgroup {
-    display: none;
-  }
-
-  .boostlook #content table.tableblock th,
-  .boostlook #content table.tableblock td,
-  .boostlook:not(:has(.doc)) table.table th,
-  .boostlook:not(:has(.doc)) table.table td,
-  .boostlook#libraryReadMe > table th,
-  .boostlook#libraryReadMe > table td {
-    white-space: nowrap;
-  }
-}
-
 /* Reset Antora Table Styles */
 .boostlook #content table.tableblock tr,
 .boostlook #content table.tableblock td,
@@ -72,6 +46,38 @@
 .boostlook:not(:has(.doc)) table.table,
 .boostlook#libraryReadMe > table.stretch {
   min-width: 100%;
+}
+
+/* Horizontal scroll for tables on mobile */
+@media screen and (max-width: 767px) {
+  .boostlook #content table.tableblock,
+  .boostlook:not(:has(.doc)) table.table,
+  .boostlook#libraryReadMe > table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+
+  .boostlook #content table.tableblock.stretch,
+  .boostlook:not(:has(.doc)) table.table,
+  .boostlook#libraryReadMe > table.stretch {
+    min-width: unset;
+  }
+
+  .boostlook #content table.tableblock colgroup,
+  .boostlook:not(:has(.doc)) table.table colgroup {
+    display: none;
+  }
+
+  .boostlook #content table.tableblock th,
+  .boostlook #content table.tableblock td,
+  .boostlook:not(:has(.doc)) table.table th,
+  .boostlook:not(:has(.doc)) table.table td,
+  .boostlook#libraryReadMe > table th,
+  .boostlook#libraryReadMe > table td {
+    white-space: nowrap;
+  }
 }
 
 .boostlook #content table.tableblock caption,
