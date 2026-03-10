@@ -649,6 +649,10 @@
     gap: 0.75rem;
   }
 
+  .boostlook #content .nav-toggle {
+    margin-right: 0;
+  }
+
   .search-container {
     order: 99;
     flex: 1 0 100%;
