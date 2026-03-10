@@ -4278,7 +4278,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   text-decoration: underline;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) {
   display: flex;
   align-items: center;
   padding: 0;
@@ -4289,11 +4289,11 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   background: none;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type::after {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child)::after {
   content: none;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type a {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) a {
   display: flex;
   align-items: center;
   gap: var(--spacing-size-3xs, 0.25rem);
@@ -4315,21 +4315,21 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   margin: 0 var(--spacing-size-2xs, 0.5rem);
 }
 
-.boostlook .breadcrumbs ul li:first-of-type::after,
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child)::after,
 .boostlook .breadcrumbs ul li:last-of-type::after {
   content: none;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type a svg {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) a svg {
   display: none;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type a::before {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) a::before {
   content: var(--icon-home);
   transform: scale(1.25);
 }
 
-.boostlook .breadcrumbs ul li:first-of-type a {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4340,7 +4340,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type a:hover {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) a:hover {
   border-color: var(--border-border-blue, #92cbe9);
   background: var(--surface-background-main-surface-blue-secondary, #daeef9);
 }
