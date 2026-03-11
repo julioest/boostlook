@@ -115,39 +115,45 @@ Asciidoctor::Extensions.register do
             expandForHash();
             // If no saved state and no hash, leave all collapsed (default)
 
-            // Save and restore TOC scroll position
-            var scrollKey = storageKey + ':scroll';
+            // Save and restore TOC scroll position per hash
+            var scrollMap = {};
+            var lastHash = window.location.hash || '#top';
+
             function saveTocScroll() {
-              try {
-                localStorage.setItem(scrollKey, toc.scrollTop);
-              } catch(e) {}
+              scrollMap[lastHash] = toc.scrollTop;
             }
-            function restoreTocScroll() {
-              try {
-                var pos = localStorage.getItem(scrollKey);
-                if (pos !== null) toc.scrollTop = parseInt(pos, 10);
-              } catch(e) {}
+
+            function restoreTocScroll(hash) {
+              var pos = scrollMap[hash];
+              if (pos !== undefined) {
+                toc.scrollTop = pos;
+              }
             }
-            restoreTocScroll();
 
             // Save scroll position when clicking nav links
             toc.addEventListener('click', function(e) {
               if (e.target.closest('a')) saveTocScroll();
             });
 
-            // Restore on back/forward navigation
+            // Restore on hash change (covers back/forward for same-page anchors)
+            window.addEventListener('hashchange', function() {
+              var newHash = window.location.hash || '#top';
+              restoreTocScroll(newHash);
+              lastHash = newHash;
+              expandForHash();
+              saveState();
+              highlightActiveLink();
+            });
+
+            // Also handle popstate for full back/forward
             window.addEventListener('popstate', function() {
+              var newHash = window.location.hash || '#top';
               setTimeout(function() {
-                restoreTocScroll();
+                restoreTocScroll(newHash);
+                lastHash = newHash;
                 expandForHash();
                 highlightActiveLink();
               }, 0);
-            });
-
-            // Re-expand and highlight on hash change
-            window.addEventListener('hashchange', function() {
-              expandForHash();
-              saveState();
             });
 
             // Theme toggle
