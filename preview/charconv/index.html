@@ -1636,6 +1636,12 @@ html.dark .boostlook .listingblock > .content > pre {
   margin-left: var(--spacing-size-xl);
   border: 1px solid var(--border-border-secondary, #d5d7d9);
 }
+
+@media screen and (max-width: 767px) {
+  .boostlook#libraryReadMe .literalblock:has(pre):not(:is(dd pre, td pre)) {
+    margin-left: 0;
+  }
+}
 .boostlook .olist.arabic > ol > li .listingblock:has(> .content > pre):not(:is(dd pre, td pre)),
 .boostlook:not(:has(.doc)) .orderedlist > ol > li .listingblock:has(> .content > pre.highlight):not(:is(dd pre, td pre)) {
   margin-left: 0;
@@ -2239,6 +2245,21 @@ html.dark .boostlook code.cpp-highlight .cpp-attribute {
   margin-left: var(--spacing-size-xl, 2rem);
 }
 
+@media screen and (max-width: 767px) {
+  .boostlook .sectionbody .quoteblock,
+  .boostlook .sectionbody .doc .quoteblock,
+  .boostlook .sectionbody .verseblock,
+  .boostlook .sectionbody .doc .verseblock,
+  .boostlook .sectionbody div.blockquote,
+  .boostlook .section .quoteblock,
+  .boostlook .section .doc .quoteblock,
+  .boostlook .section .verseblock,
+  .boostlook .section .doc .verseblock,
+  .boostlook .section div.blockquote {
+    margin-left: 0;
+  }
+}
+
 .boostlook .quoteblock:not(:first-child),
 .boostlook .doc .quoteblock:not(:first-child),
 .boostlook .verseblock:not(:first-child),
@@ -2660,7 +2681,7 @@ html.dark .boostlook nav.pagination > span:hover a {
   line-height: var(--typography-line-height-lg, 1.5rem);
   letter-spacing: var(--spacing-size-size-0, 0rem);
   font-weight: 600;
-  color: #000 !important;
+  color: var(--text-main-text-primary, #18191b) !important;
   /*margin-bottom: var(--spacing-size-2xs, 0.5rem);*/
 }
 .boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(.hdlist1) dd  a:hover {
@@ -2769,6 +2790,17 @@ html.dark .boostlook nav.pagination > span:hover a {
   margin-left: var(--spacing-size-xl);
 }
 
+@media screen and (max-width: 767px) {
+  .boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(.hdlist1) {
+    margin-left: 0;
+  }
+
+  .boostlook .dlist dl > dd:not(:is(dl dl dd)),
+  .boostlook:not(:has(.doc)) .variablelist dl > dd:not(:is(dl dl dd)) {
+    margin-left: 0;
+  }
+}
+
 .boostlook .dlist dl dd p,
 .boostlook:not(:has(.doc)) .variablelist dl dd p {
   font: inherit;
@@ -2813,7 +2845,7 @@ html.dark .boostlook nav.pagination > span:hover a {
 
 .boostlook #footer {
   padding-top: var(--padding-padding-sm);
-  padding-bottom: var(--padding-padding-sm);
+  padding-bottom: calc(var(--padding-padding-sm) + env(safe-area-inset-bottom, 0px));
   color: var(--text-main-text-body-quaternary, #949a9e);
   font-size: var(--typography-font-size-xs);
   font-variation-settings: "wght" 500, "wdth" 87.5;
@@ -3135,6 +3167,38 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 .boostlook:not(:has(.doc)) table.table,
 .boostlook#libraryReadMe > table.stretch {
   min-width: 100%;
+}
+
+/* Horizontal scroll for tables on mobile */
+@media screen and (max-width: 767px) {
+  .boostlook #content table.tableblock,
+  .boostlook:not(:has(.doc)) table.table,
+  .boostlook#libraryReadMe > table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+
+  .boostlook #content table.tableblock.stretch,
+  .boostlook:not(:has(.doc)) table.table,
+  .boostlook#libraryReadMe > table.stretch {
+    min-width: unset;
+  }
+
+  .boostlook #content table.tableblock colgroup,
+  .boostlook:not(:has(.doc)) table.table colgroup {
+    display: none;
+  }
+
+  .boostlook #content table.tableblock th,
+  .boostlook #content table.tableblock td,
+  .boostlook:not(:has(.doc)) table.table th,
+  .boostlook:not(:has(.doc)) table.table td,
+  .boostlook#libraryReadMe > table th,
+  .boostlook#libraryReadMe > table td {
+    min-width: 100px !important;
+  }
 }
 
 .boostlook #content table.tableblock caption,
@@ -4222,6 +4286,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
 .boostlook .breadcrumbs {
   display: block;
   flex: 1 1;
+  min-width: 0;
   padding: 0;
   font-size: inherit;
   line-height: revert;
@@ -4259,6 +4324,17 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   .boostlook .breadcrumbs ul li:not(:first-child):not(:last-child) {
     display: none;
   }
+
+  .boostlook .breadcrumbs ul li:last-child {
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  .boostlook .breadcrumbs ul li:last-child a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
 }
 
 .boostlook .breadcrumbs ul li a {
@@ -4276,7 +4352,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   text-decoration: underline;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) {
   display: flex;
   align-items: center;
   padding: 0;
@@ -4287,11 +4363,11 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   background: none;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type::after {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child)::after {
   content: none;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type a {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) a {
   display: flex;
   align-items: center;
   gap: var(--spacing-size-3xs, 0.25rem);
@@ -4313,21 +4389,21 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   margin: 0 var(--spacing-size-2xs, 0.5rem);
 }
 
-.boostlook .breadcrumbs ul li:first-of-type::after,
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child)::after,
 .boostlook .breadcrumbs ul li:last-of-type::after {
   content: none;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type a svg {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) a svg {
   display: none;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type a::before {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) a::before {
   content: var(--icon-home);
   transform: scale(1.25);
 }
 
-.boostlook .breadcrumbs ul li:first-of-type a {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4338,7 +4414,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.boostlook .breadcrumbs ul li:first-of-type a:hover {
+.boostlook .breadcrumbs ul li:first-of-type:not(:only-child) a:hover {
   border-color: var(--border-border-blue, #92cbe9);
   background: var(--surface-background-main-surface-blue-secondary, #daeef9);
 }
@@ -4635,6 +4711,10 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   .boostlook .toolbar {
     flex-wrap: wrap;
     gap: 0.75rem;
+  }
+
+  .boostlook #content .nav-toggle {
+    margin-right: 0;
   }
 
   .search-container {
@@ -7272,17 +7352,6 @@ Last updated 2026-02-13 09:08:50 -0500
       highlightActiveLink();
     }
 
-    // Add nav-item class to top-level leaf items (no child ul)
-    var sectlevel1 = toc.querySelector('ul.sectlevel1');
-    if (sectlevel1) {
-      var topItems = sectlevel1.children;
-      for (var i = 0; i < topItems.length; i++) {
-        if (topItems[i].tagName === 'LI' && !topItems[i].querySelector(':scope > ul')) {
-          topItems[i].classList.add('nav-item');
-        }
-      }
-    }
-
     // Inject toggle buttons and set up click handlers
     for (var i = 0; i < collapsibleItems.length; i++) {
       (function(li) {
@@ -7308,6 +7377,35 @@ Last updated 2026-02-13 09:08:50 -0500
     // Always expand section matching current hash
     expandForHash();
     // If no saved state and no hash, leave all collapsed (default)
+
+    // Save and restore TOC scroll position
+    var scrollKey = storageKey + ':scroll';
+    function saveTocScroll() {
+      try {
+        localStorage.setItem(scrollKey, toc.scrollTop);
+      } catch(e) {}
+    }
+    function restoreTocScroll() {
+      try {
+        var pos = localStorage.getItem(scrollKey);
+        if (pos !== null) toc.scrollTop = parseInt(pos, 10);
+      } catch(e) {}
+    }
+    restoreTocScroll();
+
+    // Save scroll position when clicking nav links
+    toc.addEventListener('click', function(e) {
+      if (e.target.closest('a')) saveTocScroll();
+    });
+
+    // Restore on back/forward navigation
+    window.addEventListener('popstate', function() {
+      setTimeout(function() {
+        restoreTocScroll();
+        expandForHash();
+        highlightActiveLink();
+      }, 0);
+    });
 
     // Re-expand and highlight on hash change
     window.addEventListener('hashchange', function() {

@@ -115,6 +115,35 @@ Asciidoctor::Extensions.register do
             expandForHash();
             // If no saved state and no hash, leave all collapsed (default)
 
+            // Save and restore TOC scroll position
+            var scrollKey = storageKey + ':scroll';
+            function saveTocScroll() {
+              try {
+                localStorage.setItem(scrollKey, toc.scrollTop);
+              } catch(e) {}
+            }
+            function restoreTocScroll() {
+              try {
+                var pos = localStorage.getItem(scrollKey);
+                if (pos !== null) toc.scrollTop = parseInt(pos, 10);
+              } catch(e) {}
+            }
+            restoreTocScroll();
+
+            // Save scroll position when clicking nav links
+            toc.addEventListener('click', function(e) {
+              if (e.target.closest('a')) saveTocScroll();
+            });
+
+            // Restore on back/forward navigation
+            window.addEventListener('popstate', function() {
+              setTimeout(function() {
+                restoreTocScroll();
+                expandForHash();
+                highlightActiveLink();
+              }, 0);
+            });
+
             // Re-expand and highlight on hash change
             window.addEventListener('hashchange', function() {
               expandForHash();
