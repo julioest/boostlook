@@ -33,6 +33,21 @@
   margin-left: var(--spacing-size-xl, 2rem);
 }
 
+@media screen and (max-width: 767px) {
+  .boostlook .sectionbody .quoteblock,
+  .boostlook .sectionbody .doc .quoteblock,
+  .boostlook .sectionbody .verseblock,
+  .boostlook .sectionbody .doc .verseblock,
+  .boostlook .sectionbody div.blockquote,
+  .boostlook .section .quoteblock,
+  .boostlook .section .doc .quoteblock,
+  .boostlook .section .verseblock,
+  .boostlook .section .doc .verseblock,
+  .boostlook .section div.blockquote {
+    margin-left: 0;
+  }
+}
+
 .boostlook .quoteblock:not(:first-child),
 .boostlook .doc .quoteblock:not(:first-child),
 .boostlook .verseblock:not(:first-child),

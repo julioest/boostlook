@@ -192,6 +192,12 @@ html.dark .boostlook .listingblock > .content > pre {
   margin-left: var(--spacing-size-xl);
   border: 1px solid var(--border-border-secondary, #d5d7d9);
 }
+
+@media screen and (max-width: 767px) {
+  .boostlook#libraryReadMe .literalblock:has(pre):not(:is(dd pre, td pre)) {
+    margin-left: 0;
+  }
+}
 .boostlook .olist.arabic > ol > li .listingblock:has(> .content > pre):not(:is(dd pre, td pre)),
 .boostlook:not(:has(.doc)) .orderedlist > ol > li .listingblock:has(> .content > pre.highlight):not(:is(dd pre, td pre)) {
   margin-left: 0;

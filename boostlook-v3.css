@@ -1626,6 +1626,12 @@ html.dark .boostlook .listingblock > .content > pre {
   margin-left: var(--spacing-size-xl);
   border: 1px solid var(--border-border-secondary, #d5d7d9);
 }
+
+@media screen and (max-width: 767px) {
+  .boostlook#libraryReadMe .literalblock:has(pre):not(:is(dd pre, td pre)) {
+    margin-left: 0;
+  }
+}
 .boostlook .olist.arabic > ol > li .listingblock:has(> .content > pre):not(:is(dd pre, td pre)),
 .boostlook:not(:has(.doc)) .orderedlist > ol > li .listingblock:has(> .content > pre.highlight):not(:is(dd pre, td pre)) {
   margin-left: 0;
@@ -2227,6 +2233,21 @@ html.dark .boostlook code.cpp-highlight .cpp-attribute {
 .boostlook .section .doc .verseblock,
 .boostlook .section div.blockquote {
   margin-left: var(--spacing-size-xl, 2rem);
+}
+
+@media screen and (max-width: 767px) {
+  .boostlook .sectionbody .quoteblock,
+  .boostlook .sectionbody .doc .quoteblock,
+  .boostlook .sectionbody .verseblock,
+  .boostlook .sectionbody .doc .verseblock,
+  .boostlook .sectionbody div.blockquote,
+  .boostlook .section .quoteblock,
+  .boostlook .section .doc .quoteblock,
+  .boostlook .section .verseblock,
+  .boostlook .section .doc .verseblock,
+  .boostlook .section div.blockquote {
+    margin-left: 0;
+  }
 }
 
 .boostlook .quoteblock:not(:first-child),
