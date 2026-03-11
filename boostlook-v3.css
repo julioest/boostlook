@@ -2650,7 +2650,7 @@ html.dark .boostlook nav.pagination > span:hover a {
   line-height: var(--typography-line-height-lg, 1.5rem);
   letter-spacing: var(--spacing-size-size-0, 0rem);
   font-weight: 600;
-  color: #000 !important;
+  color: var(--text-main-text-primary, #18191b) !important;
   /*margin-bottom: var(--spacing-size-2xs, 0.5rem);*/
 }
 .boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(.hdlist1) dd  a:hover {
@@ -2757,6 +2757,17 @@ html.dark .boostlook nav.pagination > span:hover a {
 .boostlook .dlist dl > dd:not(:is(dl dl dd)),
 .boostlook:not(:has(.doc)) .variablelist dl > dd:not(:is(dl dl dd)) {
   margin-left: var(--spacing-size-xl);
+}
+
+@media screen and (max-width: 767px) {
+  .boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(.hdlist1) {
+    margin-left: 0;
+  }
+
+  .boostlook .dlist dl > dd:not(:is(dl dl dd)),
+  .boostlook:not(:has(.doc)) .variablelist dl > dd:not(:is(dl dl dd)) {
+    margin-left: 0;
+  }
 }
 
 .boostlook .dlist dl dd p,
