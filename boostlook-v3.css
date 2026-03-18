@@ -2922,7 +2922,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 .boostlook:not(:has(.doc))#antora-template-wrapper > #content > ul:not([class])> li,
 div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #content > ul:not([class])> li {
   position: relative;
-  padding-left: 1.25rem;
+  padding-left: 2rem;
   line-height: var(--typography-line-height-lg, 1.5rem);
 }
 
@@ -2961,12 +2961,12 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   position: absolute;
   left: 0;
   top: 0;
-  width: 16px;
+  width: 24px;
   height: var(--typography-line-height-lg, 1.5rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-main-text-link-blue, #026a9f);
+  color: var(--text-main-text-primary, #18191b);
 }
 
 /* Ordered Lists */
