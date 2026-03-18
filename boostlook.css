@@ -2428,7 +2428,11 @@ html.dark .boostlook .hljs-code {
 }
 
 .boostlook .edit-this-page a {
-  all: inherit;
+  color: inherit;
+  font: inherit;
+  font-variation-settings: inherit;
+  letter-spacing: inherit;
+  text-decoration: none;
 }
 
 /* Layout Structure */
@@ -2748,15 +2752,13 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   display: revert;
 }
 
-/* Add intendation */
-.boostlook #content .sectionbody > table.tableblock,
-.boostlook #content .section > table.tableblock,
-.boostlook .sectionbody > div.informaltable:not(:is(.informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))))),
-.boostlook .section > div.informaltable:not(:is(.informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))))),
-.boostlook:not(:has(.doc)) .sectionbody > div.table .table-contents,
-.boostlook:not(:has(.doc)) .section > div.table .table-contents,
-.boostlook#libraryReadMe > table {
-  margin-left: var(--spacing-size-xl, 2rem);
+/* Prevent tables from overflowing their container */
+.boostlook #content .sectionbody,
+.boostlook #content .section,
+.boostlook:not(:has(.doc)) .sectionbody,
+.boostlook:not(:has(.doc)) .section,
+.boostlook#libraryReadMe {
+  overflow-x: auto;
 }
 
 .boostlook #content table.tableblock:not(:first-child),
@@ -2768,8 +2770,81 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 .boostlook #content table.tableblock.stretch,
 .boostlook:not(:has(.doc)) table.table,
 .boostlook#libraryReadMe > table.stretch {
-  min-width: 100%;
-  margin-left: var(--spacing-size-xl, 2rem);
+  width: 100% !important;
+}
+
+/* Override Asciidoctor's inline col width: 50% */
+.boostlook #content table.tableblock,
+.boostlook:not(:has(.doc)) table.table,
+.boostlook#libraryReadMe > table {
+  table-layout: auto !important;
+}
+
+/* Neutralize Asciidoctor col inline widths so auto layout can work */
+.boostlook #content table.tableblock col,
+.boostlook:not(:has(.doc)) table.table col,
+.boostlook#libraryReadMe > table col {
+  width: auto !important;
+}
+
+/* Two-column tables: collapse colgroup so td widths control layout */
+.boostlook #content table.tableblock:has(colgroup col:nth-child(2):last-child) colgroup,
+.boostlook:not(:has(.doc)) table.table:has(colgroup col:nth-child(2):last-child) colgroup,
+.boostlook#libraryReadMe > table:has(colgroup col:nth-child(2):last-child) colgroup {
+  display: none !important;
+}
+
+.boostlook #content table.tableblock td:not(:first-child),
+.boostlook:not(:has(.doc)) table.table td:not(:first-child),
+.boostlook#libraryReadMe > table td:not(:first-child) {
+  overflow-wrap: anywhere;
+}
+
+/* Two-column tables: first column shrinks to content, nowrap */
+.boostlook #content table.tableblock:has(colgroup col:nth-child(2):last-child) td:first-child,
+.boostlook #content table.tableblock:has(colgroup col:nth-child(2):last-child) th:first-child,
+.boostlook:not(:has(.doc)) table.table:has(colgroup col:nth-child(2):last-child) td:first-child,
+.boostlook:not(:has(.doc)) table.table:has(colgroup col:nth-child(2):last-child) th:first-child,
+.boostlook#libraryReadMe > table:has(colgroup col:nth-child(2):last-child) td:first-child,
+.boostlook#libraryReadMe > table:has(colgroup col:nth-child(2):last-child) th:first-child {
+  width: 1px;
+  min-width: 20%;
+  white-space: nowrap;
+}
+
+/* All tables: prevent first column and headers from breaking */
+.boostlook #content table.tableblock thead th,
+.boostlook #content table.tableblock td:first-child,
+.boostlook:not(:has(.doc)) table.table thead th,
+.boostlook:not(:has(.doc)) table.table td:first-child,
+.boostlook#libraryReadMe > table thead th,
+.boostlook#libraryReadMe > table td:first-child {
+  white-space: nowrap;
+}
+
+/* Two-column tables: last column expands to fill */
+.boostlook #content table.tableblock:has(colgroup col:nth-child(2):last-child) td:last-child,
+.boostlook #content table.tableblock:has(colgroup col:nth-child(2):last-child) th:last-child,
+.boostlook:not(:has(.doc)) table.table:has(colgroup col:nth-child(2):last-child) td:last-child,
+.boostlook:not(:has(.doc)) table.table:has(colgroup col:nth-child(2):last-child) th:last-child,
+.boostlook#libraryReadMe > table:has(colgroup col:nth-child(2):last-child) td:last-child,
+.boostlook#libraryReadMe > table:has(colgroup col:nth-child(2):last-child) th:last-child {
+  width: 100% !important;
+}
+
+/* Firefox-specific: extra fallback for two-column tables */
+@-moz-document url-prefix() {
+  .boostlook #content table.tableblock:has(colgroup col:nth-child(2):last-child) colgroup,
+  .boostlook:not(:has(.doc)) table.table:has(colgroup col:nth-child(2):last-child) colgroup,
+  .boostlook#libraryReadMe > table:has(colgroup col:nth-child(2):last-child) colgroup {
+    display: none !important;
+  }
+}
+
+.boostlook #content table.tableblock tbody:has(tr:only-child) td:first-child,
+.boostlook:not(:has(.doc)) table.table tbody:has(tr:only-child) td:first-child,
+.boostlook#libraryReadMe > table tbody:has(tr:only-child) td:first-child {
+  min-width: 15rem;
 }
 
 .boostlook #content table.tableblock caption,
@@ -2900,6 +2975,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   background: transparent !important;
   padding: 0;
   border: none;
+  word-break: break-all;
 }
 
 .boostlook #content table.tableblock .footnotes tr td,
