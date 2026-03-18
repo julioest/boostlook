@@ -165,7 +165,8 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   font-size: var(--typography-font-size-xs, 0.875rem);
   font-style: normal;
   line-height: var(--typography-line-height-sm, 1rem); /* 142.857% */
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .boostlook #toc a:hover,
@@ -197,9 +198,24 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   margin-left: calc(var(--leftbar-paddings-leftbar-padding-2xs) * -1);
 }
 
+/* Blue dot indicator for TOC leaf links */
+.boostlook .nav-list li[data-depth]:not([data-depth="1"])::before,
+.boostlook #toc > ul.sectlevel1 li:not(:has(> ul))::before,
+.boostlook:not(:has(.doc)) div.toc dd dt::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--border-border-blue, #92cbe9);
+}
+
 .boostlook .nav-list li[data-depth]:not([data-depth="1"]):hover::before,
 .boostlook #toc > ul.sectlevel1 li:not(:has(> ul)):hover::before,
-.boostlook:not(:has(.doc)) div.toc dd dt:hover:before {
+.boostlook:not(:has(.doc)) div.toc dd dt:hover::before {
   background-color: var(--border-border-blue-hover, #329cd2);
   isolation: isolate;
   z-index: 1;

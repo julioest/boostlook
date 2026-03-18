@@ -2955,7 +2955,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   left: 0;
   top: 0;
   width: 24px;
-  height: 24px;
+  height: var(--typography-line-height-lg, 1.5rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3272,7 +3272,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   /*border-bottom-right-radius: var(--spacing-size-2xs, 0.5rem);*/
 }
 
-/* Table header — Metalab 2.0: Surface-Mid bg */
+/* Table header — Metalab 2.0: Surface-Mid bg, 12px per Figma */
 .boostlook #content .doc table.tableblock th,
 .boostlook #content .doc table.tableblock th strong,
 .boostlook #content .doc table.tableblock:not(:has(thead)) > tbody > tr:first-child > td,
@@ -3284,20 +3284,20 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 .boostlook#libraryReadMe > table th strong {
   background-color: var(--table-header-bg, #F7F7F8);
   color: var(--text-main-text-primary, #050816);
-  font-size: var(--typography-font-size-xs, 0.875rem);
+  font-size: var(--typography-font-size-2xs, 0.75rem);
   font-variation-settings: "wght" 700, "wdth" 87.5;
   line-height: 140%;
   letter-spacing: -0.12px;
 }
 
-/* Table data — Metalab 2.0: 14px, Text-Secondary */
+/* Table data — Metalab 2.0: 12px per Figma, Text-Secondary */
 .boostlook #content .doc table.tableblock td,
 .boostlook:not(:has(.doc)) #content table.tableblock td,
 .boostlook:not(:has(.doc)) table.table td,
 .boostlook#libraryReadMe > table td {
   background-color: var(--table-bg, #fff);
   color: var(--text-main-text-body-secondary, #585A64);
-  font-size: var(--typography-font-size-xs, 0.875rem);
+  font-size: var(--typography-font-size-2xs, 0.75rem);
   font-style: normal;
   line-height: 140%;
   letter-spacing: -0.12px;
@@ -3702,7 +3702,8 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   font-size: var(--typography-font-size-xs, 0.875rem);
   font-style: normal;
   line-height: var(--typography-line-height-sm, 1rem); /* 142.857% */
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .boostlook #toc a:hover,
@@ -3734,9 +3735,24 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   margin-left: calc(var(--leftbar-paddings-leftbar-padding-2xs) * -1);
 }
 
+/* Blue dot indicator for TOC leaf links */
+.boostlook .nav-list li[data-depth]:not([data-depth="1"])::before,
+.boostlook #toc > ul.sectlevel1 li:not(:has(> ul))::before,
+.boostlook:not(:has(.doc)) div.toc dd dt::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--border-border-blue, #92cbe9);
+}
+
 .boostlook .nav-list li[data-depth]:not([data-depth="1"]):hover::before,
 .boostlook #toc > ul.sectlevel1 li:not(:has(> ul)):hover::before,
-.boostlook:not(:has(.doc)) div.toc dd dt:hover:before {
+.boostlook:not(:has(.doc)) div.toc dd dt:hover::before {
   background-color: var(--border-border-blue-hover, #329cd2);
   isolation: isolate;
   z-index: 1;
@@ -4371,12 +4387,13 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   display: inline-block;
   flex-shrink: 0;
   flex-grow: 0;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
+  width: 16px;
+  height: 16px;
   background: var(--surface-icons-icon-tetriary, #949a9e);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M6 3L11 8L6 13' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M6 3L11 8L6 13' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
   padding: 0;
-  margin: 0 var(--spacing-size-2xs, 0.5rem);
+  margin: 0 var(--spacing-size-3xs, 0.25rem);
 }
 
 .boostlook .breadcrumbs ul li:first-of-type:not(:only-child)::after,

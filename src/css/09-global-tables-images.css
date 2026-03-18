@@ -161,7 +161,7 @@
   /*border-bottom-right-radius: var(--spacing-size-2xs, 0.5rem);*/
 }
 
-/* Table header — Metalab 2.0: Surface-Mid bg */
+/* Table header — Metalab 2.0: Surface-Mid bg, 12px per Figma */
 .boostlook #content .doc table.tableblock th,
 .boostlook #content .doc table.tableblock th strong,
 .boostlook #content .doc table.tableblock:not(:has(thead)) > tbody > tr:first-child > td,
@@ -173,20 +173,20 @@
 .boostlook#libraryReadMe > table th strong {
   background-color: var(--table-header-bg, #F7F7F8);
   color: var(--text-main-text-primary, #050816);
-  font-size: var(--typography-font-size-xs, 0.875rem);
+  font-size: var(--typography-font-size-2xs, 0.75rem);
   font-variation-settings: "wght" 700, "wdth" 87.5;
   line-height: 140%;
   letter-spacing: -0.12px;
 }
 
-/* Table data — Metalab 2.0: 14px, Text-Secondary */
+/* Table data — Metalab 2.0: 12px per Figma, Text-Secondary */
 .boostlook #content .doc table.tableblock td,
 .boostlook:not(:has(.doc)) #content table.tableblock td,
 .boostlook:not(:has(.doc)) table.table td,
 .boostlook#libraryReadMe > table td {
   background-color: var(--table-bg, #fff);
   color: var(--text-main-text-body-secondary, #585A64);
-  font-size: var(--typography-font-size-xs, 0.875rem);
+  font-size: var(--typography-font-size-2xs, 0.75rem);
   font-style: normal;
   line-height: 140%;
   letter-spacing: -0.12px;
