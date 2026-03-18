@@ -1390,6 +1390,13 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   transition: color 0.3s ease;
 }
 
+/* Content body links: underline per Figma */
+.boostlook #content .doc a:not(.anchor):not(.undecorated),
+.boostlook #content .sectionbody a:not(.anchor):not(.undecorated) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* Link Hover States */
 .boostlook a:hover,
 .boostlook .doc a:hover {
@@ -3702,6 +3709,12 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   font-size: var(--typography-font-size-xs, 0.875rem);
   font-style: normal;
   line-height: var(--typography-line-height-sm, 1rem); /* 142.857% */
+  text-decoration: none;
+}
+
+/* On-page TOC (right side): underline links per Figma */
+.boostlook #toc > ul.sectlevel1 a,
+.boostlook:not(:has(.doc)) div.toc a {
   text-decoration: underline;
   text-underline-offset: 2px;
 }

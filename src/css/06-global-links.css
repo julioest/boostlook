@@ -122,6 +122,13 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   transition: color 0.3s ease;
 }
 
+/* Content body links: underline per Figma */
+.boostlook #content .doc a:not(.anchor):not(.undecorated),
+.boostlook #content .sectionbody a:not(.anchor):not(.undecorated) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* Link Hover States */
 .boostlook a:hover,
 .boostlook .doc a:hover {
