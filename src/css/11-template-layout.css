@@ -204,21 +204,6 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   margin-left: calc(var(--leftbar-paddings-leftbar-padding-2xs) * -1);
 }
 
-/* Blue dot indicator for TOC leaf links */
-.boostlook .nav-list li[data-depth]:not([data-depth="1"])::before,
-.boostlook #toc > ul.sectlevel1 li:not(:has(> ul))::before,
-.boostlook:not(:has(.doc)) div.toc dd dt::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: var(--border-border-blue, #92cbe9);
-}
-
 .boostlook .nav-list li[data-depth]:not([data-depth="1"]):hover::before,
 .boostlook #toc > ul.sectlevel1 li:not(:has(> ul)):hover::before,
 .boostlook:not(:has(.doc)) div.toc dd dt:hover::before {
