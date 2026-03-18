@@ -760,6 +760,16 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   color: var(--text-main-text-primary, #18191b);
 }
 
+/* See Also sections: blue bullets, tighter gap */
+.boostlook .sect1:has(> h2[id*="see_also"]) .ulist > ul > li {
+  padding-left: 1.25rem;
+}
+
+.boostlook .sect1:has(> h2[id*="see_also"]) .ulist > ul > li::before {
+  width: 16px;
+  color: var(--text-main-text-link-blue, #026a9f);
+}
+
 /* Ordered Lists */
 .boostlook .olist.arabic > ol,
 .boostlook .olist.loweralpha > ol,

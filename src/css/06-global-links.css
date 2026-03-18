@@ -122,9 +122,11 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   transition: color 0.3s ease;
 }
 
-/* Content body links: underline per Figma */
-.boostlook #content .doc a:not(.anchor):not(.undecorated),
-.boostlook #content .sectionbody a:not(.anchor):not(.undecorated) {
+/* Content body links: underline per Figma (paragraphs and lists only) */
+.boostlook #content .doc .paragraph a:not(.anchor),
+.boostlook #content .doc .ulist a:not(.anchor),
+.boostlook #content .doc .olist a:not(.anchor),
+.boostlook #content .doc .dlist a:not(.anchor) {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
