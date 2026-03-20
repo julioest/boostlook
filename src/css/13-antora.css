@@ -62,7 +62,7 @@
 }
 
 .dark .boostlook .nav-list .is-current-page.is-active > .nav-link {
-  background: var(--colors-primary-700, #444651);
+  background: var(--colors-primary-600, #585A64);
 }
 
 .boostlook #toc .nav-list .is-current-page.is-active > .nav-link {
@@ -75,7 +75,7 @@
 }
 
 .dark .boostlook .nav-menu .nav-list li:not(.nav-item) > .nav-link:hover {
-  background: var(--colors-primary-700, #444651);
+  background: var(--colors-primary-600, #585A64);
 }
 
 /* Section header layout — toggle + text inline */

@@ -29,7 +29,7 @@ html {
   --text-main-text-primary: var(--colors-primary-900);
   --text-main-text-link-blue-secondary: var(--colors-secondary-500);
   --text-main-text-link-blue-tetriary: var(--colors-secondary-400);
-  --text-main-text-body-secondary: var(--colors-primary-700);
+  --text-main-text-body-secondary: var(--colors-primary-600);
   --text-main-text-body-quaternary: var(--colors-primary-400);
   --text-main-text-body-tetriary: var(--colors-primary-500);
   --text-main-text-body-primary: var(--colors-primary-600);

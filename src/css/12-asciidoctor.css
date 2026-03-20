@@ -49,7 +49,7 @@
   background: var(--colors-primary-100, #EFEFF1);
 }
 html.dark .boostlook #toc > ul.sectlevel1 li:not(.nav-item) > a:hover {
-  background: var(--colors-primary-700, #444651);
+  background: var(--colors-primary-600, #585A64);
 }
 
 /* Active TOC link — highlights link matching current hash (match Antora) */
@@ -59,7 +59,7 @@ html.dark .boostlook #toc > ul.sectlevel1 li:not(.nav-item) > a:hover {
   color: var(--text-main-text-primary, #18191b);
 }
 html.dark .boostlook #toc a.is-active-link {
-  background: var(--colors-primary-700, #444651);
+  background: var(--colors-primary-600, #585A64);
   color: var(--text-main-text-primary, #fff);
 }
 
