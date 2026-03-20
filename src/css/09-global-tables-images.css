@@ -167,6 +167,7 @@
 .boostlook #content .doc table.tableblock:not(:has(thead)) > tbody > tr:first-child > td,
 .boostlook:not(:has(.doc)) #content table.tableblock th,
 .boostlook:not(:has(.doc)) #content table.tableblock th strong,
+.boostlook:not(:has(.doc)) #content table.tableblock:not(:has(thead)) > tbody > tr:first-child > td,
 .boostlook:not(:has(.doc)) table.table th,
 .boostlook:not(:has(.doc)) table.table th strong,
 .boostlook#libraryReadMe > table th,

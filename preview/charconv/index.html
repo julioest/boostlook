@@ -2664,6 +2664,40 @@ html.dark .boostlook nav.pagination > span:hover a {
   color: var(--text-main-text-primary, #18191b);
 }
 
+/* Dlist-as-admonition: a standalone .dlist with a single .hdlist1 term
+   (e.g. "Note", "Tip") should render as a card matching admonitionblock. */
+.boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(dl > dt.hdlist1:only-of-type + dd:last-child) {
+  padding: var(--spacing-large, 1rem);
+  border-radius: var(--radius-xxl, 1rem);
+  border: 1px solid var(--stroke-weak, rgba(13 14 15 / 0.1));
+  background-color: var(--surface-weak, #fff);
+  margin-top: var(--padding-padding-sm, 1rem);
+}
+
+.boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(dl > dt.hdlist1:only-of-type + dd:last-child) dl {
+  gap: var(--spacing-size-3xs, 0.25rem);
+}
+
+.boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(dl > dt.hdlist1:only-of-type + dd:last-child) .hdlist1 {
+  font-size: 1rem;
+  font-weight: 500;
+  font-variation-settings: "wght" 500, "wdth" 87.5;
+  line-height: 100%;
+  letter-spacing: -0.16px;
+  color: var(--text-main-text-primary, #18191b);
+}
+
+.boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(dl > dt.hdlist1:only-of-type + dd:last-child) dd {
+  border: none;
+  padding: 0;
+  margin-left: 0;
+  color: var(--text-main-text-body-tetriary, #717378);
+  font-size: var(--typography-font-size-sm, 0.875rem);
+  font-variation-settings: "wght" 400, "wdth" 87.5;
+  line-height: 135%;
+  letter-spacing: -0.12px;
+}
+
 /* Dlist  */
 /* Apply top margin only for root list */
 .boostlook #content .dlist:not(:first-child):not(.dlist .dlist),
@@ -2981,21 +3015,23 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   color: var(--text-main-text-primary, #18191b);
 }
 
-/* See Also / Next Steps sections: blue bullets, tighter gap */
-.boostlook .sect1:has(> h2[id*="see_also"]) .ulist > ul > li,
-.boostlook .sect1:has(> h2[id*="next_steps"]) .ulist > ul > li {
+/* Link-list sections (See Also, Next Steps, etc.): blue bullets for the
+   last .sect1 (no following .sect1 sibling) or its last .sect2, when the
+   final .ulist contains only link items. */
+.boostlook #content .doc .sect1:not(:has(~ .sect1)) > .sectionbody > .ulist:last-child > ul > li:has(> p > a:only-child),
+.boostlook #content .doc .sect1:not(:has(~ .sect1)) .sect2:last-child > .ulist:last-child > ul > li:has(> p > a:only-child) {
   padding-left: 1.25rem;
 }
 
-.boostlook .sect1:has(> h2[id*="see_also"]) .ulist > ul > li::before,
-.boostlook .sect1:has(> h2[id*="next_steps"]) .ulist > ul > li::before {
+.boostlook #content .doc .sect1:not(:has(~ .sect1)) > .sectionbody > .ulist:last-child > ul > li:has(> p > a:only-child)::before,
+.boostlook #content .doc .sect1:not(:has(~ .sect1)) .sect2:last-child > .ulist:last-child > ul > li:has(> p > a:only-child)::before {
   width: 16px;
   color: var(--text-main-text-link-blue, #026a9f);
 }
 
 /* Unresolved xref links: red bullet to match the red link text */
-.boostlook .sect1:has(> h2[id*="see_also"]) .ulist > ul > li:has(> p > a.unresolved)::before,
-.boostlook .sect1:has(> h2[id*="next_steps"]) .ulist > ul > li:has(> p > a.unresolved)::before {
+.boostlook #content .doc .sect1:not(:has(~ .sect1)) > .sectionbody > .ulist:last-child > ul > li:has(> p > a.unresolved)::before,
+.boostlook #content .doc .sect1:not(:has(~ .sect1)) .sect2:last-child > .ulist:last-child > ul > li:has(> p > a.unresolved)::before {
   color: #c00;
 }
 
@@ -3315,13 +3351,14 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 .boostlook #content .doc table.tableblock:not(:has(thead)) > tbody > tr:first-child > td,
 .boostlook:not(:has(.doc)) #content table.tableblock th,
 .boostlook:not(:has(.doc)) #content table.tableblock th strong,
+.boostlook:not(:has(.doc)) #content table.tableblock:not(:has(thead)) > tbody > tr:first-child > td,
 .boostlook:not(:has(.doc)) table.table th,
 .boostlook:not(:has(.doc)) table.table th strong,
 .boostlook#libraryReadMe > table th,
 .boostlook#libraryReadMe > table th strong {
   background-color: var(--table-header-bg, #F7F7F8);
   color: var(--text-main-text-primary, #050816);
-  font-size: var(--typography-font-size-2xs, 0.75rem);
+  font-size: var(--typography-font-size-xs, 0.875rem);
   font-variation-settings: "wght" 700, "wdth" 87.5;
   line-height: 140%;
   letter-spacing: -0.12px;
