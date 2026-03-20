@@ -173,7 +173,7 @@
 .boostlook#libraryReadMe > table th strong {
   background-color: var(--table-header-bg, #F7F7F8);
   color: var(--text-main-text-primary, #050816);
-  font-size: var(--typography-font-size-2xs, 0.75rem);
+  font-size: var(--typography-font-size-xs, 0.875rem);
   font-variation-settings: "wght" 700, "wdth" 87.5;
   line-height: 140%;
   letter-spacing: -0.12px;
