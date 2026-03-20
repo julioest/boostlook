@@ -5,7 +5,7 @@
 @media (min-width: 990px) {
   :root {
     --main-max-width-leftbar: 18.25rem;
-    --main-margin: var(--spacing-size-xl);
+    --main-margin: 0rem;
   }
 }
 

@@ -169,7 +169,7 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 }
 
 /* On-page TOC (right side): underline links per Figma */
-.boostlook #toc > ul.sectlevel1 a,
+.boostlook #toc:not(.toc2) > ul.sectlevel1 a,
 .boostlook:not(:has(.doc)) div.toc a {
   text-decoration: underline;
   text-underline-offset: 2px;

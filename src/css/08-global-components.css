@@ -713,7 +713,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 .boostlook:not(:has(.doc))#antora-template-wrapper > #content > ul:not([class])> li,
 div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #content > ul:not([class])> li {
   position: relative;
-  padding-left: 2rem;
+  padding-left: 1.5rem;
   line-height: var(--typography-line-height-lg, 1.5rem);
 }
 
@@ -753,21 +753,29 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   left: 0;
   top: 0;
   width: 24px;
-  height: var(--typography-line-height-lg, 1.5rem);
+  height: calc(var(--typography-font-size-sm, 1rem) * 1.2);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-main-text-primary, #18191b);
 }
 
-/* See Also sections: blue bullets, tighter gap */
-.boostlook .sect1:has(> h2[id*="see_also"]) .ulist > ul > li {
+/* See Also / Next Steps sections: blue bullets, tighter gap */
+.boostlook .sect1:has(> h2[id*="see_also"]) .ulist > ul > li,
+.boostlook .sect1:has(> h2[id*="next_steps"]) .ulist > ul > li {
   padding-left: 1.25rem;
 }
 
-.boostlook .sect1:has(> h2[id*="see_also"]) .ulist > ul > li::before {
+.boostlook .sect1:has(> h2[id*="see_also"]) .ulist > ul > li::before,
+.boostlook .sect1:has(> h2[id*="next_steps"]) .ulist > ul > li::before {
   width: 16px;
   color: var(--text-main-text-link-blue, #026a9f);
+}
+
+/* Unresolved xref links: red bullet to match the red link text */
+.boostlook .sect1:has(> h2[id*="see_also"]) .ulist > ul > li:has(> p > a.unresolved)::before,
+.boostlook .sect1:has(> h2[id*="next_steps"]) .ulist > ul > li:has(> p > a.unresolved)::before {
+  color: #c00;
 }
 
 /* Ordered Lists */
