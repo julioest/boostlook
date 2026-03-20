@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<style>html.fonts-loading{visibility:hidden;opacity:0}</style>
+<script>document.documentElement.classList.add('fonts-loading');</script>
+
+<link rel="preload" href="../../_/font/NotoSansDisplay.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+<link rel="preload" href="../../_/font/NotoSansDisplay-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+<link rel="preload" href="../../_/font/MonaspaceNeon-Var.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+<link rel="preload" href="../../_/font/MonaspaceXenon-Var.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+<script>
+(function() {
+  'use strict';
+  
+  var revealed = false;
+  
+  var reveal = function() {
+    if (revealed) return;
+    revealed = true;
+    document.documentElement.classList.remove('fonts-loading');
+  };
+  
+  setTimeout(reveal, 3000);
+  
+  if (!('FontFace' in window) || !('fonts' in document)) {
+    setTimeout(reveal, 100);
+    return;
+  }
+  
+  var uiRoot = '../../_';
+  var fonts = [
+    { 
+      family: 'Noto Sans', 
+      url: uiRoot + '/font/NotoSansDisplay.woff2',
+      descriptors: { style: 'normal', weight: '100 900', stretch: '62.5% 100%' }
+    },
+    { 
+      family: 'Noto Sans', 
+      url: uiRoot + '/font/NotoSansDisplay-Italic.woff2',
+      descriptors: { style: 'italic', weight: '100 900', stretch: '62.5% 100%' }
+    },
+    { 
+      family: 'Monaspace Neon', 
+      url: uiRoot + '/font/MonaspaceNeon-Var.woff2',
+      descriptors: { style: 'normal', weight: '400' }
+    },
+    { 
+      family: 'Monaspace Xenon', 
+      url: uiRoot + '/font/MonaspaceXenon-Var.woff2',
+      descriptors: { style: 'italic', weight: '400' }
+    }
+  ];
+  
+  var loadPromises = fonts.map(function(f) {
+    try {
+      var face = new FontFace(f.family, 'url("' + f.url + '")', f.descriptors);
+      return face.load().then(function(loaded) {
+        document.fonts.add(loaded);
+        return loaded;
+      }).catch(function() {
+        return null;
+      });
+    } catch (e) {
+      return Promise.resolve(null);
+    }
+  });
+  
+  Promise.all(loadPromises)
+    .then(function() {
+      return document.fonts.ready;
+    })
+    .then(reveal)
+    .catch(reveal);
+})();
+</script>    <title>Parallel Tasks :: Boost Libraries Documentation</title>
+  <link rel="canonical" href="https://antora.cppalliance.org/develop/lib/doc/capy/7.examples/7m.parallel-tasks.html">
+    <link rel="prev" href="7l.async-mutex.html">
+    <link rel="next" href="7n.custom-executor.html">
+  <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="../../_/css/boostlook.css">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="../../_/css/vendor/tabs.css">
+    <script>
+    (function() {
+      if (window.self !== window.top) return;
+      var theme = localStorage.getItem('antora-theme');
+      if (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        theme = 'dark';
+      }
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    })();
+    </script>
+    <script>var uiRootPath = '../../_'</script>
+<link rel="icon" href="../../_/img/favicons/favicon.ico" type="image/x-icon">
+    <!-- Favicon configuration -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../_/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../_/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../_/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="../../_/img/favicons/site.webmanifest">
+    <link rel="shortcut icon" href="../../_/img/favicons/favicon.ico">
+  </head>
+  <body class="article toc2 toc-left">
+    <div class="boostlook">
+  <script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'; mermaid.initialize({"startOnLoad":true});</script> <div id="header">
+      <div id="toc" class="nav-container toc2" data-component="capy" data-version="">
+  <aside class="nav">
+    <button class="nav-close"></button>
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+      <div class="title-row">
+        <h3 class="title"><a href="../index.html">Boost.Capy</a></h3>
+        <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme" style="display:none">
+  <i class="fas fa-sun theme-icon-light"></i>
+  <i class="fas fa-moon theme-icon-dark"></i>
+</button>      </div>
+      <ul class="nav-list">
+        <ul class="nav-list">
+        <li class="" data-depth="1">
+            <a class="nav-link" href="../index.html">Introduction</a>
+        </li>
+              <li class="" data-depth="1">
+            <a class="nav-link" href="../why-capy.html">Why Capy?</a>
+        </li>
+              <li class="" data-depth="1">
+            <a class="nav-link" href="../quick-start.html">Quick Start</a>
+        </li>
+              <li class="" data-depth="1">
+            <a class="nav-link" href="../2.cpp20-coroutines/2.intro.html">Introduction To C&#43;&#43;20 Coroutines</a>
+        </li>
+        <ul class="nav-list">
+        <li class="" data-depth="2">
+            <a class="nav-link" href="../2.cpp20-coroutines/2a.foundations.html">Part I: Foundations</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../2.cpp20-coroutines/2b.syntax.html">Part II: C&#43;&#43;20 Syntax</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../2.cpp20-coroutines/2c.machinery.html">Part III: Coroutine Machinery</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../2.cpp20-coroutines/2d.advanced.html">Part IV: Advanced Topics</a>
+        </li>
+        </ul>
+        <li class="" data-depth="1">
+            <a class="nav-link" href="../3.concurrency/3.intro.html">Introduction to Concurrency</a>
+        </li>
+        <ul class="nav-list">
+        <li class="" data-depth="2">
+            <a class="nav-link" href="../3.concurrency/3a.foundations.html">Part I: Foundations</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../3.concurrency/3b.synchronization.html">Part II: Synchronization</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../3.concurrency/3c.advanced.html">Part III: Advanced Primitives</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../3.concurrency/3d.patterns.html">Part IV: Communication &amp; Patterns</a>
+        </li>
+        </ul>
+        <li class="" data-depth="1">
+            <a class="nav-link" href="../4.coroutines/4.intro.html">Coroutines in Capy</a>
+        </li>
+        <ul class="nav-list">
+        <li class="" data-depth="2">
+            <a class="nav-link" href="../4.coroutines/4a.tasks.html">The task Type</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../4.coroutines/4b.launching.html">Launching Coroutines</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../4.coroutines/4c.executors.html">Executors and Execution Contexts</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../4.coroutines/4d.io-awaitable.html">The IoAwaitable Protocol</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../4.coroutines/4e.cancellation.html">Stop Tokens and Cancellation</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../4.coroutines/4f.composition.html">Concurrent Composition</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../4.coroutines/4g.allocators.html">Frame Allocators</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../4.coroutines/4h.lambda-captures.html">Lambda Coroutine Captures</a>
+        </li>
+        </ul>
+        <li class="" data-depth="1">
+            <a class="nav-link" href="../5.buffers/5.intro.html">Buffer Sequences</a>
+        </li>
+        <ul class="nav-list">
+        <li class="" data-depth="2">
+            <a class="nav-link" href="../5.buffers/5a.overview.html">Why Concepts, Not Spans</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../5.buffers/5b.types.html">Buffer Types</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../5.buffers/5c.sequences.html">Buffer Sequences</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../5.buffers/5d.system-io.html">System I/O Integration</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../5.buffers/5e.algorithms.html">Buffer Algorithms</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../5.buffers/5f.dynamic.html">Dynamic Buffers</a>
+        </li>
+        </ul>
+        <li class="" data-depth="1">
+            <a class="nav-link" href="../6.streams/6.intro.html">Stream Concepts</a>
+        </li>
+        <ul class="nav-list">
+        <li class="" data-depth="2">
+            <a class="nav-link" href="../6.streams/6a.overview.html">Overview</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../6.streams/6b.streams.html">Streams (Partial I/O)</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../6.streams/6c.sources-sinks.html">Sources and Sinks (Complete I/O)</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../6.streams/6d.buffer-concepts.html">Buffer Sources and Sinks</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../6.streams/6e.algorithms.html">Transfer Algorithms</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../6.streams/6f.isolation.html">Physical Isolation</a>
+        </li>
+        </ul>
+        <li class="" data-depth="1">
+            <a class="nav-link" href="7.intro.html">Example Programs</a>
+        </li>
+        <ul class="nav-list">
+        <li class="" data-depth="2">
+            <a class="nav-link" href="7a.hello-task.html">Hello Task</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7b.producer-consumer.html">Producer-Consumer</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7c.buffer-composition.html">Buffer Composition</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7d.mock-stream-testing.html">Mock Stream Testing</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7e.type-erased-echo.html">Type-Erased Echo</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7f.timeout-cancellation.html">Timeout with Cancellation</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7g.parallel-fetch.html">Parallel Fetch</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7h.custom-dynamic-buffer.html">Custom Dynamic Buffer</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7i.echo-server-corosio.html">Echo Server with Corosio</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7j.stream-pipeline.html">Stream Pipeline</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7k.strand-serialization.html">Strand Serialization</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7l.async-mutex.html">Async Mutex</a>
+        </li>
+              <li class=" is-current-page" data-depth="2">
+            <a class="nav-link" href="7m.parallel-tasks.html">Parallel Tasks</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="7n.custom-executor.html">Custom Executor</a>
+        </li>
+        </ul>
+        <li class="" data-depth="1">
+            <a class="nav-link" href="../8.design/8.intro.html">Design</a>
+        </li>
+        <ul class="nav-list">
+        <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8a.CapyLayering.html">Layered Abstractions</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8b.Separation.html">Why Capy Is Separate</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8c.ReadStream.html">ReadStream</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8d.ReadSource.html">ReadSource</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8e.BufferSource.html">BufferSource</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8f.WriteStream.html">WriteStream</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8g.WriteSink.html">WriteSink</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8h.BufferSink.html">BufferSink</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8i.TypeEraseAwaitable.html">Type-Erasing Awaitables</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8j.any_buffer_sink.html">AnyBufferSink</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8k.Executor.html">Executor</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8l.RunApi.html">Run API</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8m.WhyNotCobalt.html">Why Not Cobalt?</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8n.WhyNotCobaltConcepts.html">Why Not Cobalt Concepts?</a>
+        </li>
+              <li class="" data-depth="2">
+            <a class="nav-link" href="../8.design/8o.WhyNotTMC.html">Why Not TooManyCooks?</a>
+        </li>
+        </ul>
+        <li class="" data-depth="1">
+            <a class="nav-link" href="../reference/boost/capy.html">Reference</a>
+        </li>
+        </ul>
+  </ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+  </div>  <div id="content">
+    <article class="doc max-width-reset">
+  <div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>
+      <a href="../index.html" aria-label="Home: Boost.Capy">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 -960 960 960" fill="#000000" aria-hidden="true"><path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z"/></svg>
+      </a>
+    </li>
+    <li><a href="7.intro.html">Example Programs</a></li>
+    <li aria-current="page"><a href="7m.parallel-tasks.html">Parallel Tasks</a></li>
+  </ul>
+</nav>
+<div class="spirit-nav">
+    <a accesskey="p" href="7l.async-mutex.html">
+      <span class="material-symbols-outlined" title="Previous: Async Mutex">arrow_back</span>
+    </a>
+    <a accesskey="u" href="7.intro.html">
+      <span class="material-symbols-outlined" title="Up: Example Programs">arrow_upward</span>
+    </a>
+    <a accesskey="n" href="7n.custom-executor.html">
+      <span class="material-symbols-outlined" title="Next: Custom Executor">arrow_forward</span>
+    </a>
+</div></div>
+    <h1 class="page">Parallel Tasks</h1>
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Distributing CPU-bound work across a thread pool and collecting results.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_you_will_learn"><a class="anchor" href="#_what_you_will_learn"></a>What You Will Learn</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Running tasks in parallel on a <code>thread_pool</code></p>
+</li>
+<li>
+<p>Collecting results with <code>when_all</code> structured bindings</p>
+</li>
+<li>
+<p>Observing thread IDs to verify parallel execution</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Completed <a href="7g.parallel-fetch.html" class="xref page">Parallel Fetch</a> (introduces <code>when_all</code>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_source_code"><a class="anchor" href="#_source_code"></a>Source Code</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">#include &lt;boost/capy.hpp&gt;
+#include &lt;iostream&gt;
+#include &lt;latch&gt;
+#include &lt;sstream&gt;
+#include &lt;thread&gt;
+
+namespace capy = boost::capy;
+
+// Sum integers in [lo, hi)
+capy::task&lt;long long&gt; partial_sum(int lo, int hi)
+{
+    std::ostringstream oss;
+    oss &lt;&lt; "  range [" &lt;&lt; lo &lt;&lt; ", " &lt;&lt; hi
+        &lt;&lt; ") on thread " &lt;&lt; std::this_thread::get_id() &lt;&lt; "\n";
+    std::cout &lt;&lt; oss.str();
+
+    long long sum = 0;
+    for (int i = lo; i &lt; hi; ++i)
+        sum += i;
+    co_return sum;
+}
+
+int main()
+{
+    constexpr int total = 10000;
+    constexpr int num_tasks = 4;
+    constexpr int chunk = total / num_tasks;
+
+    capy::thread_pool pool(num_tasks);
+    std::latch done(1);
+
+    auto on_complete = [&amp;done](auto&amp;&amp;...) { done.count_down(); };
+    auto on_error = [&amp;done](std::exception_ptr ep) {
+        try { std::rethrow_exception(ep); }
+        catch (std::exception const&amp; e) {
+            std::cerr &lt;&lt; "Error: " &lt;&lt; e.what() &lt;&lt; "\n";
+        }
+        catch (...) {
+            std::cerr &lt;&lt; "Error: unknown exception\n";
+        }
+        done.count_down();
+    };
+
+    auto compute = [&amp;]() -&gt; capy::task&lt;&gt; {
+        std::cout &lt;&lt; "Dispatching " &lt;&lt; num_tasks
+                  &lt;&lt; " parallel tasks...\n";
+
+        auto [s0, s1, s2, s3] = co_await capy::when_all(
+            partial_sum(0 * chunk, 1 * chunk),
+            partial_sum(1 * chunk, 2 * chunk),
+            partial_sum(2 * chunk, 3 * chunk),
+            partial_sum(3 * chunk, 4 * chunk));
+
+        long long total_sum = s0 + s1 + s2 + s3;
+
+        // Arithmetic series: sum [0, N) = N*(N-1)/2
+        long long expected =
+            static_cast&lt;long long&gt;(total) * (total - 1) / 2;
+
+        std::cout &lt;&lt; "\nPartial sums: " &lt;&lt; s0 &lt;&lt; " + " &lt;&lt; s1
+                  &lt;&lt; " + " &lt;&lt; s2 &lt;&lt; " + " &lt;&lt; s3 &lt;&lt; "\n";
+        std::cout &lt;&lt; "Total: " &lt;&lt; total_sum
+                  &lt;&lt; " (expected " &lt;&lt; expected &lt;&lt; ")\n";
+    };
+
+    capy::run_async(pool.get_executor(), on_complete, on_error)(compute());
+    done.wait();
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_build"><a class="anchor" href="#_build"></a>Build</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cmake hljs" data-lang="cmake">add_executable(parallel_tasks parallel_tasks.cpp)
+target_link_libraries(parallel_tasks PRIVATE Boost::capy)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_walkthrough"><a class="anchor" href="#_walkthrough"></a>Walkthrough</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_partitioning_work"><a class="anchor" href="#_partitioning_work"></a>Partitioning Work</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">constexpr int total = 10000;
+constexpr int num_tasks = 4;
+constexpr int chunk = total / num_tasks;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The range <code>[0, 10000)</code> is divided into 4 equal chunks, one per task. Each task computes a partial sum independently.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parallel_execution_with_when_all"><a class="anchor" href="#_parallel_execution_with_when_all"></a>Parallel Execution with when_all</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">auto [s0, s1, s2, s3] = co_await capy::when_all(
+    partial_sum(0 * chunk, 1 * chunk),
+    partial_sum(1 * chunk, 2 * chunk),
+    partial_sum(2 * chunk, 3 * chunk),
+    partial_sum(3 * chunk, 4 * chunk));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>when_all</code> launches all four tasks concurrently on the thread pool. Each task may run on a different thread. Results are returned via structured bindings in the same order as the input tasks.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_observing_thread_ids"><a class="anchor" href="#_observing_thread_ids"></a>Observing Thread IDs</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">std::ostringstream oss;
+oss &lt;&lt; "  range [" &lt;&lt; lo &lt;&lt; ", " &lt;&lt; hi
+    &lt;&lt; ") on thread " &lt;&lt; std::this_thread::get_id() &lt;&lt; "\n";
+std::cout &lt;&lt; oss.str();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each task prints its thread ID. On a multi-core system you will see different thread IDs, confirming true parallel execution. The <code>ostringstream</code> ensures each line is printed atomically.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_verifying_results"><a class="anchor" href="#_verifying_results"></a>Verifying Results</h3>
+<div class="paragraph">
+<p>The sum of <code>[0, N)</code> is <code>N*(N-1)/2</code>. The example verifies that the sum of partial results matches this formula.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_output"><a class="anchor" href="#_output"></a>Output</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">Dispatching 4 parallel tasks...
+  range [0, 2500) on thread 140234567890432
+  range [2500, 5000) on thread 140234567886336
+  range [5000, 7500) on thread 140234567882240
+  range [7500, 10000) on thread 140234567878144
+
+Partial sums: 3123750 + 9373750 + 15623750 + 21873750
+Total: 49995000 (expected 49995000)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exercises"><a class="anchor" href="#_exercises"></a>Exercises</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Increase <code>num_tasks</code> beyond the pool thread count and observe how tasks are scheduled</p>
+</li>
+<li>
+<p>Add a timing comparison between parallel execution and a single-threaded loop</p>
+</li>
+<li>
+<p>Generalize the partitioning to handle ranges that don&#8217;t divide evenly</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next Steps</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="7n.custom-executor.html" class="xref page">Custom Executor</a>&#8201;&#8212;&#8201;Building your own execution context</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  <div class="edit-this-page">
+      <a href="https://github.com/cppalliance/capy/edit/develop/doc/modules/ROOT/pages/7.examples/7m.parallel-tasks.adoc">Edit this Page</a>
+      </div>
+      <nav class="pagination">
+        <span class="prev"><a href="7l.async-mutex.html">Async Mutex</a></span>
+        <span class="next"><a href="7n.custom-executor.html">Custom Executor</a></span>
+    </nav>
+</article>
+</div>
+  <div id="footer">
+  <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script async src="../../_/js/vendor/tabs.js" data-sync-storage-key="preferred-tab"></script>
+</div>
+</div>
+  </body>
+</html>
