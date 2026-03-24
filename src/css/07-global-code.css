@@ -311,11 +311,10 @@ html.dark .boostlook .listingblock > .content > pre {
   visibility: visible;
 }
 
-/* Mobile: always show copy button (no hover on touch devices) */
+/* Mobile: hide copy button (clipboard API requires HTTPS) */
 @media (hover: none) {
   .boostlook .content:has(> pre):has(> .source-toolbox) .copy-button {
-    opacity: 1 !important;
-    visibility: visible !important;
+    display: none !important;
   }
 }
 

@@ -1030,7 +1030,7 @@ body :not(pre):not([class^="L"]) > code {
 .boostlook .doc h6[id],
 .boostlook .doc :where(h1, h2, h3, h4, h5, h6):has(.anchor),
 .boostlook :where(h1, h2, h3, h4, h5, h6):has(> a[id]) {
-  scroll-margin-top: 3.5rem;
+  scroll-margin-top: 0.75rem;
 }
 
 /* Anchor positioning within headings */
@@ -1652,11 +1652,10 @@ html.dark .boostlook .listingblock > .content > pre {
   visibility: visible;
 }
 
-/* Mobile: always show copy button (no hover on touch devices) */
+/* Mobile: hide copy button (clipboard API requires HTTPS) */
 @media (hover: none) {
   .boostlook .content:has(> pre):has(> .source-toolbox) .copy-button {
-    opacity: 1 !important;
-    visibility: visible !important;
+    display: none !important;
   }
 }
 
@@ -3142,8 +3141,17 @@ html::-webkit-scrollbar-thumb,
 /* Hide root scrollbars for Antora template */
 html:has(.article > .boostlook) {
   height: 100vh;
+  height: -webkit-fill-available;
   height: 100dvh;
   overflow: hidden;
+}
+
+/* Mobile: remove fixed height + overflow:hidden that conflicts with iOS Safari dynamic toolbar */
+@media (hover: none) and (pointer: coarse) {
+  html:not(.is-clipped--nav):has(.article > .boostlook) {
+    height: auto;
+    overflow: visible;
+  }
 }
 
 /* Iframe container scrollbar handling */
@@ -3160,6 +3168,14 @@ html:has(#docsiframe)::-webkit-scrollbar {
 /* Antora template - Scrollable content area */
 .boostlook #content:has(> .doc) {
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile: extra bottom padding to clear iOS Safari toolbar */
+@media (hover: none) and (pointer: coarse) {
+  .boostlook #content:has(> .doc) {
+    padding-bottom: 3.5rem;
+  }
 }
 
 /* Asciidoc template - Content overflow handling */
@@ -3350,15 +3366,6 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   margin-top: revert;
 }
 
-html:not(.is-clipped--nav):has(.boostlook) div#content {
-  display: block;
-  visibility: visible;
-}
-
-html.is-clipped--nav:has(.boostlook) div#content {
-  display: none;
-  visibility: hidden;
-}
 
 /* Responsive Design */
 @media screen and (min-width: 768px) {
