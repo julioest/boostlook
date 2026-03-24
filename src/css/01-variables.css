@@ -83,7 +83,7 @@
   --colors-secondary-200: #92cbe9;
   --colors-secondary-300: #62b3dd;
   --colors-secondary-400: #6DCDF7;
-  --colors-secondary-500: #0284c7;
+  --colors-secondary-500: #0077B8;
   --colors-secondary-600: #0077B8;
   --colors-secondary-700: #014f77;
   --colors-secondary-800: #013550;
@@ -374,7 +374,7 @@
     --typography-line-height-4xl: var(--font-line-height-4xl);
 
     /* Heading — Metalab 2.0 (desktop) */
-    --typography-font-size-h1: var(--font-size-3xl);
+    --typography-font-size-h1: var(--font-size-4xl);
     --typography-font-size-h2: var(--font-size-lg);
     --typography-font-size-h3: var(--font-size-md);
     --typography-font-size-h4: var(--font-size-sm);

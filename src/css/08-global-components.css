@@ -347,7 +347,7 @@ html.dark .boostlook nav.pagination > span:hover a {
 .boostlook #content .admonitionblock > table tr td.content p,
 .boostlook:not(:has(.doc)) .notices .message p {
   color: var(--text-main-text-body-tetriary, #717378);
-  font-size: var(--typography-font-size-sm, 0.875rem);
+  font-size: var(--typography-font-size-2xs, 0.75rem);
   font-variation-settings: "wght" 400, "wdth" 87.5;
   line-height: 135%;
   letter-spacing: -0.12px;
@@ -651,6 +651,10 @@ html.dark .boostlook nav.pagination > span:hover a {
   color: inherit;
   font: inherit;
   text-decoration: underline;
+}
+
+html.dark .boostlook .edit-this-page {
+  color: #CACBCE;
 }
 
 /* Layout Structure */

@@ -164,7 +164,7 @@ html.dark {
   --text-buttons-button-label-inactive: var(--colors-primary-500);
 
   --text-main-text-primary: var(--colors-primary-0);
-  --text-main-text-link-blue-secondary: var(--colors-secondary-500);
+  --text-main-text-link-blue-secondary: #6DCDF7;
   --text-main-text-link-blue-tetriary: var(--colors-secondary-600);
   --text-main-text-link-blue: var(--colors-secondary-400);
   --text-main-text-body-secondary: var(--colors-primary-200);

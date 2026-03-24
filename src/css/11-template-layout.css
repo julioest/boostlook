@@ -184,7 +184,7 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 .boostlook #toc > ul.sectlevel1 li:has(> ul) > a:focus,
 .boostlook:not(:has(.doc)) div.toc a:hover,
 .boostlook:not(:has(.doc)) div.toc a:focus {
-  color: var(--text-main-text-link-blue-secondary, #0284c7);
+  color: var(--text-main-text-link-blue-secondary, #0077B8);
   text-decoration: none;
 }
 
