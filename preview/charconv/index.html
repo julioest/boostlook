@@ -208,7 +208,7 @@
   --colors-secondary-200: #92cbe9;
   --colors-secondary-300: #62b3dd;
   --colors-secondary-400: #6DCDF7;
-  --colors-secondary-500: #0284c7;
+  --colors-secondary-500: #0077B8;
   --colors-secondary-600: #0077B8;
   --colors-secondary-700: #014f77;
   --colors-secondary-800: #013550;
@@ -499,7 +499,7 @@
     --typography-line-height-4xl: var(--font-line-height-4xl);
 
     /* Heading — Metalab 2.0 (desktop) */
-    --typography-font-size-h1: var(--font-size-3xl);
+    --typography-font-size-h1: var(--font-size-4xl);
     --typography-font-size-h2: var(--font-size-lg);
     --typography-font-size-h3: var(--font-size-md);
     --typography-font-size-h4: var(--font-size-sm);
@@ -682,7 +682,7 @@ html.dark {
   --text-buttons-button-label-inactive: var(--colors-primary-500);
 
   --text-main-text-primary: var(--colors-primary-0);
-  --text-main-text-link-blue-secondary: var(--colors-secondary-500);
+  --text-main-text-link-blue-secondary: #6DCDF7;
   --text-main-text-link-blue-tetriary: var(--colors-secondary-600);
   --text-main-text-link-blue: var(--colors-secondary-400);
   --text-main-text-body-secondary: var(--colors-primary-200);
@@ -1147,6 +1147,29 @@ body :not(pre):not([class^="L"]) > code {
   margin: revert;
 }
 
+/* Intro copy — first paragraph after page title (24px per Figma) */
+/* Antora: h1.page → #preamble → first paragraph */
+.boostlook .doc #preamble > .sectionbody > .paragraph:first-child > p,
+/* Antora: h1.page → first sect1 (no preamble) → first paragraph */
+.boostlook .doc h1.page + .sect1 > .sectionbody > .paragraph:first-child > p,
+/* Asciidoctor (non-Antora): first sect1 → first sect2 → first paragraph */
+.boostlook:not(:has(.doc)) #content > .sect1:first-of-type > .sectionbody > .sect2:first-child > .paragraph:first-of-type > p {
+  font-size: 1.5rem;
+  line-height: 133%;
+}
+
+/* Scroll offset for anchor links */
+.boostlook .doc h1[id],
+.boostlook .doc h2[id],
+.boostlook .doc h3[id],
+.boostlook .doc h4[id],
+.boostlook .doc h5[id],
+.boostlook .doc h6[id],
+.boostlook .doc :where(h1, h2, h3, h4, h5, h6):has(.anchor),
+.boostlook :where(h1, h2, h3, h4, h5, h6):has(> a[id]) {
+  scroll-margin-top: 0.75rem;
+}
+
 /* Anchor positioning within headings */
 .boostlook .doc h1:has(.anchor),
 .boostlook .doc h2:has(.anchor),
@@ -1275,6 +1298,31 @@ body :not(pre):not([class^="L"]) > code {
 .boostlook .doc h5 .anchor:hover::before,
 .boostlook .doc h6 .anchor:hover::before {
   opacity: 1;
+}
+
+/* Mobile: always show anchor icons (no hover on touch devices) */
+@media (hover: none) {
+  .boostlook .doc h1 .anchor,
+  .boostlook .doc h2 .anchor,
+  .boostlook .doc h3 .anchor,
+  .boostlook .doc h4 .anchor,
+  .boostlook .doc h5 .anchor,
+  .boostlook .doc h6 .anchor,
+  .boostlook :where(h1, h2, h3, h4, h5, h6):has(> a[id]):has(> a[href]) a[href]:before {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .boostlook .doc h1 .anchor::before,
+  .boostlook .doc h2 .anchor::before,
+  .boostlook .doc h3 .anchor::before,
+  .boostlook .doc h4 .anchor::before,
+  .boostlook .doc h5 .anchor::before,
+  .boostlook .doc h6 .anchor::before,
+  .boostlook :where(h1, h2, h3, h4, h5, h6):has(> a[id]):has(> a[href]) a[href]:after {
+    opacity: 0.6 !important;
+    visibility: visible !important;
+  }
 }
 
 /* Paragraph Styling — Metalab 2.0: Sans/Desktop/Regular/Base/Tight */
@@ -1479,9 +1527,9 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 .boostlook pre code.hljs,
 .boostlook .doc .content pre code,
 .boostlook .doc pre.highlight code {
-  font-size: var(--typography-font-size-xs, 0.875rem);
+  font-size: var(--typography-font-size-2xs, 0.75rem);
   font-feature-settings: "calt" 1, "liga" 0;
-  line-height: var(--typography-line-height-lg, 1.5rem); /* 171.429% */
+  line-height: 130%;
   letter-spacing: var(--spacing-size-size-0, 0rem);
   color: var(--text-main-text-primary, #18191b);
   padding: revert;
@@ -1519,6 +1567,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   border-radius: var(--radius-xxl, 1rem);
   border: 1px solid var(--border-border-primary, #e4e7ea);
   box-shadow: none;
+  line-height: 130%;
 }
 
 .boostlook .sidebarblock {
@@ -1761,6 +1810,13 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook .content:has(> pre):has(> .source-toolbox):hover .copy-button {
   opacity: 1;
   visibility: visible;
+}
+
+/* Mobile: hide copy button (clipboard API requires HTTPS) */
+@media (hover: none) {
+  .boostlook .content:has(> pre):has(> .source-toolbox) .copy-button {
+    display: none !important;
+  }
 }
 
 .boostlook .content:has(> pre):has(> .source-toolbox) .copy-button img {
@@ -2568,7 +2624,7 @@ html.dark .boostlook nav.pagination > span:hover a {
 .boostlook #content .admonitionblock > table tr td.content p,
 .boostlook:not(:has(.doc)) .notices .message p {
   color: var(--text-main-text-body-tetriary, #717378);
-  font-size: var(--typography-font-size-sm, 0.875rem);
+  font-size: var(--typography-font-size-2xs, 0.75rem);
   font-variation-settings: "wght" 400, "wdth" 87.5;
   line-height: 135%;
   letter-spacing: -0.12px;
@@ -2872,6 +2928,10 @@ html.dark .boostlook nav.pagination > span:hover a {
   color: inherit;
   font: inherit;
   text-decoration: underline;
+}
+
+html.dark .boostlook .edit-this-page {
+  color: #CACBCE;
 }
 
 /* Layout Structure */
@@ -3615,7 +3675,17 @@ html::-webkit-scrollbar-thumb,
 /* Hide root scrollbars for Antora template */
 html:has(.article > .boostlook) {
   height: 100vh;
+  height: -webkit-fill-available;
+  height: 100dvh;
   overflow: hidden;
+}
+
+/* Mobile: remove fixed height + overflow:hidden that conflicts with iOS Safari dynamic toolbar */
+@media (hover: none) and (pointer: coarse) {
+  html:not(.is-clipped--nav):has(.article > .boostlook) {
+    height: auto;
+    overflow: visible;
+  }
 }
 
 /* Iframe container scrollbar handling */
@@ -3632,12 +3702,21 @@ html:has(#docsiframe)::-webkit-scrollbar {
 /* Antora template - Scrollable content area */
 .boostlook #content:has(> .doc) {
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile: extra bottom padding to clear iOS Safari toolbar */
+@media (hover: none) and (pointer: coarse) {
+  .boostlook #content:has(> .doc) {
+    padding-bottom: 3.5rem;
+  }
 }
 
 /* Asciidoc template - Content overflow handling */
 .boostlook:has(#content > .sect1) {
   overflow-y: auto;
   height: 100vh;
+  height: 100dvh;
 }
 
 /* Table Container */
@@ -3650,6 +3729,7 @@ html:has(#docsiframe)::-webkit-scrollbar {
 /* Article Layout */
 .article.toc2.toc-left {
   height: 100vh;
+  height: 100dvh;
   /* Simplified: always use offset behavior, never center */
   margin-left: var(--main-max-width-leftbar);
   background: var(--surface-background-main-base-primary, #fff);
@@ -3792,7 +3872,7 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 .boostlook #toc > ul.sectlevel1 li:has(> ul) > a:focus,
 .boostlook:not(:has(.doc)) div.toc a:hover,
 .boostlook:not(:has(.doc)) div.toc a:focus {
-  color: var(--text-main-text-link-blue-secondary, #0284c7);
+  color: var(--text-main-text-link-blue-secondary, #0077B8);
   text-decoration: none;
 }
 
@@ -3861,16 +3941,6 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   margin-top: revert;
 }
 
-html:not(.is-clipped--nav):has(.boostlook) div#content {
-  display: block;
-  visibility: visible;
-}
-
-html.is-clipped--nav:has(.boostlook) div#content {
-  display: none;
-  visibility: hidden;
-}
-
 /* Responsive Design */
 @media screen and (min-width: 768px) {
   .article.toc2.toc-left {
@@ -3890,6 +3960,7 @@ html.is-clipped--nav:has(.boostlook) div#content {
     top: 0;
     z-index: 1000;
     height: 100vh;
+    height: 100dvh;
     padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
@@ -4166,7 +4237,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
 
 .boostlook #toc .nav-menu h3.title a:focus,
 .boostlook #toc .nav-menu h3.title a:hover {
-  color: var(--text-main-text-link-blue-secondary, #0284c7);
+  color: var(--text-main-text-link-blue-secondary, #0077B8);
 }
 
 /* Navigation Menu */
@@ -4287,6 +4358,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
 .boostlook #toc.toc2.nav-container.is-active {
   position: static;
   height: 100vh;
+  height: 100dvh;
   padding: 0;
   overflow-y: auto;
 }
@@ -4416,7 +4488,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
 }
 
 .boostlook .breadcrumbs ul li:last-of-type a {
-  color: var(--text-main-text-link-blue-secondary, #0284c7);
+  color: var(--text-main-text-link-blue-secondary, #0077B8);
 }
 
 .boostlook .breadcrumbs ul li a:hover {
@@ -4452,13 +4524,12 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   display: inline-block;
   flex-shrink: 0;
   flex-grow: 0;
-  width: 16px;
-  height: 16px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
   background: var(--surface-icons-icon-tetriary, #949a9e);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M6 3L11 8L6 13' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M6 3L11 8L6 13' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
   padding: 0;
-  margin: 0 var(--spacing-size-3xs, 0.25rem);
+  margin: 0 var(--spacing-size-2xs, 0.5rem);
 }
 
 .boostlook .breadcrumbs ul li:first-of-type:not(:only-child)::after,
@@ -4702,6 +4773,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   border-radius: var(--radius-l, 0.5rem);
   min-width: 580px;
   max-height: calc(100vh - 6rem);
+  max-height: calc(100dvh - 6rem);
   overflow: auto;
 }
 
@@ -4882,6 +4954,7 @@ div.source-docs-antora.boostlook {
   overflow: hidden;
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .boostlook#boost-legacy-docs-wrapper > #header,
@@ -5435,6 +5508,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) > #cont
     width: var(--main-max-width-leftbar) !important;
     top: 0 !important;
     height: 100vh !important;
+    height: 100dvh !important;
   }
 
   .boostlook #toggle-toc {
