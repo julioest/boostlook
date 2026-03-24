@@ -812,6 +812,11 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   color: var(--text-main-text-link-blue, #026a9f);
 }
 
+/* Link-only list items: blue bullets when li contains only a link */
+.boostlook .ulist:not(.tablist) > ul > li:has(> p > a:only-child)::before {
+  color: var(--text-main-text-link-blue, #026a9f) !important;
+}
+
 /* Unresolved xref links: red bullet to match the red link text */
 .boostlook #content .doc .sect1:not(:has(~ .sect1)) > .sectionbody > .ulist:last-child > ul > li:has(> p > a.unresolved)::before,
 .boostlook #content .doc .sect1:not(:has(~ .sect1)) .sect2:last-child > .ulist:last-child > ul > li:has(> p > a.unresolved)::before {
