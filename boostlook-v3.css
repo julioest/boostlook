@@ -1137,6 +1137,18 @@ body :not(pre):not([class^="L"]) > code {
   margin: revert;
 }
 
+/* Scroll offset for anchor links */
+.boostlook .doc h1[id],
+.boostlook .doc h2[id],
+.boostlook .doc h3[id],
+.boostlook .doc h4[id],
+.boostlook .doc h5[id],
+.boostlook .doc h6[id],
+.boostlook .doc :where(h1, h2, h3, h4, h5, h6):has(.anchor),
+.boostlook :where(h1, h2, h3, h4, h5, h6):has(> a[id]) {
+  scroll-margin-top: 3.5rem;
+}
+
 /* Anchor positioning within headings */
 .boostlook .doc h1:has(.anchor),
 .boostlook .doc h2:has(.anchor),
@@ -1265,6 +1277,31 @@ body :not(pre):not([class^="L"]) > code {
 .boostlook .doc h5 .anchor:hover::before,
 .boostlook .doc h6 .anchor:hover::before {
   opacity: 1;
+}
+
+/* Mobile: always show anchor icons (no hover on touch devices) */
+@media (hover: none) {
+  .boostlook .doc h1 .anchor,
+  .boostlook .doc h2 .anchor,
+  .boostlook .doc h3 .anchor,
+  .boostlook .doc h4 .anchor,
+  .boostlook .doc h5 .anchor,
+  .boostlook .doc h6 .anchor,
+  .boostlook :where(h1, h2, h3, h4, h5, h6):has(> a[id]):has(> a[href]) a[href]:before {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .boostlook .doc h1 .anchor::before,
+  .boostlook .doc h2 .anchor::before,
+  .boostlook .doc h3 .anchor::before,
+  .boostlook .doc h4 .anchor::before,
+  .boostlook .doc h5 .anchor::before,
+  .boostlook .doc h6 .anchor::before,
+  .boostlook :where(h1, h2, h3, h4, h5, h6):has(> a[id]):has(> a[href]) a[href]:after {
+    opacity: 0.6 !important;
+    visibility: visible !important;
+  }
 }
 
 /* Paragraph Styling — Metalab 2.0: Sans/Desktop/Regular/Base/Tight */
@@ -1751,6 +1788,14 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook .content:has(> pre):has(> .source-toolbox):hover .copy-button {
   opacity: 1;
   visibility: visible;
+}
+
+/* Mobile: always show copy button (no hover on touch devices) */
+@media (hover: none) {
+  .boostlook .content:has(> pre):has(> .source-toolbox) .copy-button {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
 }
 
 .boostlook .content:has(> pre):has(> .source-toolbox) .copy-button img {
@@ -3605,6 +3650,7 @@ html::-webkit-scrollbar-thumb,
 /* Hide root scrollbars for Antora template */
 html:has(.article > .boostlook) {
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -3628,6 +3674,7 @@ html:has(#docsiframe)::-webkit-scrollbar {
 .boostlook:has(#content > .sect1) {
   overflow-y: auto;
   height: 100vh;
+  height: 100dvh;
 }
 
 /* Table Container */
@@ -3640,6 +3687,7 @@ html:has(#docsiframe)::-webkit-scrollbar {
 /* Article Layout */
 .article.toc2.toc-left {
   height: 100vh;
+  height: 100dvh;
   /* Simplified: always use offset behavior, never center */
   margin-left: var(--main-max-width-leftbar);
   background: var(--surface-background-main-base-primary, #fff);
@@ -3880,6 +3928,7 @@ html.is-clipped--nav:has(.boostlook) div#content {
     top: 0;
     z-index: 1000;
     height: 100vh;
+    height: 100dvh;
     padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
@@ -4277,6 +4326,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
 .boostlook #toc.toc2.nav-container.is-active {
   position: static;
   height: 100vh;
+  height: 100dvh;
   padding: 0;
   overflow-y: auto;
 }
@@ -4692,6 +4742,7 @@ html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
   border-radius: var(--radius-l, 0.5rem);
   min-width: 580px;
   max-height: calc(100vh - 6rem);
+  max-height: calc(100dvh - 6rem);
   overflow: auto;
 }
 
@@ -4872,6 +4923,7 @@ div.source-docs-antora.boostlook {
   overflow: hidden;
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .boostlook#boost-legacy-docs-wrapper > #header,
@@ -5425,6 +5477,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) > #cont
     width: var(--main-max-width-leftbar) !important;
     top: 0 !important;
     height: 100vh !important;
+    height: 100dvh !important;
   }
 
   .boostlook #toggle-toc {

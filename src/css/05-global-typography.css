@@ -136,6 +136,18 @@
   margin: revert;
 }
 
+/* Scroll offset for anchor links */
+.boostlook .doc h1[id],
+.boostlook .doc h2[id],
+.boostlook .doc h3[id],
+.boostlook .doc h4[id],
+.boostlook .doc h5[id],
+.boostlook .doc h6[id],
+.boostlook .doc :where(h1, h2, h3, h4, h5, h6):has(.anchor),
+.boostlook :where(h1, h2, h3, h4, h5, h6):has(> a[id]) {
+  scroll-margin-top: 3.5rem;
+}
+
 /* Anchor positioning within headings */
 .boostlook .doc h1:has(.anchor),
 .boostlook .doc h2:has(.anchor),
@@ -264,4 +276,29 @@
 .boostlook .doc h5 .anchor:hover::before,
 .boostlook .doc h6 .anchor:hover::before {
   opacity: 1;
+}
+
+/* Mobile: always show anchor icons (no hover on touch devices) */
+@media (hover: none) {
+  .boostlook .doc h1 .anchor,
+  .boostlook .doc h2 .anchor,
+  .boostlook .doc h3 .anchor,
+  .boostlook .doc h4 .anchor,
+  .boostlook .doc h5 .anchor,
+  .boostlook .doc h6 .anchor,
+  .boostlook :where(h1, h2, h3, h4, h5, h6):has(> a[id]):has(> a[href]) a[href]:before {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .boostlook .doc h1 .anchor::before,
+  .boostlook .doc h2 .anchor::before,
+  .boostlook .doc h3 .anchor::before,
+  .boostlook .doc h4 .anchor::before,
+  .boostlook .doc h5 .anchor::before,
+  .boostlook .doc h6 .anchor::before,
+  .boostlook :where(h1, h2, h3, h4, h5, h6):has(> a[id]):has(> a[href]) a[href]:after {
+    opacity: 0.6 !important;
+    visibility: visible !important;
+  }
 }

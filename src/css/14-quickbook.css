@@ -27,6 +27,7 @@ div.source-docs-antora.boostlook {
   overflow: hidden;
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .boostlook#boost-legacy-docs-wrapper > #header,

@@ -17,6 +17,7 @@
     width: var(--main-max-width-leftbar) !important;
     top: 0 !important;
     height: 100vh !important;
+    height: 100dvh !important;
   }
 
   .boostlook #toggle-toc {

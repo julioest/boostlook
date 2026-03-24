@@ -4,6 +4,7 @@
 /* Hide root scrollbars for Antora template */
 html:has(.article > .boostlook) {
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -27,6 +28,7 @@ html:has(#docsiframe)::-webkit-scrollbar {
 .boostlook:has(#content > .sect1) {
   overflow-y: auto;
   height: 100vh;
+  height: 100dvh;
 }
 
 /* Table Container */
@@ -39,6 +41,7 @@ html:has(#docsiframe)::-webkit-scrollbar {
 /* Article Layout */
 .article.toc2.toc-left {
   height: 100vh;
+  height: 100dvh;
   /* Simplified: always use offset behavior, never center */
   margin-left: var(--main-max-width-leftbar);
   background: var(--surface-background-main-base-primary, #fff);
@@ -279,6 +282,7 @@ html.is-clipped--nav:has(.boostlook) div#content {
     top: 0;
     z-index: 1000;
     height: 100vh;
+    height: 100dvh;
     padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
