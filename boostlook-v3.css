@@ -5451,6 +5451,11 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) > #cont
 
 .boostlook#libraryReadMe {
   margin-left: 0;
+  background: #fff;
+}
+
+html.dark .boostlook#libraryReadMe {
+  background: var(--colors-primary-850);
 }
 
 .boostlook#libraryReadMe > * {
@@ -5461,6 +5466,17 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) > #cont
 
 .boostlook#libraryReadMe > h1:first-child {
   margin-top: 0;
+}
+
+.boostlook#libraryReadMe h1 {
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 768px) {
+  .boostlook#libraryReadMe h1 {
+    font-size: 2.5rem;
+  }
 }
 
 .boostlook#libraryReadMe div.highlight:has(> pre) {
