@@ -302,12 +302,85 @@
     font: inherit;
     text-transform: none;
     letter-spacing: 0;
+    flex: 1;
+    min-width: 0;
+    word-break: break-all;
   }
+  .ks-css__copy-all {
+    position: relative;
+    width: 24px;
+    height: 22px;
+    padding: 0;
+    background-color: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 3px;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    font-size: 0;
+    color: transparent;
+    transition: background-color 200ms ease, border-color 200ms ease;
+    overflow: hidden;
+  }
+  .ks-css__copy-all::before,
+  .ks-css__copy-all::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: opacity 200ms ease;
+    pointer-events: none;
+  }
+  .ks-css__copy-all::before {
+    background-image: var(--icon-clipboard);
+    background-size: 13px 13px;
+    opacity: 1;
+  }
+  .ks-css__copy-all::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23065f46' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+    background-size: 14px 14px;
+    opacity: 0;
+  }
+  html.dark .ks-css__copy-all::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2386efac' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  }
+  .ks-css__copy-all:hover { background-color: #e5e7eb; }
+  .ks-css__copy-all.is-copied {
+    background-color: #d1fae5;
+    border-color: #6ee7b7;
+  }
+  .ks-css__copy-all.is-copied::before { opacity: 0; }
+  .ks-css__copy-all.is-copied::after { opacity: 1; }
   .ks-css__row {
     display: grid;
     grid-template-columns: 110px 1fr;
     gap: 8px;
-    padding: 2px 0;
+    padding: 2px 4px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 80ms ease;
+  }
+  .ks-css__row:hover { background: rgba(0, 0, 0, 0.04); }
+  .ks-css__row.is-copied { background: #d1fae5; }
+  .ks-css__row.is-copied .ks-css__val::after {
+    content: "Copied!";
+    font-style: italic;
+    color: #065f46;
+    margin-left: 8px;
+  }
+  html.dark .ks-css__row:hover { background: rgba(255, 255, 255, 0.05); }
+  html.dark .ks-css__row.is-copied { background: rgba(110, 231, 183, 0.18); }
+  html.dark .ks-css__row.is-copied .ks-css__val::after { color: #86efac; }
+  html.dark .ks-css__copy-all {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: #374151;
+  }
+  html.dark .ks-css__copy-all:hover { background-color: rgba(255, 255, 255, 0.12); }
+  html.dark .ks-css__copy-all.is-copied {
+    background-color: rgba(110, 231, 183, 0.18);
+    border-color: #6ee7b7;
+    color: #86efac;
   }
   .ks-css__row.is-default { display: none; }
   body.ks-show-defaults .ks-css__row.is-default { display: grid; opacity: 0.55; }
@@ -1160,6 +1233,27 @@
     return escapeHtml(val);
   }
 
+  function flashCopy(el) {
+    el.classList.add('is-copied');
+    clearTimeout(el._copyTimer);
+    el._copyTimer = setTimeout(() => el.classList.remove('is-copied'), 700);
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    // Fallback for non-secure contexts (file://)
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
   function renderPanel(targetSel, target) {
     const panel = document.createElement('div');
     panel.className = 'ks-css';
@@ -1173,15 +1267,52 @@
       const isDefault = DEFAULTS.has(val);
       return { prop, val, isDefault };
     });
-    const header =
-      '<div class="ks-css__header">' +
-        '<code>' + escapeHtml(targetSel) + '</code>' +
-      '</div>';
-    const rows = entries.map(({ prop, val, isDefault }) => {
-      const cls = isDefault ? 'ks-css__row is-default' : 'ks-css__row';
-      return '<div class="' + cls + '"><span class="ks-css__prop">' + prop + '</span><span class="ks-css__val">' + valueHtml(prop, val) + '</span></div>';
-    }).join('');
-    panel.innerHTML = header + rows;
+
+    const header = document.createElement('div');
+    header.className = 'ks-css__header';
+    const codeEl = document.createElement('code');
+    codeEl.textContent = targetSel;
+    const copyAll = document.createElement('button');
+    copyAll.type = 'button';
+    copyAll.className = 'ks-css__copy-all';
+    copyAll.setAttribute('aria-label', 'Copy CSS rule');
+    copyAll.title = 'Copy the full CSS rule (mirrors what is visible — toggle "Show CSS defaults" to include all properties)';
+    copyAll.addEventListener('click', () => {
+      const showDefaults = document.body.classList.contains('ks-show-defaults');
+      const lines = entries
+        .filter(e => showDefaults || !e.isDefault)
+        .map(e => '  ' + e.prop + ': ' + e.val + ';');
+      const rule = targetSel + ' {\n' + lines.join('\n') + '\n}';
+      copyText(rule);
+      copyAll.classList.add('is-copied');
+      clearTimeout(copyAll._copyTimer);
+      copyAll._copyTimer = setTimeout(() => {
+        copyAll.classList.remove('is-copied');
+      }, 800);
+    });
+    header.appendChild(codeEl);
+    header.appendChild(copyAll);
+    panel.appendChild(header);
+
+    entries.forEach(({ prop, val, isDefault }) => {
+      const row = document.createElement('div');
+      row.className = isDefault ? 'ks-css__row is-default' : 'ks-css__row';
+      row.title = 'Click to copy: ' + prop + ': ' + val + ';';
+      row.addEventListener('click', () => {
+        copyText(prop + ': ' + val + ';');
+        flashCopy(row);
+      });
+      const propEl = document.createElement('span');
+      propEl.className = 'ks-css__prop';
+      propEl.textContent = prop;
+      const valEl = document.createElement('span');
+      valEl.className = 'ks-css__val';
+      valEl.innerHTML = valueHtml(prop, val);
+      row.appendChild(propEl);
+      row.appendChild(valEl);
+      panel.appendChild(row);
+    });
+
     return panel;
   }
 
