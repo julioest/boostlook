@@ -135,13 +135,20 @@
 
   .ks-row {
     display: grid;
-    grid-template-columns: 180px minmax(0, 1.5fr) minmax(0, 1.1fr);
+    grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1fr);
     gap: 18px;
     align-items: start;
-    padding: 14px 0;
+    padding: 14px 0 22px;
     border-bottom: 1px dashed #f1f5f9;
   }
   .ks-row:last-child { border-bottom: none; }
+  .ks-row > .ks-shot { grid-column: 2 / -1; }
+  .ks-row.is-inspected > .ks-body > .boostlook {
+    box-shadow: 0 0 0 2px #f59e0b inset;
+  }
+  html.dark .ks-row.is-inspected > .ks-body > .boostlook {
+    box-shadow: 0 0 0 2px #fbbf24 inset;
+  }
   .ks-label {
     font: 12px/1.4 ui-monospace, "SF Mono", Menlo, monospace;
     color: #92400e;
@@ -151,7 +158,22 @@
     padding: 5px 8px;
     word-break: break-word;
   }
-  .ks-body { min-width: 0; }
+  .ks-body { min-width: 0; position: relative; padding-top: 14px; }
+  .ks-body::before {
+    content: attr(data-lib);
+    position: absolute;
+    top: 0; left: 0;
+    font: 10px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+  }
+  html.dark .ks-body::before { color: #9ca3af; }
+  .ks-na {
+    font: 11px/1.4 ui-monospace, "SF Mono", Menlo, monospace;
+    font-style: italic;
+    color: #9ca3af;
+  }
   .ks-body > .boostlook {
     background: var(--surface-page, #F7FDFE);
     border: 1px solid #e5e7eb;
@@ -273,7 +295,7 @@
     overflow: visible !important;
   }
 
-  /* Computed-style panel — light by default, dark variant under html.dark */
+  /* Computed-style panel — rendered into the inspector rail */
   .ks-css {
     min-width: 0;
     background: #ffffff;
@@ -282,8 +304,6 @@
     border-radius: 6px;
     padding: 8px 10px;
     font: 11px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
-    max-height: 360px;
-    overflow: auto;
   }
   .ks-css__header {
     font-size: 10px;
@@ -429,7 +449,131 @@
 
   @media (max-width: 1100px) {
     .ks-row { grid-template-columns: 220px 1fr; }
-    .ks-css { grid-column: 1 / -1; }
+    .ks-row > .ks-body + .ks-body { margin-top: 22px; }
+    .ks-row > .ks-shot { grid-column: 1 / -1; }
+  }
+
+  /* Persistent right-rail inspector */
+  :root {
+    --ks-inspector-width: 340px;
+    --ks-inspector-tab: 32px;
+  }
+  body.ks-inspector-open { padding-right: var(--ks-inspector-width); }
+  body.ks-inspector-collapsed { padding-right: var(--ks-inspector-tab); }
+  #ks-inspector {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: var(--ks-inspector-width);
+    background: #ffffff;
+    border-left: 1px solid #e5e7eb;
+    box-shadow: -4px 0 12px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+    transition: transform 180ms ease;
+  }
+  body.ks-inspector-collapsed #ks-inspector {
+    transform: translateX(calc(var(--ks-inspector-width) - var(--ks-inspector-tab)));
+  }
+  html.dark #ks-inspector {
+    background: #0b1220;
+    border-left-color: #1f2937;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.4);
+  }
+  .ks-inspector__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    font: 10px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b7280;
+  }
+  html.dark .ks-inspector__header {
+    border-bottom-color: #1f2937;
+    color: #9ca3af;
+  }
+  .ks-inspector__title { flex: 0 0 auto; }
+  .ks-inspector__sel {
+    flex: 1;
+    min-width: 0;
+    text-transform: none;
+    letter-spacing: 0;
+    color: #6d28d9;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  html.dark .ks-inspector__sel { color: #c4b5fd; }
+  .ks-inspector__collapse {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid #d1d5db;
+    border-radius: 3px;
+    cursor: pointer;
+    font: 12px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    color: #6b7280;
+  }
+  .ks-inspector__collapse:hover { background: #f3f4f6; }
+  html.dark .ks-inspector__collapse {
+    border-color: #374151;
+    color: #9ca3af;
+  }
+  html.dark .ks-inspector__collapse:hover { background: #1f2937; }
+  .ks-inspector__body {
+    flex: 1;
+    overflow: auto;
+    padding: 12px;
+  }
+  .ks-inspector__body .ks-css {
+    border: none;
+    padding: 0;
+    background: transparent;
+  }
+  .ks-inspector__empty {
+    color: #9ca3af;
+    font: 12px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+    text-align: center;
+    padding: 32px 12px;
+  }
+  html.dark .ks-inspector__empty { color: #6b7280; }
+  .ks-inspector__tab {
+    position: absolute;
+    top: 12px;
+    left: -28px;
+    width: 28px;
+    height: 80px;
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    cursor: pointer;
+    font: 9px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    display: none;
+  }
+  body.ks-inspector-collapsed .ks-inspector__tab { display: block; }
+  html.dark .ks-inspector__tab {
+    background: #422006;
+    color: #fde68a;
+    border-color: #92400e;
+  }
+
+  @media (max-width: 1100px) {
+    body.ks-inspector-open { padding-right: 0; }
+    #ks-inspector { box-shadow: -8px 0 24px rgba(15, 23, 42, 0.15); }
   }
 
 </style>
@@ -455,6 +599,7 @@
   <span class="ks-nav__title">Jump to</span>
   <div class="ks-nav__actions" id="ks-nav-actions">
     <button class="ks-toggle" id="ks-toggle-defaults" type="button" title="Toggle visibility of default values (none, 0px, normal, transparent, etc.)">Show CSS defaults</button>
+    <button class="ks-toggle" id="ks-toggle-inspector" type="button" title="Show / hide the right-side computed-CSS inspector">Hide inspector</button>
     <button class="ks-toggle" id="ks-toggle-theme" type="button" title="Toggle boostlook light / dark theme (html.dark)">Dark theme</button>
     <button class="ks-toggle ks-dnd-only" id="ks-btn-connect-dir" type="button" title="Pick the screenshots/ folder so dropped images can be auto-written into it" style="display:none;">📁 Connect screenshots/</button>
   </div>
@@ -466,19 +611,31 @@
 
   <div class="ks-row" data-target=".doc > h1.page">
     <div class="ks-label">H1 — page title</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
-      <h1 class="page">Why Capy?</h1>
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <h1 class="page">Capy</h1>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <h1 class="page">CharConv: An Implementation of &lt;charconv&gt; in C++11</h1>
     </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".doc > h1.page code">
     <div class="ks-label">H1 — page title, with inline code</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <h1 class="page">Reference for <code>any_stream</code></h1>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <h1 class="page">Reference for <code>std::to_chars</code></h1>
     </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".details .author">
     <div class="ks-label">Author / byline (under page title)</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <h1 class="page">Capy</h1>
+      <div class="details">
+        <span class="ks-na">No author byline in Capy docs</span>
+      </div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <h1 class="page">CharConv: An Implementation of &lt;charconv&gt; in C++11</h1>
       <div class="details">
         <span id="author" class="author">Matt Borland</span><br>
@@ -487,71 +644,117 @@
   </div>
   <div class="ks-row" data-target=".sect1 > h2">
     <div class="ks-label">H2 — section heading</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1">
-        <h2 id="section"><a class="anchor" href="#section"></a>Section heading</h2>
+        <h2 id="capy-h2"><a class="anchor" href="#capy-h2"></a>What This Library Does</h2>
+        <div class="sectionbody"></div>
+      </div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1">
+        <h2 id="charconv-h2"><a class="anchor" href="#charconv-h2"></a>Overview</h2>
         <div class="sectionbody"></div>
       </div>
     </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect1 > h2 code">
     <div class="ks-label">H2 — with inline code</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1">
-        <h2 id="section-code"><a class="anchor" href="#section-code"></a>Using <code>from_chars</code></h2>
+        <h2 id="capy-h2-code"><a class="anchor" href="#capy-h2-code"></a>Using <code>any_stream</code></h2>
+        <div class="sectionbody"></div>
+      </div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1">
+        <h2 id="charconv-h2-code"><a class="anchor" href="#charconv-h2-code"></a>Using <code>from_chars</code></h2>
         <div class="sectionbody"></div>
       </div>
     </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect2 > h3">
     <div class="ks-label">H3 — subsection heading</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2">
-        <h3 id="sub"><a class="anchor" href="#sub"></a>Subsection heading</h3>
+        <h3 id="capy-h3"><a class="anchor" href="#capy-h3"></a>Compiler Support</h3>
+        <div class="sectionbody"></div>
+      </div></div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2">
+        <h3 id="charconv-h3"><a class="anchor" href="#charconv-h3"></a>Description</h3>
         <div class="sectionbody"></div>
       </div></div></div>
     </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect2 > h3 code">
     <div class="ks-label">H3 — with inline code</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2">
-        <h3 id="sub-code"><a class="anchor" href="#sub-code"></a>Overload <code>to_chars(char*, char*, T)</code></h3>
+        <h3 id="capy-h3-code"><a class="anchor" href="#capy-h3-code"></a>Echo over <code>any_stream</code></h3>
+        <div class="sectionbody"></div>
+      </div></div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2">
+        <h3 id="charconv-h3-code"><a class="anchor" href="#charconv-h3-code"></a>Overload <code>to_chars(char*, char*, T)</code></h3>
         <div class="sectionbody"></div>
       </div></div></div>
     </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect2 > h3 > .anchor">
     <div class="ks-label">Heading anchor / permalink icon (hover-visible on real site)</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2">
-        <h3 id="sub-anchor"><a class="anchor" href="#sub-anchor"></a>Subsection with anchor link</h3>
+        <h3 id="capy-anchor"><a class="anchor" href="#capy-anchor"></a>Subsection with anchor link</h3>
+        <div class="sectionbody"></div>
+      </div></div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2">
+        <h3 id="charconv-anchor"><a class="anchor" href="#charconv-anchor"></a>Subsection with anchor link</h3>
         <div class="sectionbody"></div>
       </div></div></div>
     </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect3 > h4">
     <div class="ks-label">H4 — sub-subsection heading</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3">
-        <h4 id="subsub"><a class="anchor" href="#subsub"></a>Sub-subsection heading</h4>
+        <h4 id="capy-h4"><a class="anchor" href="#capy-h4"></a>Sub-subsection heading</h4>
+        <div class="sectionbody"></div>
+      </div></div></div></div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3">
+        <h4 id="charconv-h4"><a class="anchor" href="#charconv-h4"></a>Sub-subsection heading</h4>
         <div class="sectionbody"></div>
       </div></div></div></div></div>
     </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect4 > h5">
     <div class="ks-label">H5 — deep heading</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3"><div class="sectionbody"><div class="sect4">
-        <h5 id="h5"><a class="anchor" href="#h5"></a>H5 heading</h5>
+        <h5 id="capy-h5"><a class="anchor" href="#capy-h5"></a>H5 heading</h5>
+      </div></div></div></div></div></div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3"><div class="sectionbody"><div class="sect4">
+        <h5 id="charconv-h5"><a class="anchor" href="#charconv-h5"></a>H5 heading</h5>
       </div></div></div></div></div></div></div>
     </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect5 > h6">
     <div class="ks-label">H6 — deepest heading</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3"><div class="sectionbody"><div class="sect4"><div class="sectionbody"><div class="sect5">
-        <h6 id="h6"><a class="anchor" href="#h6"></a>H6 heading</h6>
+        <h6 id="capy-h6"><a class="anchor" href="#capy-h6"></a>H6 heading</h6>
+      </div></div></div></div></div></div></div></div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3"><div class="sectionbody"><div class="sect4"><div class="sectionbody"><div class="sect5">
+        <h6 id="charconv-h6"><a class="anchor" href="#charconv-h6"></a>H6 heading</h6>
       </div></div></div></div></div></div></div></div></div>
     </article></div></div></div>
   </div>
@@ -563,7 +766,12 @@
 
   <div class="ks-row" data-target=".paragraph > p">
     <div class="ks-label">Paragraph</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>Capy abstracts away sockets, files, and asynchrony with type-erased streams and buffer sequences—code compiles fast because the implementation is hidden.</p></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>Boost.Charconv converts character buffers to numbers, and numbers to character buffers. It is a small library of two overloaded functions designed for performance and consistency across supported development environments.</p></div>
       </div></div>
@@ -571,7 +779,12 @@
   </div>
   <div class="ks-row" data-target=".paragraph > p > a">
     <div class="ks-label">Paragraph — with inline link</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>See the <a href="https://develop.capy.cpp.al/capy/index.html">Capy overview</a> for the design rationale, and the <a href="#section">streams section</a> for API details.</p></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>See <a href="#section">the section on conversions</a> for details, and the <a href="https://en.cppreference.com/w/cpp/utility/to_chars">cppreference page for <code>to_chars</code></a> for the standard reference.</p></div>
       </div></div>
@@ -579,7 +792,12 @@
   </div>
   <div class="ks-row" data-target=".paragraph > p > code">
     <div class="ks-label">Paragraph — with inline code</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>Read from an <code>any_stream</code> with <code>read_some(mutable_buffer)</code> and write back with <code>write(stream, const_buffer)</code>.</p></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>Call <code>boost::charconv::to_chars</code> with a buffer range and a numeric value. The result holds a <code>ptr</code> and an <code>ec</code> field.</p></div>
       </div></div>
@@ -587,7 +805,12 @@
   </div>
   <div class="ks-row" data-target=".paragraph > p > strong">
     <div class="ks-label">Paragraph — with strong</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>Streams are <strong>type-erased</strong>, <strong>buffer-friendly</strong>, and <strong>coroutine-aware</strong>.</p></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>The library is <strong>locale-independent</strong>, <strong>non-allocating</strong>, and <strong>non-throwing</strong>.</p></div>
       </div></div>
@@ -595,7 +818,12 @@
   </div>
   <div class="ks-row" data-target=".paragraph > p > em">
     <div class="ks-label">Paragraph — with em</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>I/O is <em>composable</em> across socket, file, and in-memory back-ends.</p></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>Conversions are <em>round-trip safe</em> for all finite IEEE-754 values.</p></div>
       </div></div>
@@ -603,7 +831,12 @@
   </div>
   <div class="ks-row" data-target=".paragraph > p > sup">
     <div class="ks-label">Paragraph — with sup/sub footnote</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>An <code>any_stream</code> is one-shot<sup>1</sup>. The internal buffer index is base-2<sub>2</sub>.</p></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>Charconv is non-allocating<sup>1</sup>. The exponent uses base 10<sub>10</sub> internally.</p></div>
       </div></div>
@@ -611,7 +844,12 @@
   </div>
   <div class="ks-row" data-target=".paragraph p kbd">
     <div class="ks-label">Paragraph — with kbd keyboard key</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to cancel an in-flight <code>read_some</code>.</p></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to copy the buffer contents.</p></div>
       </div></div>
@@ -619,24 +857,45 @@
   </div>
   <div class="ks-row" data-target="#footnotes .footnote">
     <div class="ks-label">Footnote entry (bottom-of-page)</div>
-    <div class="ks-body"><div class="boostlook">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook">
       <div id="footnotes">
         <hr>
-        <div class="footnote" id="_footnotedef_1">
-          <a href="#_footnoteref_1">1</a>. The one edge case where allocation may occur is when parsing a string to an 80- or 128-bit <code>long double</code>.
+        <div class="footnote" id="_capy_footnotedef_1">
+          <a href="#_capy_footnoteref_1">1</a>. A stream is exhausted after <code>read_some</code> returns <code>eof</code>; create a new <code>any_stream</code> to reuse the back-end.
+        </div>
+      </div>
+    </div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook">
+      <div id="footnotes">
+        <hr>
+        <div class="footnote" id="_charconv_footnotedef_1">
+          <a href="#_charconv_footnoteref_1">1</a>. The one edge case where allocation may occur is when parsing a string to an 80- or 128-bit <code>long double</code>.
         </div>
       </div>
     </div></div>
   </div>
   <div class="ks-row" data-target="hr">
     <div class="ks-label">Horizontal rule</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><hr></div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><hr></div></div>
     </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".quoteblock">
     <div class="ks-label">Blockquote</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="quoteblock">
+          <blockquote>
+            <div class="paragraph"><p>Capy abstracts away sockets, files, and asynchrony with type-erased streams and buffer sequences.</p></div>
+          </blockquote>
+          <div class="attribution">— <cite>Capy docs</cite></div>
+        </div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="quoteblock">
           <blockquote>
@@ -655,7 +914,7 @@
 
   <div class="ks-row" data-target=".admonitionblock.note">
     <div class="ks-label">Admonition — note</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="admonitionblock note">
           <table>
@@ -663,7 +922,21 @@
               <td class="icon">
                 <div class="title">Note</div>
               </td>
-              <td class="content">This implementation is header-only on most platforms.</td>
+              <td class="content"><span class="ks-na">No admonition blocks in current Capy docs — placeholder.</span></td>
+            </tr>
+          </table>
+        </div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="admonitionblock note">
+          <table>
+            <tr>
+              <td class="icon">
+                <div class="title">Note</div>
+              </td>
+              <td class="content">Since Charconv only depends on a few header-only Boost libraries, you can save time by requesting header-only Boost.</td>
             </tr>
           </table>
         </div>
@@ -672,7 +945,21 @@
   </div>
   <div class="ks-row" data-target=".admonitionblock.tip">
     <div class="ks-label">Admonition — tip</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="admonitionblock tip">
+          <table>
+            <tr>
+              <td class="icon">
+                <div class="title">Tip</div>
+              </td>
+              <td class="content"><span class="ks-na">No admonition blocks in current Capy docs — placeholder.</span></td>
+            </tr>
+          </table>
+        </div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="admonitionblock tip">
           <table>
@@ -689,7 +976,21 @@
   </div>
   <div class="ks-row" data-target=".admonitionblock.important">
     <div class="ks-label">Admonition — important</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="admonitionblock important">
+          <table>
+            <tr>
+              <td class="icon">
+                <div class="title">Important</div>
+              </td>
+              <td class="content"><span class="ks-na">No admonition blocks in current Capy docs — placeholder.</span></td>
+            </tr>
+          </table>
+        </div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="admonitionblock important">
           <table>
@@ -706,7 +1007,21 @@
   </div>
   <div class="ks-row" data-target=".admonitionblock.warning">
     <div class="ks-label">Admonition — warning</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="admonitionblock warning">
+          <table>
+            <tr>
+              <td class="icon">
+                <div class="title">Warning</div>
+              </td>
+              <td class="content"><span class="ks-na">No admonition blocks in current Capy docs — placeholder.</span></td>
+            </tr>
+          </table>
+        </div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="admonitionblock warning">
           <table>
@@ -729,7 +1044,16 @@
 
   <div class="ks-row" data-target=".ulist > ul">
     <div class="ks-label">Bullet list — single level</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="ulist"><ul>
+          <li><p>Type-erased streams</p></li>
+          <li><p>Buffer sequences</p></li>
+          <li><p>Coroutine-aware composition</p></li>
+        </ul></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="ulist"><ul>
           <li><p>GCC 5 or later</p></li>
@@ -741,7 +1065,14 @@
   </div>
   <div class="ks-row" data-target=".ulist li a">
     <div class="ks-label">Bullet list — item with inline link</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="ulist"><ul>
+          <li><p>Read the <a href="https://develop.capy.cpp.al/capy/index.html">Capy overview</a> and browse the <a href="https://github.com/cppalliance/capy">source on GitHub</a>.</p></li>
+        </ul></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="ulist"><ul>
           <li><p>Tested on <a href="https://github.com/boostorg/charconv/actions">GitHub Actions</a> and <a href="https://drone.cpp.al/boostorg/charconv">Drone</a>.</p></li>
@@ -751,7 +1082,14 @@
   </div>
   <div class="ks-row" data-target=".ulist li code">
     <div class="ks-label">Bullet list — item with inline code</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="ulist"><ul>
+          <li><p><strong>Type-erased streams</strong> — <code>any_stream</code>, <code>any_read_stream</code>, <code>any_write_stream</code>.</p></li>
+        </ul></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="ulist"><ul>
           <li><p>Depends on <code>boost::assert</code>, <code>boost::config</code>, and <code>boost::core</code>.</p></li>
@@ -761,7 +1099,25 @@
   </div>
   <div class="ks-row" data-target=".ulist ul ul">
     <div class="ks-label">Bullet list — nested levels 2 &amp; 3</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="ulist"><ul>
+          <li><p>Level 1 — Stream concepts</p>
+            <ul>
+              <li><p>Level 2 — Read</p>
+                <ul>
+                  <li><p>Level 3 — <code>any_read_stream</code></p></li>
+                  <li><p>Level 3 — <code>read_some(mutable_buffer)</code></p></li>
+                </ul>
+              </li>
+              <li><p>Level 2 — Write</p></li>
+            </ul>
+          </li>
+          <li><p>Level 1 — Buffer sequences</p></li>
+        </ul></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="ulist"><ul>
           <li><p>Level 1 — Integer conversions</p>
@@ -782,7 +1138,16 @@
   </div>
   <div class="ks-row" data-target=".olist > ol">
     <div class="ks-label">Ordered list</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="olist arabic"><ol class="arabic">
+          <li><p>Wrap a back-end socket in <code>any_stream</code>.</p></li>
+          <li><p><code>co_await</code> <code>read_some</code> into a <code>mutable_buffer</code>.</p></li>
+          <li><p>Write the buffer back with <code>write(stream, const_buffer)</code>.</p></li>
+        </ol></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="olist arabic"><ol class="arabic">
           <li><p>Clone the repository.</p></li>
@@ -794,7 +1159,19 @@
   </div>
   <div class="ks-row" data-target=".dlist > dl">
     <div class="ks-label">Description list</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="dlist"><dl>
+          <dt class="hdlist1"><code>any_stream</code></dt>
+          <dd><p>Type-erased read/write stream.</p></dd>
+          <dt class="hdlist1"><code>any_read_stream</code></dt>
+          <dd><p>Read-only specialization.</p></dd>
+          <dt class="hdlist1"><code>any_write_stream</code></dt>
+          <dd><p>Write-only specialization.</p></dd>
+        </dl></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="dlist"><dl>
           <dt class="hdlist1"><code>chars_format::scientific</code></dt>
@@ -809,7 +1186,15 @@
   </div>
   <div class="ks-row" data-target=".dlist dt.hdlist1">
     <div class="ks-label">Description list — term (dt)</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="dlist"><dl>
+          <dt class="hdlist1"><code>any_stream</code></dt>
+          <dd><p>Type-erased read/write stream.</p></dd>
+        </dl></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="dlist"><dl>
           <dt class="hdlist1"><code>chars_format::scientific</code></dt>
@@ -826,7 +1211,12 @@
 
   <div class="ks-row" data-target=".paragraph > p > code">
     <div class="ks-label">Inline code — in paragraph</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>Type-erase a socket with <code>any_stream</code> and read into a <code>mutable_buffer</code>.</p></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>Use the <code>boost::charconv::to_chars</code> overloads to serialize numbers.</p></div>
       </div></div>
@@ -834,7 +1224,14 @@
   </div>
   <div class="ks-row" data-target=".ulist li code">
     <div class="ks-label">Inline code — in list item</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="ulist"><ul>
+          <li><p>Returns a tuple of <code>error_code</code> and <code>std::size_t</code> from <code>read_some</code>.</p></li>
+        </ul></div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="ulist"><ul>
           <li><p>Returns a <code>to_chars_result</code> structure containing <code>ptr</code> and <code>ec</code>.</p></li>
@@ -844,16 +1241,32 @@
   </div>
   <div class="ks-row" data-target=".sect2 > h3 > code">
     <div class="ks-label">Inline code — in heading</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2">
-        <h3 id="overload"><a class="anchor" href="#overload"></a>Overload <code>to_chars(char*, char*, T, int)</code></h3>
+        <h3 id="capy-overload"><a class="anchor" href="#capy-overload"></a>Overload <code>write(any_write_stream&amp;, const_buffer)</code></h3>
+        <div class="sectionbody"></div>
+      </div></div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2">
+        <h3 id="charconv-overload"><a class="anchor" href="#charconv-overload"></a>Overload <code>to_chars(char*, char*, T, int)</code></h3>
         <div class="sectionbody"></div>
       </div></div></div>
     </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".listingblock > .title">
     <div class="ks-label">Code block — title / caption</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="listingblock">
+          <div class="title">Code Example 1. Echo over a stream</div>
+          <div class="content">
+            <pre class="rouge highlight"><code class="language-cpp" data-lang="cpp">task&lt;&gt; echo(any_stream&amp; stream);</code></pre>
+          </div>
+        </div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="listingblock">
           <div class="title">Code Example 1. Serialize an integer</div>
@@ -866,7 +1279,21 @@
   </div>
   <div class="ks-row" data-target=".listingblock pre">
     <div class="ks-label">Code block — listing (Rouge highlighting)</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="listingblock">
+          <div class="title">Code Example 1. Echo over a stream</div>
+          <div class="content">
+            <pre class="rouge highlight"><code class="language-cpp" data-lang="cpp"><span class="k">task</span><span class="o">&lt;&gt;</span> <span class="nf">echo</span><span class="p">(</span><span class="n">any_stream</span><span class="o">&amp;</span> <span class="n">stream</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+    <span class="k">auto</span> <span class="p">[</span><span class="n">ec</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">stream</span><span class="p">.</span><span class="n">read_some</span><span class="p">(</span><span class="n">mutable_buffer</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+    <span class="k">auto</span> <span class="p">[</span><span class="n">wec</span><span class="p">,</span> <span class="n">wn</span><span class="p">]</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">write</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">const_buffer</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">n</span><span class="p">));</span>
+<span class="p">}</span></code></pre>
+          </div>
+        </div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="listingblock">
           <div class="title">Code Example 1. Serialize an integer</div>
@@ -885,7 +1312,18 @@
   </div>
   <div class="ks-row" data-target=".literalblock pre">
     <div class="ks-label">Code block — literal (no highlighting)</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="literalblock">
+          <div class="content">
+            <pre>git clone https://github.com/cppalliance/capy
+cd capy
+cmake -B build &amp;&amp; cmake --build build</pre>
+          </div>
+        </div>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="literalblock">
           <div class="content">
@@ -905,7 +1343,24 @@
 
   <div class="ks-row" data-target="table.tableblock > caption.title">
     <div class="ks-label">Table — caption / title</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <caption class="title">Table 1. Placeholder — no tables in current Capy docs</caption>
+          <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><span class="ks-na">No table in Capy docs</span></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><span class="ks-na">—</span></p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <table class="tableblock frame-all grid-all stretch">
           <caption class="title">Table 1. Supported types</caption>
@@ -929,7 +1384,28 @@
   </div>
   <div class="ks-row" data-target="table.tableblock">
     <div class="ks-label">Table — header row + body</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <colgroup>
+            <col style="width: 33.3333%;">
+            <col style="width: 33.3333%;">
+            <col style="width: 33.3334%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Parameter</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock"><span class="ks-na">No parameter tables in current Capy docs — placeholder.</span></p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <table class="tableblock frame-all grid-all stretch">
           <colgroup>
@@ -954,7 +1430,7 @@
               <td class="tableblock halign-left valign-top"><p class="tableblock">1) Parsing a negative into an unsigned type</p>
                 <p class="tableblock">2) Leading <code>+</code> sign</p>
                 <p class="tableblock">3) Leading space</p>
-                <p class="tableblock">4) See <a href="#overload">overloads</a></p>
+                <p class="tableblock">4) See <a href="#charconv-overload">overloads</a></p>
               </td>
             </tr>
             <tr>
@@ -972,7 +1448,26 @@
 
   <div class="ks-row" data-target="tbody > tr:first-child > td.tableblock">
     <div class="ks-label">Table — header cell (first-row td)</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Parameter</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><span class="ks-na">No parameter tables in current Capy docs — placeholder.</span></p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <table class="tableblock frame-all grid-all stretch">
           <colgroup>
@@ -995,7 +1490,7 @@
   </div>
   <div class="ks-row" data-target="tbody > tr:nth-child(2) > td.tableblock">
     <div class="ks-label">Table — body cell</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <table class="tableblock frame-all grid-all stretch">
           <colgroup>
@@ -1004,12 +1499,32 @@
           </colgroup>
           <tbody>
             <tr>
-              <td class="tableblock halign-left valign-top"><p class="tableblock">Return Value</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Parameter</p></td>
               <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
             </tr>
             <tr>
-              <td class="tableblock halign-left valign-top"><p class="tableblock"><code>std::errc()</code></p></td>
-              <td class="tableblock halign-left valign-top"><p class="tableblock">Successful</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><span class="ks-na">N/A</span></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><span class="ks-na">No table data in current Capy docs.</span></p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Parameter</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ptr</code></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">On return from <code>from_chars</code> it is a pointer to the first character not matching the pattern, or pointer to last if all characters are successfully parsed.</p></td>
             </tr>
           </tbody>
         </table>
@@ -1018,7 +1533,27 @@
   </div>
   <div class="ks-row" data-target="td.tableblock code">
     <div class="ks-label">Table — inline code in cell</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Notes</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><code>any_stream</code></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">See <code>read_some</code> / <code>write</code></p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <table class="tableblock frame-all grid-all stretch">
           <colgroup>
@@ -1041,7 +1576,27 @@
   </div>
   <div class="ks-row" data-target="td.tableblock a">
     <div class="ks-label">Table — link in cell</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Resource</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">URL</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://develop.capy.cpp.al/capy/index.html">overview</a></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">See <a href="https://github.com/cppalliance/capy">source</a></p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <table class="tableblock frame-all grid-all stretch">
           <colgroup>
@@ -1054,8 +1609,8 @@
               <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
             </tr>
             <tr>
-              <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#overload">overloads</a></p></td>
-              <td class="tableblock halign-left valign-top"><p class="tableblock">See <a href="#sub">subsection</a></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#charconv-overload">overloads</a></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">See <a href="#charconv-h3">subsection</a></p></td>
             </tr>
           </tbody>
         </table>
@@ -1070,13 +1625,28 @@
 
   <div class="ks-row" data-target=".toolbar">
     <div class="ks-label">Antora toolbar — breadcrumbs</div>
-    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook"><div id="content"><article class="doc">
       <div class="toolbar" role="navigation">
         <button class="nav-toggle"></button>
         <nav class="breadcrumbs" aria-label="breadcrumbs">
           <ul>
             <li>
-              <a aria-label="Home: Boost.Capy" href="#">
+              <a aria-label="Home: Capy" href="https://develop.capy.cpp.al/">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z"/></svg>
+              </a>
+            </li>
+            <li aria-current="page"><a href="#">Overview</a></li>
+          </ul>
+        </nav>
+      </div>
+    </article></div></div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="toolbar" role="navigation">
+        <button class="nav-toggle"></button>
+        <nav class="breadcrumbs" aria-label="breadcrumbs">
+          <ul>
+            <li>
+              <a aria-label="Home: Boost.Charconv" href="https://www.boost.org/doc/libs/1_87_0/libs/charconv/">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z"/></svg>
               </a>
             </li>
@@ -1089,7 +1659,13 @@
 
   <div class="ks-row" data-target=".edit-this-page a">
     <div class="ks-label">"Edit this page" link</div>
-    <div class="ks-body"><div class="boostlook">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook">
+      <article class="doc"></article>
+      <div class="edit-this-page">
+        <a href="https://github.com/cppalliance/capy/edit/develop/doc/capy.adoc">Edit this page</a>
+      </div>
+    </div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook">
       <article class="doc"></article>
       <div class="edit-this-page">
         <a href="https://github.com/boostorg/charconv/edit/develop/doc/charconv.adoc">Edit this page</a>
@@ -1099,7 +1675,16 @@
 
   <div class="ks-row" data-target="#footer">
     <div class="ks-label">Footer — copyright / license</div>
-    <div class="ks-body"><div class="boostlook">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook">
+      <div id="footer">
+        <div id="footer-text">
+          Copyright © 2026 The C++ Alliance.<br>
+          Distributed under the Boost Software License, Version 1.0.<br>
+          Last updated 2026-05-12 12:00:00 UTC
+        </div>
+      </div>
+    </div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook">
       <div id="footer">
         <div id="footer-text">
           Copyright © 2022 Peter Dimov, 2023–2024 Matt Borland.<br>
@@ -1111,7 +1696,14 @@
   </div>
   <div class="ks-row" data-target="#footer-text">
     <div class="ks-label">Footer — last-updated metadata line</div>
-    <div class="ks-body"><div class="boostlook">
+    <div class="ks-body" data-lib="Capy"><div class="boostlook">
+      <div id="footer">
+        <div id="footer-text">
+          Last updated 2026-05-12 12:00:00 -0500
+        </div>
+      </div>
+    </div></div>
+    <div class="ks-body" data-lib="CharConv"><div class="boostlook">
       <div id="footer">
         <div id="footer-text">
           Last updated 2026-05-12 12:00:00 -0500
@@ -1123,6 +1715,18 @@
 
 
 </div>
+
+<aside id="ks-inspector" aria-label="Computed-CSS inspector">
+  <button class="ks-inspector__tab" id="ks-inspector-expand" type="button" title="Show inspector">Inspector</button>
+  <div class="ks-inspector__header">
+    <span class="ks-inspector__title">Inspector</span>
+    <span class="ks-inspector__sel" id="ks-inspector-sel">click a row to inspect</span>
+    <button class="ks-inspector__collapse" id="ks-inspector-collapse" type="button" title="Collapse to tab">›</button>
+  </div>
+  <div class="ks-inspector__body" id="ks-inspector-body">
+    <div class="ks-inspector__empty">Click any example body to see its computed CSS.</div>
+  </div>
+</aside>
 
 <script>
 (function () {
@@ -1559,6 +2163,76 @@
     img.src = path;
   }
 
+  let inspectedRow = null;
+  function setInspected(row) {
+    if (inspectedRow && inspectedRow !== row) inspectedRow.classList.remove('is-inspected');
+    inspectedRow = row || null;
+    if (inspectedRow) inspectedRow.classList.add('is-inspected');
+  }
+  function clearInspector() {
+    setInspected(null);
+    const sel = document.getElementById('ks-inspector-sel');
+    const body = document.getElementById('ks-inspector-body');
+    if (sel) sel.textContent = 'click a row to inspect';
+    if (body) body.innerHTML = '<div class="ks-inspector__empty">Click any example body to see its computed CSS.</div>';
+  }
+  function inspectFromBody(bodyEl) {
+    const row = bodyEl.closest('.ks-row[data-target]');
+    if (!row) return;
+    const targetSel = row.dataset.target;
+    let target = null;
+    try { target = bodyEl.querySelector(targetSel); } catch (e) {}
+    if (!target) {
+      row.querySelectorAll('.ks-body').forEach(b => {
+        if (target) return;
+        try { target = b.querySelector(targetSel); } catch (e) {}
+      });
+    }
+    const selEl = document.getElementById('ks-inspector-sel');
+    const bodyOut = document.getElementById('ks-inspector-body');
+    if (selEl) selEl.textContent = targetSel;
+    if (bodyOut) {
+      bodyOut.innerHTML = '';
+      bodyOut.appendChild(renderPanel(targetSel, target));
+    }
+    setInspected(row);
+  }
+  function wireInspector() {
+    const inspector = document.getElementById('ks-inspector');
+    if (!inspector) return;
+    document.body.classList.add('ks-inspector-open');
+
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('#ks-inspector')) return;
+      const body = e.target.closest('.ks-body');
+      if (body && body.closest('.ks-row[data-target]')) {
+        inspectFromBody(body);
+        return;
+      }
+      if (!e.target.closest('.ks-row, .ks-nav, .ks-intro, header')) {
+        clearInspector();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') clearInspector();
+    });
+
+    const collapse = document.getElementById('ks-inspector-collapse');
+    const expand = document.getElementById('ks-inspector-expand');
+    const toggleNav = document.getElementById('ks-toggle-inspector');
+    function setCollapsed(collapsed) {
+      document.body.classList.toggle('ks-inspector-collapsed', collapsed);
+      document.body.classList.toggle('ks-inspector-open', !collapsed);
+      if (toggleNav) toggleNav.textContent = collapsed ? 'Show inspector' : 'Hide inspector';
+    }
+    if (collapse) collapse.addEventListener('click', () => setCollapsed(true));
+    if (expand) expand.addEventListener('click', () => setCollapsed(false));
+    if (toggleNav) toggleNav.addEventListener('click', () => {
+      setCollapsed(!document.body.classList.contains('ks-inspector-collapsed'));
+    });
+  }
+
   function wireConnectDirButton() {
     const btn = document.getElementById('ks-btn-connect-dir');
     if (!btn) return;
@@ -1587,14 +2261,10 @@
     wireDefaultsToggle();
     wireThemeToggle();
     wireConnectDirButton();
-    document.querySelectorAll('.ks-row[data-target]').forEach(row => {
-      const sel = row.dataset.target;
-      const body = row.querySelector('.ks-body');
-      let target = null;
-      try { target = body.querySelector(sel); } catch (e) {}
-      row.appendChild(renderPanel(sel, target));
-      if (DND_MODE) addScreenshot(row);
-    });
+    wireInspector();
+    if (DND_MODE) {
+      document.querySelectorAll('.ks-row[data-target]').forEach(addScreenshot);
+    }
   }
 
   if (document.readyState === 'loading') {
