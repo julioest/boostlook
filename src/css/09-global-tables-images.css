@@ -292,7 +292,7 @@
   line-height: 0;
 }
 
-.doc ul.checklist p>i.fa-check-square-o:first-child, .doc ul.checklist p>i.fa-square-o:first-child {
+.boostlook .doc ul.checklist p>i.fa-check-square-o:first-child, .boostlook .doc ul.checklist p>i.fa-square-o:first-child {
   display: none;
 }
 

@@ -34,11 +34,11 @@
     margin-left: 0 !important;
   }
 
-  .article.toc2.toc-left {
+  .article.toc2.toc-left:has(.boostlook) {
     max-width: none !important;
   }
-  html:not(.toc-hidden, .toc-visible) .article.toc2.toc-left,
-  .toc-visible.toc-pinned .article.toc2.toc-left {
+  html:not(.toc-hidden, .toc-visible) .article.toc2.toc-left:has(.boostlook),
+  .toc-visible.toc-pinned .article.toc2.toc-left:has(.boostlook) {
     margin-left: var(--main-max-width-leftbar) !important;
   }
 }
