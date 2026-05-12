@@ -133,6 +133,16 @@
   .ks-toggle:hover { background: #f3f4f6; }
   body.ks-show-defaults .ks-toggle#ks-toggle-defaults { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
 
+  .ks-footer {
+    margin: 48px 0 24px;
+    text-align: center;
+    font: 11px/1.4 ui-monospace, "SF Mono", Menlo, monospace;
+    color: #9ca3af;
+  }
+  .ks-footer__heart { color: #ef4444; }
+  html.dark .ks-footer { color: #6b7280; }
+  html.dark .ks-footer__heart { color: #f87171; }
+
   .ks-row {
     display: grid;
     grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1fr);
@@ -553,8 +563,7 @@
     background: #fef3c7;
     color: #92400e;
     border: 1px solid #fcd34d;
-    border-right: none;
-    border-radius: 4px 0 0 4px;
+    border-radius: 0px 4px 4px 0px;    ;
     cursor: pointer;
     font: 9px/1 ui-monospace, "SF Mono", Menlo, monospace;
     text-transform: uppercase;
@@ -1713,6 +1722,9 @@ cmake -B build &amp;&amp; cmake --build build</pre>
   </div>
 </section>
 
+<footer class="ks-footer">
+  Made with <span class="ks-footer__heart">♥</span> from Julio
+</footer>
 
 </div>
 
@@ -1940,9 +1952,15 @@ cmake -B build &amp;&amp; cmake --build build</pre>
   function wireDefaultsToggle() {
     const btn = document.getElementById('ks-toggle-defaults');
     if (!btn) return;
+    let stored = null;
+    try { stored = localStorage.getItem('ks-show-defaults'); } catch (e) {}
+    const initialOn = stored === '1';
+    document.body.classList.toggle('ks-show-defaults', initialOn);
+    btn.textContent = initialOn ? 'Hide CSS defaults' : 'Show CSS defaults';
     btn.addEventListener('click', () => {
-      document.body.classList.toggle('ks-show-defaults');
-      btn.textContent = document.body.classList.contains('ks-show-defaults') ? 'Hide CSS defaults' : 'Show CSS defaults';
+      const on = document.body.classList.toggle('ks-show-defaults');
+      btn.textContent = on ? 'Hide CSS defaults' : 'Show CSS defaults';
+      try { localStorage.setItem('ks-show-defaults', on ? '1' : '0'); } catch (e) {}
     });
   }
 
@@ -2175,8 +2193,9 @@ cmake -B build &amp;&amp; cmake --build build</pre>
     const body = document.getElementById('ks-inspector-body');
     if (sel) sel.textContent = 'click a row to inspect';
     if (body) body.innerHTML = '<div class="ks-inspector__empty">Click any example body to see its computed CSS.</div>';
+    try { localStorage.removeItem('ks-inspected'); } catch (e) {}
   }
-  function inspectFromBody(bodyEl) {
+  function inspectFromBody(bodyEl, opts) {
     const row = bodyEl.closest('.ks-row[data-target]');
     if (!row) return;
     const targetSel = row.dataset.target;
@@ -2196,11 +2215,34 @@ cmake -B build &amp;&amp; cmake --build build</pre>
       bodyOut.appendChild(renderPanel(targetSel, target));
     }
     setInspected(row);
+    if (!opts || opts.persist !== false) {
+      try {
+        localStorage.setItem('ks-inspected', JSON.stringify({
+          target: targetSel,
+          lib: bodyEl.dataset.lib || ''
+        }));
+      } catch (e) {}
+    }
+  }
+  function restoreInspected() {
+    let raw = null;
+    try { raw = localStorage.getItem('ks-inspected'); } catch (e) { return; }
+    if (!raw) return;
+    let saved;
+    try { saved = JSON.parse(raw); } catch (e) { return; }
+    if (!saved || !saved.target) return;
+    let row = null;
+    try { row = document.querySelector('.ks-row[data-target="' + saved.target.replace(/"/g, '\\"') + '"]'); } catch (e) {}
+    if (!row) { try { localStorage.removeItem('ks-inspected'); } catch (e) {} return; }
+    let body = saved.lib ? row.querySelector('.ks-body[data-lib="' + saved.lib + '"]') : null;
+    if (!body) body = row.querySelector('.ks-body');
+    if (!body) return;
+    inspectFromBody(body, { persist: false });
+    row.scrollIntoView({ block: 'center', behavior: 'smooth' });
   }
   function wireInspector() {
     const inspector = document.getElementById('ks-inspector');
     if (!inspector) return;
-    document.body.classList.add('ks-inspector-open');
 
     document.addEventListener('click', (e) => {
       if (e.target.closest('#ks-inspector')) return;
@@ -2221,16 +2263,26 @@ cmake -B build &amp;&amp; cmake --build build</pre>
     const collapse = document.getElementById('ks-inspector-collapse');
     const expand = document.getElementById('ks-inspector-expand');
     const toggleNav = document.getElementById('ks-toggle-inspector');
-    function setCollapsed(collapsed) {
+    function setCollapsed(collapsed, persist) {
       document.body.classList.toggle('ks-inspector-collapsed', collapsed);
       document.body.classList.toggle('ks-inspector-open', !collapsed);
       if (toggleNav) toggleNav.textContent = collapsed ? 'Show inspector' : 'Hide inspector';
+      if (persist !== false) {
+        try { localStorage.setItem('ks-inspector-collapsed', collapsed ? '1' : '0'); } catch (e) {}
+      }
     }
+
+    let stored = null;
+    try { stored = localStorage.getItem('ks-inspector-collapsed'); } catch (e) {}
+    setCollapsed(stored === '1', false);
+
     if (collapse) collapse.addEventListener('click', () => setCollapsed(true));
     if (expand) expand.addEventListener('click', () => setCollapsed(false));
     if (toggleNav) toggleNav.addEventListener('click', () => {
       setCollapsed(!document.body.classList.contains('ks-inspector-collapsed'));
     });
+
+    restoreInspected();
   }
 
   function wireConnectDirButton() {
