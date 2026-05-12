@@ -10,7 +10,7 @@
  */
 
 /* Light Theme (Default) Configuration */
-html {
+html:has(.boostlook) {
   color-scheme: light;
   /*----------------- New Look Variables Start -----------------*/
   --icon-anchor: var(--icon-anchor-light);
@@ -147,7 +147,7 @@ html {
 }
 
 /* Dark Theme Configuration */
-html.dark {
+html.dark:has(.boostlook) {
   color-scheme: dark;
   /*----------------- New Look Variables Dark Mode Start -----------------*/
   --icon-anchor: var(--icon-anchor-dark);

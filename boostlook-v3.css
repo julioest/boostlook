@@ -127,7 +127,7 @@
  * 6. Responsive Design - Mobile-first breakpoint variables
  */
 
-:root {
+:root:has(.boostlook) {
   /* General Variables - Core design tokens for all themes */
   --bl-primary-color: rgb(255, 159, 0); /* Boost's signature orange color */
 
@@ -426,7 +426,7 @@
 
 /*----------------- New Look Responsive Desktop Start -----------------*/
 @media (min-width: 768px) {
-  :root {
+  :root:has(.boostlook) {
     /* Spacing — Metalab 2.0 (desktop) */
     --spacing-xs: 0.125rem;
     --spacing-s: 0.25rem;
@@ -497,7 +497,7 @@
 }
 
 @media (min-width: 990px) {
-  :root {
+  :root:has(.boostlook) {
     --main-max-width-leftbar: 21.25rem;
     --main-margin: 8.625rem;
   }
@@ -518,7 +518,7 @@
  */
 
 /* Light Theme (Default) Configuration */
-html {
+html:has(.boostlook) {
   color-scheme: light;
   /*----------------- New Look Variables Start -----------------*/
   --icon-anchor: var(--icon-anchor-light);
@@ -655,7 +655,7 @@ html {
 }
 
 /* Dark Theme Configuration */
-html.dark {
+html.dark:has(.boostlook) {
   color-scheme: dark;
   /*----------------- New Look Variables Dark Mode Start -----------------*/
   --icon-anchor: var(--icon-anchor-dark);
@@ -3566,7 +3566,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 
 @supports (scrollbar-width: thin) {
   /* HTML Matches its scroll background to content background */
-  html {
+  html:has(.boostlook) {
     scrollbar-width: thin;
     scrollbar-color: var(--border-border-tetriary, #afb3b6) var(--surface-background-main-base-primary, #fff);
   }
@@ -3596,14 +3596,14 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   }
 }
 
-html::-webkit-scrollbar,
+html:has(.boostlook)::-webkit-scrollbar,
 .boostlook::-webkit-scrollbar,
 .boostlook *::-webkit-scrollbar {
   width: 8px !important;
   height: 8px !important;
 }
 
-html::-webkit-scrollbar-track {
+html:has(.boostlook)::-webkit-scrollbar-track {
   background: var(--surface-background-main-base-primary, #fff);
   border-radius: var(--spacing-size-2xs, 0.5rem);
 }
@@ -3618,7 +3618,7 @@ html::-webkit-scrollbar-track {
   border-radius: var(--spacing-size-2xs, 0.5rem);
 }
 
-html::-webkit-scrollbar-thumb,
+html:has(.boostlook)::-webkit-scrollbar-thumb,
 .boostlook::-webkit-scrollbar-thumb,
 .boostlook *::-webkit-scrollbar-thumb,
 .boostlook pre::-webkit-scrollbar-thumb,
@@ -3678,12 +3678,12 @@ html:has(.article > .boostlook) {
 }
 
 /* Iframe container scrollbar handling */
-html:has(#docsiframe) {
+html:has(.boostlook):has(#docsiframe) {
   overflow-y: hidden;
 }
 
 /* Chrome/Edge scrollbar for iframe container */
-html:has(#docsiframe)::-webkit-scrollbar {
+html:has(.boostlook):has(#docsiframe)::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
@@ -5499,7 +5499,7 @@ html.dark .boostlook#libraryReadMe {
 
 /* Prevent header/content/footer padding from jumping at 990px breakpoint */
 @media (min-width: 990px) {
-  :root {
+  :root:has(.boostlook) {
     --main-max-width-leftbar: 18.25rem;
     --main-margin: 0rem;
   }
@@ -5541,7 +5541,7 @@ html.dark .boostlook#libraryReadMe {
 
 /* === Wide Screens: Expanded Content Width (1536px+) === */
 @media screen and (min-width: 1536px) {
-  :root {
+  :root:has(.boostlook) {
     --main-content-width: 1100px;
     --main-content-left-spacing: 2rem;
   }
@@ -5549,7 +5549,7 @@ html.dark .boostlook#libraryReadMe {
 
 /* === Ultra-Wide Screens: Maximum content width (1920px+) === */
 @media screen and (min-width: 1920px) {
-  :root {
+  :root:has(.boostlook) {
     --main-content-width: 1300px;
     --main-content-left-spacing: 4rem;
   }

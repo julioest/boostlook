@@ -18,12 +18,12 @@ html:has(.article > .boostlook) {
 }
 
 /* Iframe container scrollbar handling */
-html:has(#docsiframe) {
+html:has(.boostlook):has(#docsiframe) {
   overflow-y: hidden;
 }
 
 /* Chrome/Edge scrollbar for iframe container */
-html:has(#docsiframe)::-webkit-scrollbar {
+html:has(.boostlook):has(#docsiframe)::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
