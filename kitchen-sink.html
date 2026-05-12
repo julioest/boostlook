@@ -7,6 +7,46 @@
 
 <link rel="stylesheet" href="./boostlook-v3.css">
 
+<!-- @font-face overrides — load the live-site fonts from a local ./font/ dir.
+     The boostlook-v3.css declarations reference ../font/... which resolves wrong from the repo root. -->
+<style id="ks-fonts">
+  @font-face {
+    font-family: "Mona Sans";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("./font/MonaSansVF.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Monaspace Neon";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("./font/MonaspaceNeonFrozen-Regular.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Monaspace Xenon";
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url("./font/MonaspaceXenonFrozen-Italic.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Noto Sans Display";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("./font/NotoSansDisplay.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Noto Sans Display";
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url("./font/NotoSansDisplay-Italic.ttf") format("truetype");
+  }
+</style>
+
 <style id="ks-chrome">
   /* Kitchen-sink chrome — outside .boostlook so these styles are unaffected by boostlook scoping. */
   html, body { background: #fafafa; }
@@ -117,6 +157,108 @@
     border-radius: 6px;
     padding: 14px 18px;
   }
+
+  /* Live screenshot (loaded from screenshots/{slug}.png if present) */
+  .ks-shot { margin-top: 10px; }
+  .ks-shot__caption {
+    font: 10px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b7280;
+    margin: 0 0 6px;
+  }
+  .ks-shot__img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+  }
+  .ks-shot--missing {
+    padding: 10px 12px;
+    border: 1px dashed #d1d5db;
+    border-radius: 4px;
+    font: 11px/1.4 ui-monospace, "SF Mono", Menlo, monospace;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ks-shot--missing code {
+    color: #92400e;
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    padding: 1px 6px;
+    border-radius: 3px;
+    cursor: copy;
+  }
+  html.dark .ks-shot__img { border-color: #1f2937; }
+  html.dark .ks-shot--missing { border-color: #374151; color: #9ca3af; }
+  html.dark .ks-shot--missing code { color: #fde68a; background: #422006; border-color: #92400e; }
+
+  /* Empty placeholder — slim, icon + label */
+  .ks-shot--dnd-empty {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border: 1px dashed #d1d5db;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.015);
+    font: 11px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    color: #9ca3af;
+  }
+  .ks-shot--dnd.ks-shot--dnd-empty { cursor: pointer; }
+  .ks-shot--dnd.ks-shot--dnd-empty:hover {
+    border-color: #6366f1;
+    color: #6366f1;
+  }
+  .ks-shot--dnd-empty::before {
+    content: "📷";
+    font-size: 12px;
+    line-height: 1;
+    opacity: 0.7;
+  }
+  .ks-shot--dnd-empty::after {
+    content: "screenshot";
+  }
+  html.dark .ks-shot--dnd-empty { color: #6b7280; }
+  .ks-shot--dnd.is-dragover .ks-shot--dnd-empty,
+  .ks-shot--dnd.is-dragover .ks-shot__img {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+  }
+  .ks-shot__actions {
+    margin-top: 6px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font: 11px/1 ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  .ks-shot__btn {
+    color: #374151;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 4px 8px;
+    text-decoration: none;
+    cursor: pointer;
+    font: inherit;
+  }
+  .ks-shot__btn:hover { background: #f3f4f6; }
+  .ks-shot__btn.is-danger { color: #b91c1c; border-color: #fca5a5; }
+  .ks-shot__btn.is-danger:hover { background: #fef2f2; }
+  .ks-shot__status { color: #6b7280; font-style: italic; }
+  .ks-shot__status.is-success { color: #166534; }
+  .ks-shot__status.is-error { color: #b91c1c; }
+  html.dark .ks-shot--dnd-empty { border-color: #374151; background: rgba(255,255,255,0.02); }
+  html.dark .ks-shot__btn { background: #1f2937; border-color: #374151; color: #d6deeb; }
+  html.dark .ks-shot__btn:hover { background: #374151; }
+  html.dark .ks-shot__btn.is-danger { color: #fca5a5; border-color: #7f1d1d; }
+  html.dark .ks-shot__btn.is-danger:hover { background: #450a0a; }
+  html.dark .ks-shot__status { color: #9ca3af; }
+  html.dark .ks-shot__status.is-success { color: #86efac; }
+  html.dark .ks-shot__status.is-error { color: #fca5a5; }
   /* Neutralize 100vh/100dvh height rules from boostlook-v3.css so example cards stay content-sized.
      !important is needed because .boostlook#antora-template-wrapper has higher specificity. */
   .ks-body > .boostlook,
@@ -215,6 +357,7 @@
     .ks-row { grid-template-columns: 220px 1fr; }
     .ks-css { grid-column: 1 / -1; }
   }
+
 </style>
 </head>
 <body>
@@ -239,6 +382,7 @@
   <div class="ks-nav__actions" id="ks-nav-actions">
     <button class="ks-toggle" id="ks-toggle-defaults" type="button" title="Toggle visibility of default values (none, 0px, normal, transparent, etc.)">Show CSS defaults</button>
     <button class="ks-toggle" id="ks-toggle-theme" type="button" title="Toggle boostlook light / dark theme (html.dark)">Dark theme</button>
+    <button class="ks-toggle ks-dnd-only" id="ks-btn-connect-dir" type="button" title="Pick the screenshots/ folder so dropped images can be auto-written into it" style="display:none;">📁 Connect screenshots/</button>
   </div>
 </nav>
 
@@ -248,85 +392,94 @@
 
   <div class="ks-row" data-target=".doc > h1.page">
     <div class="ks-label">H1 — page title</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
-      <h1 class="page">The quick brown fox</h1>
-    </article></div></div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <h1 class="page">Why Capy?</h1>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".doc > h1.page code">
     <div class="ks-label">H1 — page title, with inline code</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <h1 class="page">Reference for <code>std::to_chars</code></h1>
-    </article></div></div>
+    </article></div></div></div>
+  </div>
+  <div class="ks-row" data-target=".details .author">
+    <div class="ks-label">Author / byline (under page title)</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <h1 class="page">CharConv: An Implementation of &lt;charconv&gt; in C++11</h1>
+      <div class="details">
+        <span id="author" class="author">Matt Borland</span><br>
+      </div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect1 > h2">
     <div class="ks-label">H2 — section heading</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1">
-        <h2 id="section">Section heading</h2>
+        <h2 id="section"><a class="anchor" href="#section"></a>Section heading</h2>
         <div class="sectionbody"></div>
       </div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect1 > h2 code">
     <div class="ks-label">H2 — with inline code</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1">
-        <h2 id="section-code">Using <code>from_chars</code></h2>
+        <h2 id="section-code"><a class="anchor" href="#section-code"></a>Using <code>from_chars</code></h2>
         <div class="sectionbody"></div>
       </div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect2 > h3">
     <div class="ks-label">H3 — subsection heading</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2">
-        <h3 id="sub">Subsection heading</h3>
+        <h3 id="sub"><a class="anchor" href="#sub"></a>Subsection heading</h3>
         <div class="sectionbody"></div>
       </div></div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect2 > h3 code">
     <div class="ks-label">H3 — with inline code</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2">
-        <h3 id="sub-code">Overload <code>to_chars(char*, char*, T)</code></h3>
+        <h3 id="sub-code"><a class="anchor" href="#sub-code"></a>Overload <code>to_chars(char*, char*, T)</code></h3>
         <div class="sectionbody"></div>
       </div></div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect2 > h3 > .anchor">
     <div class="ks-label">Heading anchor / permalink icon (hover-visible on real site)</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2">
         <h3 id="sub-anchor"><a class="anchor" href="#sub-anchor"></a>Subsection with anchor link</h3>
         <div class="sectionbody"></div>
       </div></div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect3 > h4">
     <div class="ks-label">H4 — sub-subsection heading</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3">
-        <h4 id="subsub">Sub-subsection heading</h4>
+        <h4 id="subsub"><a class="anchor" href="#subsub"></a>Sub-subsection heading</h4>
         <div class="sectionbody"></div>
       </div></div></div></div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect4 > h5">
     <div class="ks-label">H5 — deep heading</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3"><div class="sectionbody"><div class="sect4">
-        <h5 id="h5">H5 heading</h5>
+        <h5 id="h5"><a class="anchor" href="#h5"></a>H5 heading</h5>
       </div></div></div></div></div></div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect5 > h6">
     <div class="ks-label">H6 — deepest heading</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3"><div class="sectionbody"><div class="sect4"><div class="sectionbody"><div class="sect5">
-        <h6 id="h6">H6 heading</h6>
+        <h6 id="h6"><a class="anchor" href="#h6"></a>H6 heading</h6>
       </div></div></div></div></div></div></div></div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
 </section>
 
@@ -336,61 +489,80 @@
 
   <div class="ks-row" data-target=".paragraph > p">
     <div class="ks-label">Paragraph</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>Boost.Charconv converts character buffers to numbers, and numbers to character buffers. It is a small library of two overloaded functions designed for performance and consistency across supported development environments.</p></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".paragraph > p > a">
     <div class="ks-label">Paragraph — with inline link</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>See <a href="#section">the section on conversions</a> for details, and the <a href="https://en.cppreference.com/w/cpp/utility/to_chars">cppreference page for <code>to_chars</code></a> for the standard reference.</p></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".paragraph > p > code">
     <div class="ks-label">Paragraph — with inline code</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>Call <code>boost::charconv::to_chars</code> with a buffer range and a numeric value. The result holds a <code>ptr</code> and an <code>ec</code> field.</p></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".paragraph > p > strong">
     <div class="ks-label">Paragraph — with strong</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>The library is <strong>locale-independent</strong>, <strong>non-allocating</strong>, and <strong>non-throwing</strong>.</p></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".paragraph > p > em">
     <div class="ks-label">Paragraph — with em</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>Conversions are <em>round-trip safe</em> for all finite IEEE-754 values.</p></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".paragraph > p > sup">
     <div class="ks-label">Paragraph — with sup/sub footnote</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>Charconv is non-allocating<sup>1</sup>. The exponent uses base 10<sub>10</sub> internally.</p></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
+  </div>
+  <div class="ks-row" data-target=".paragraph p kbd">
+    <div class="ks-label">Paragraph — with kbd keyboard key</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to copy the buffer contents.</p></div>
+      </div></div>
+    </article></div></div></div>
+  </div>
+  <div class="ks-row" data-target="#footnotes .footnote">
+    <div class="ks-label">Footnote entry (bottom-of-page)</div>
+    <div class="ks-body"><div class="boostlook">
+      <div id="footnotes">
+        <hr>
+        <div class="footnote" id="_footnotedef_1">
+          <a href="#_footnoteref_1">1</a>. The one edge case where allocation may occur is when parsing a string to an 80- or 128-bit <code>long double</code>.
+        </div>
+      </div>
+    </div></div>
   </div>
   <div class="ks-row" data-target="hr">
     <div class="ks-label">Horizontal rule</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><hr></div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".quoteblock">
     <div class="ks-label">Blockquote</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="quoteblock">
           <blockquote>
@@ -399,7 +571,7 @@
           <div class="attribution">— Matt Borland<br><cite>Boost.Charconv docs</cite></div>
         </div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
 </section>
 
@@ -483,7 +655,7 @@
 
   <div class="ks-row" data-target=".ulist > ul">
     <div class="ks-label">Bullet list — single level</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="ulist"><ul>
           <li><p>GCC 5 or later</p></li>
@@ -491,31 +663,31 @@
           <li><p>Visual Studio 2015 (14.0) or later</p></li>
         </ul></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".ulist li a">
     <div class="ks-label">Bullet list — item with inline link</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="ulist"><ul>
           <li><p>Tested on <a href="https://github.com/boostorg/charconv/actions">GitHub Actions</a> and <a href="https://drone.cpp.al/boostorg/charconv">Drone</a>.</p></li>
         </ul></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".ulist li code">
     <div class="ks-label">Bullet list — item with inline code</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="ulist"><ul>
           <li><p>Depends on <code>boost::assert</code>, <code>boost::config</code>, and <code>boost::core</code>.</p></li>
         </ul></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".ulist ul ul">
     <div class="ks-label">Bullet list — nested levels 2 &amp; 3</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="ulist"><ul>
           <li><p>Level 1 — Integer conversions</p>
@@ -532,11 +704,11 @@
           <li><p>Level 1 — Floating-point conversions</p></li>
         </ul></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".olist > ol">
     <div class="ks-label">Ordered list</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="olist arabic"><ol class="arabic">
           <li><p>Clone the repository.</p></li>
@@ -544,11 +716,11 @@
           <li><p>Run <code>./b2 cxxstd=11</code>.</p></li>
         </ol></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".dlist > dl">
     <div class="ks-label">Description list</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="dlist"><dl>
           <dt class="hdlist1"><code>chars_format::scientific</code></dt>
@@ -559,7 +731,18 @@
           <dd><p>Pick whichever form is shorter.</p></dd>
         </dl></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
+  </div>
+  <div class="ks-row" data-target=".dlist dt.hdlist1">
+    <div class="ks-label">Description list — term (dt)</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="dlist"><dl>
+          <dt class="hdlist1"><code>chars_format::scientific</code></dt>
+          <dd><p>Always emit an exponent.</p></dd>
+        </dl></div>
+      </div></div>
+    </article></div></div></div>
   </div>
 </section>
 
@@ -569,34 +752,34 @@
 
   <div class="ks-row" data-target=".paragraph > p > code">
     <div class="ks-label">Inline code — in paragraph</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="paragraph"><p>Use the <code>boost::charconv::to_chars</code> overloads to serialize numbers.</p></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".ulist li code">
     <div class="ks-label">Inline code — in list item</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="ulist"><ul>
           <li><p>Returns a <code>to_chars_result</code> structure containing <code>ptr</code> and <code>ec</code>.</p></li>
         </ul></div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".sect2 > h3 > code">
     <div class="ks-label">Inline code — in heading</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody"><div class="sect2">
-        <h3 id="overload">Overload <code>to_chars(char*, char*, T, int)</code></h3>
+        <h3 id="overload"><a class="anchor" href="#overload"></a>Overload <code>to_chars(char*, char*, T, int)</code></h3>
         <div class="sectionbody"></div>
       </div></div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".listingblock > .title">
     <div class="ks-label">Code block — title / caption</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="listingblock">
           <div class="title">Code Example 1. Serialize an integer</div>
@@ -605,11 +788,11 @@
           </div>
         </div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".listingblock pre">
     <div class="ks-label">Code block — listing (Rouge highlighting)</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="listingblock">
           <div class="title">Code Example 1. Serialize an integer</div>
@@ -624,11 +807,11 @@
           </div>
         </div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
   <div class="ks-row" data-target=".literalblock pre">
     <div class="ks-label">Code block — literal (no highlighting)</div>
-    <div class="ks-body"><div class="boostlook"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="sect1"><div class="sectionbody">
         <div class="literalblock">
           <div class="content">
@@ -638,7 +821,7 @@
           </div>
         </div>
       </div></div>
-    </article></div></div>
+    </article></div></div></div>
   </div>
 </section>
 
@@ -813,7 +996,7 @@
 
   <div class="ks-row" data-target=".toolbar">
     <div class="ks-label">Antora toolbar — breadcrumbs</div>
-    <div class="ks-body"><div class="boostlook" id="antora-template-wrapper"><div id="content"><article class="doc">
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
       <div class="toolbar" role="navigation">
         <button class="nav-toggle"></button>
         <nav class="breadcrumbs" aria-label="breadcrumbs">
@@ -832,11 +1015,12 @@
 
   <div class="ks-row" data-target=".edit-this-page a">
     <div class="ks-label">"Edit this page" link</div>
-    <div class="ks-body"><div class="boostlook" id="antora-template-wrapper"><article class="doc">
+    <div class="ks-body"><div class="boostlook">
+      <article class="doc"></article>
       <div class="edit-this-page">
         <a href="https://github.com/boostorg/charconv/edit/develop/doc/charconv.adoc">Edit this page</a>
       </div>
-    </article></div></div>
+    </div></div>
   </div>
 
   <div class="ks-row" data-target="#footer">
@@ -847,6 +1031,16 @@
           Copyright © 2022 Peter Dimov, 2023–2024 Matt Borland.<br>
           Distributed under the Boost Software License, Version 1.0.<br>
           Last updated 2026-05-12 12:00:00 UTC
+        </div>
+      </div>
+    </div></div>
+  </div>
+  <div class="ks-row" data-target="#footer-text">
+    <div class="ks-label">Footer — last-updated metadata line</div>
+    <div class="ks-body"><div class="boostlook">
+      <div id="footer">
+        <div id="footer-text">
+          Last updated 2026-05-12 12:00:00 -0500
         </div>
       </div>
     </div></div>
@@ -866,7 +1060,6 @@
     'line-height',
     'letter-spacing',
     'color',
-    'background-color',
     'text-transform',
     'text-decoration',
     'text-align',
@@ -1041,16 +1234,234 @@
     });
   }
 
+  function slugify(s) {
+    return (s || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '')
+      .slice(0, 60) || 'row';
+  }
+
+  const DND_MODE = new URLSearchParams(location.search).has('dnd');
+  let screenshotsDirHandle = null;  // FileSystemDirectoryHandle when user has connected screenshots/
+
+  async function writeBlobToDir(blob, filename) {
+    if (!screenshotsDirHandle) return false;
+    const fileHandle = await screenshotsDirHandle.getFileHandle(filename, { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(blob);
+    await writable.close();
+    return true;
+  }
+
+  async function deleteFromDir(filename) {
+    if (!screenshotsDirHandle) return false;
+    try {
+      await screenshotsDirHandle.removeEntry(filename);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function setShotEmpty(wrap) {
+    wrap.innerHTML = '';
+    wrap.classList.remove('ks-shot--missing');
+    wrap.classList.add('ks-shot--dnd-empty');
+  }
+
+  function setShotImage(wrap, src, label, filename, opts = {}) {
+    wrap.innerHTML = '';
+    wrap.classList.remove('ks-shot--missing', 'ks-shot--dnd-empty');
+
+    if (!DND_MODE) {
+      const caption = document.createElement('div');
+      caption.className = 'ks-shot__caption';
+      caption.textContent = 'Live screenshot';
+      wrap.appendChild(caption);
+    }
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = label + ' — live screenshot';
+    img.className = 'ks-shot__img';
+    wrap.appendChild(img);
+
+    if (DND_MODE && opts.fromDrop) {
+      const actions = document.createElement('div');
+      actions.className = 'ks-shot__actions';
+
+      const status = document.createElement('span');
+      status.className = 'ks-shot__status';
+      status.textContent = opts.savedToDir ? '✓ saved to screenshots/' + filename : 'preview only';
+      if (opts.savedToDir) status.classList.add('is-success');
+
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'ks-shot__btn is-danger';
+      del.textContent = '✕ Delete';
+      del.addEventListener('click', async () => {
+        if (opts.savedToDir && screenshotsDirHandle) {
+          await deleteFromDir(filename);
+        }
+        setShotEmpty(wrap);
+      });
+
+      actions.appendChild(status);
+      actions.appendChild(del);
+
+      // If we have a dir handle but didn't write yet, offer manual upload
+      if (!opts.savedToDir && screenshotsDirHandle && opts.blob) {
+        const up = document.createElement('button');
+        up.type = 'button';
+        up.className = 'ks-shot__btn';
+        up.textContent = '↑ Upload to screenshots/';
+        up.addEventListener('click', async () => {
+          up.disabled = true;
+          status.textContent = 'uploading…';
+          status.classList.remove('is-success', 'is-error');
+          try {
+            await writeBlobToDir(opts.blob, filename);
+            status.textContent = '✓ saved to screenshots/' + filename;
+            status.classList.add('is-success');
+            up.remove();
+          } catch (e) {
+            status.textContent = '✗ ' + e.message;
+            status.classList.add('is-error');
+            up.disabled = false;
+          }
+        });
+        actions.appendChild(up);
+      }
+
+      // Fallback download (always available)
+      if (src.startsWith('data:') || src.startsWith('blob:')) {
+        const dl = document.createElement('a');
+        dl.className = 'ks-shot__btn';
+        dl.href = src;
+        dl.download = filename;
+        dl.textContent = '↓ Download';
+        actions.appendChild(dl);
+      }
+
+      wrap.appendChild(actions);
+    }
+  }
+
+  async function handleDroppedFile(file, wrap, label, filename) {
+    if (!file || !file.type.startsWith('image/')) return;
+
+    // Auto-write to dir if connected.
+    let savedToDir = false;
+    if (screenshotsDirHandle) {
+      try {
+        await writeBlobToDir(file, filename);
+        savedToDir = true;
+      } catch (err) {
+        console.warn('Auto-write to screenshots/ failed:', err);
+      }
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => setShotImage(wrap, reader.result, label, filename, {
+      fromDrop: true,
+      savedToDir,
+      blob: file,
+    });
+    reader.readAsDataURL(file);
+  }
+
+  function wireDnd(wrap, label, filename) {
+    wrap.classList.add('ks-shot--dnd');
+
+    // Hidden file input for click-to-upload
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.style.display = 'none';
+    fileInput.addEventListener('change', () => {
+      const f = fileInput.files?.[0];
+      if (f) handleDroppedFile(f, wrap, label, filename);
+      fileInput.value = '';
+    });
+    wrap.appendChild(fileInput);
+
+    const onOver = e => { e.preventDefault(); wrap.classList.add('is-dragover'); };
+    const onLeave = () => wrap.classList.remove('is-dragover');
+    const onDrop = e => {
+      e.preventDefault();
+      wrap.classList.remove('is-dragover');
+      const file = e.dataTransfer?.files?.[0];
+      handleDroppedFile(file, wrap, label, filename);
+    };
+    const onClick = e => {
+      // Only open picker when the placeholder is in empty state; clicks on the loaded image / buttons shouldn't trigger.
+      if (!wrap.classList.contains('ks-shot--dnd-empty')) return;
+      if (e.target !== wrap) return;
+      fileInput.click();
+    };
+    wrap.addEventListener('dragover', onOver);
+    wrap.addEventListener('dragenter', onOver);
+    wrap.addEventListener('dragleave', onLeave);
+    wrap.addEventListener('drop', onDrop);
+    wrap.addEventListener('click', onClick);
+  }
+
+  function addScreenshot(row) {
+    const labelEl = row.querySelector('.ks-label');
+    const label = labelEl ? labelEl.textContent.trim() : '';
+    const filename = slugify(label) + '.png';
+    const path = 'screenshots/' + filename;
+    const body = row.querySelector('.ks-body');
+    if (!body) return;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'ks-shot';
+    body.appendChild(wrap);
+
+    if (DND_MODE) wireDnd(wrap, label, filename);
+
+    const img = new Image();
+    img.addEventListener('load', () => setShotImage(wrap, path, label, filename));
+    img.addEventListener('error', () => setShotEmpty(wrap));
+    img.src = path;
+  }
+
+  function wireConnectDirButton() {
+    const btn = document.getElementById('ks-btn-connect-dir');
+    if (!btn) return;
+    if (DND_MODE) btn.style.display = '';
+    if (!('showDirectoryPicker' in window)) {
+      btn.disabled = true;
+      btn.title = 'File System Access API not supported in this browser. Use Chrome/Edge for auto-upload.';
+      btn.textContent = '📁 (auto-upload unavailable)';
+      return;
+    }
+    btn.addEventListener('click', async () => {
+      try {
+        const handle = await window.showDirectoryPicker({ mode: 'readwrite' });
+        // Try to verify it's the screenshots/ dir by reading the name
+        screenshotsDirHandle = handle;
+        btn.textContent = '✓ ' + handle.name + '/';
+        btn.classList.add('is-active');
+      } catch (e) {
+        if (e.name !== 'AbortError') console.error(e);
+      }
+    });
+  }
+
   function init() {
     buildSectionNav();
     wireDefaultsToggle();
     wireThemeToggle();
+    wireConnectDirButton();
     document.querySelectorAll('.ks-row[data-target]').forEach(row => {
       const sel = row.dataset.target;
       const body = row.querySelector('.ks-body');
       let target = null;
       try { target = body.querySelector(sel); } catch (e) {}
       row.appendChild(renderPanel(sel, target));
+      if (DND_MODE) addScreenshot(row);
     });
   }
 
