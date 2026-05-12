@@ -12,7 +12,7 @@
  * 6. Responsive Design - Mobile-first breakpoint variables
  */
 
-:root {
+:root:has(.boostlook) {
   /* General Variables - Core design tokens for all themes */
   --bl-primary-color: rgb(255, 159, 0); /* Boost's signature orange color */
 
@@ -311,7 +311,7 @@
 
 /*----------------- New Look Responsive Desktop Start -----------------*/
 @media (min-width: 768px) {
-  :root {
+  :root:has(.boostlook) {
     /* Spacing — Metalab 2.0 (desktop) */
     --spacing-xs: 0.125rem;
     --spacing-s: 0.25rem;
@@ -382,7 +382,7 @@
 }
 
 @media (min-width: 990px) {
-  :root {
+  :root:has(.boostlook) {
     --main-max-width-leftbar: 21.25rem;
     --main-margin: 8.625rem;
   }

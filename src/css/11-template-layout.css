@@ -18,12 +18,12 @@ html:has(.article > .boostlook) {
 }
 
 /* Iframe container scrollbar handling */
-html:has(#docsiframe) {
+html:has(.boostlook):has(#docsiframe) {
   overflow-y: hidden;
 }
 
 /* Chrome/Edge scrollbar for iframe container */
-html:has(#docsiframe)::-webkit-scrollbar {
+html:has(.boostlook):has(#docsiframe)::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
@@ -56,7 +56,7 @@ html:has(#docsiframe)::-webkit-scrollbar {
 }
 
 /* Article Layout */
-.article.toc2.toc-left {
+.article.toc2.toc-left:has(.boostlook) {
   height: 100vh;
   height: 100dvh;
   /* Simplified: always use offset behavior, never center */
@@ -81,8 +81,8 @@ html:has(#docsiframe)::-webkit-scrollbar {
 }
 /* TOC Positioning */
 .boostlook #toc.toc2,
-#boost-legacy-docs-wrapper:not(:has(article.doc)) #toc.toc2.is-active,
-#antora-template-wrapper:not(:has(article.doc)) #toc.toc2.is-active,
+.boostlook#boost-legacy-docs-wrapper:not(:has(article.doc)) #toc.toc2.is-active,
+.boostlook#antora-template-wrapper:not(:has(article.doc)) #toc.toc2.is-active,
 div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) #toc.toc2.is-active {
   position: static;
 }
@@ -272,7 +272,7 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 
 /* Responsive Design */
 @media screen and (min-width: 768px) {
-  .article.toc2.toc-left {
+  .article.toc2.toc-left:has(.boostlook) {
     padding: 0 1rem 0 1rem;
   }
 
@@ -349,7 +349,7 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
     visibility: hidden;
   }
 
-  html.toc-visible #toc.toc2 {
+  html.toc-visible .boostlook #toc.toc2 {
     opacity: 1;
     visibility: visible;
     /* width: 250px;
@@ -357,12 +357,12 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   }
 
   /* TOC Shadow States */
-  html.toc-visible:not(.toc-pinned) #toc.toc2 {
+  html.toc-visible:not(.toc-pinned) .boostlook #toc.toc2 {
     box-shadow: 4px 0 12px 0px rgba(0, 0, 0, 0.1);
   }
 
   /* TOC Pin States */
-  html.toc-visible.toc-pinned #toggle-toc {
+  html.toc-visible.toc-pinned .boostlook #toggle-toc {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224px%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2224px%22%20fill%3D%22%235f6368%22%3E%3Cpath%20d%3D%22M560-240%20320-480l240-240%2056%2056-184%20184%20184%20184-56%2056Z%22%2F%3E%3C%2Fsvg%3E");
   }
 
