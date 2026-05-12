@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BoostLook v3 — Element Catalog</title>
+
+<link rel="stylesheet" href="./boostlook-v3.css">
+
+<style id="ks-chrome">
+  /* Kitchen-sink chrome — outside .boostlook so these styles are unaffected by boostlook scoping. */
+  html, body { background: #fafafa; }
+  body {
+    margin: 0;
+    padding: 32px 24px 80px;
+    font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: #111;
+  }
+  html.dark, html.dark body { background: #050816; color: #d6deeb; }
+  html.dark .ks-intro h1 { color: #f3f4f6; }
+  html.dark .ks-intro p { color: #9ca3af; }
+  html.dark .ks-section__title { color: #9ca3af; border-bottom-color: #1f2937; }
+  html.dark .ks-row { border-bottom-color: #1f2937; }
+  html.dark .ks-nav { background: rgba(5, 8, 22, 0.92); border-bottom-color: #1f2937; }
+  html.dark .ks-nav__title { color: #9ca3af; border-right-color: #1f2937; }
+  html.dark .ks-nav a { color: #d6deeb; }
+  html.dark .ks-nav a:hover { background: #1f2937; color: #fff; }
+  html.dark .ks-toggle { background: #1f2937; border-color: #374151; color: #d6deeb; }
+  html.dark .ks-toggle:hover { background: #374151; }
+  html.dark body.ks-show-defaults .ks-toggle#ks-toggle-defaults { background: #422006; border-color: #92400e; color: #fde68a; }
+  html.dark .ks-toggle.is-active { background: #422006; border-color: #92400e; color: #fde68a; }
+  html.dark .ks-body > .boostlook { border-color: #1f2937; }
+  .ks-wrap { max-width: 1500px; margin: 0 auto; }
+  .ks-intro h1 { margin: 0 0 8px; font: 600 26px/1.2 system-ui; }
+  .ks-intro p { margin: 0 0 32px; color: #4b5563; max-width: 70ch; }
+  .ks-section { margin: 48px 0 0; }
+  .ks-section__title {
+    font: 600 12px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #6b7280;
+    padding: 0 0 8px;
+    margin: 0 0 12px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  /* Sticky section nav */
+  .ks-nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(250, 250, 250, 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e5e7eb;
+    padding: 10px 0;
+    margin: 0 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    align-items: center;
+  }
+  .ks-nav__title {
+    font: 600 11px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+    padding-right: 10px;
+    border-right: 1px solid #d1d5db;
+  }
+  .ks-nav a {
+    font: 12px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    color: #374151;
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  .ks-nav a:hover { background: #f3f4f6; color: #111; }
+  .ks-nav__actions {
+    margin-left: auto;
+    display: flex;
+    gap: 6px;
+  }
+  .ks-toggle {
+    font: 11px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    color: #374151;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .ks-toggle:hover { background: #f3f4f6; }
+  body.ks-show-defaults .ks-toggle#ks-toggle-defaults { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
+
+  .ks-row {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1.5fr) minmax(0, 1.1fr);
+    gap: 18px;
+    align-items: start;
+    padding: 14px 0;
+    border-bottom: 1px dashed #f1f5f9;
+  }
+  .ks-row:last-child { border-bottom: none; }
+  .ks-label {
+    font: 12px/1.4 ui-monospace, "SF Mono", Menlo, monospace;
+    color: #92400e;
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    border-radius: 4px;
+    padding: 5px 8px;
+    word-break: break-word;
+  }
+  .ks-body { min-width: 0; }
+  .ks-body > .boostlook {
+    background: var(--surface-page, #F7FDFE);
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 14px 18px;
+  }
+  /* Neutralize 100vh/100dvh height rules from boostlook-v3.css so example cards stay content-sized.
+     !important is needed because .boostlook#antora-template-wrapper has higher specificity. */
+  .ks-body > .boostlook,
+  .ks-body > .boostlook#antora-template-wrapper,
+  .ks-body > .boostlook:has(#content > .sect1),
+  .ks-body > .boostlook .article.toc2.toc-left,
+  .ks-body > .boostlook #toc.toc2.nav-container.is-active {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Computed-style panel — light by default, dark variant under html.dark */
+  .ks-css {
+    min-width: 0;
+    background: #ffffff;
+    color: #111827;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font: 11px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+    max-height: 360px;
+    overflow: auto;
+  }
+  .ks-css__header {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b7280;
+    margin: 0 0 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .ks-css__header code {
+    color: #6d28d9;
+    background: transparent;
+    font: inherit;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .ks-css__row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 8px;
+    padding: 2px 0;
+  }
+  .ks-css__row.is-default { display: none; }
+  body.ks-show-defaults .ks-css__row.is-default { display: grid; opacity: 0.55; }
+  .ks-css__prop { color: #2563eb; }
+  .ks-css__val {
+    color: #111827;
+    word-break: break-word;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 6px;
+  }
+  .ks-swatch {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+    background-image:
+      linear-gradient(45deg, #bbb 25%, transparent 25%),
+      linear-gradient(-45deg, #bbb 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #bbb 75%),
+      linear-gradient(-45deg, transparent 75%, #bbb 75%);
+    background-size: 6px 6px;
+    background-position: 0 0, 0 3px, 3px -3px, -3px 0;
+  }
+  .ks-swatch__color { display: block; width: 100%; height: 100%; }
+  .ks-css__error { color: #b91c1c; }
+
+  /* Dark-theme overrides for the computed-style panel */
+  html.dark .ks-css { background: #0b1021; color: #d6deeb; border-color: #1f2937; }
+  html.dark .ks-css__header { color: #9ca3af; }
+  html.dark .ks-css__header code { color: #c792ea; }
+  html.dark .ks-css__prop { color: #82aaff; }
+  html.dark .ks-css__val { color: #d6deeb; }
+  html.dark .ks-swatch { border-color: rgba(255,255,255,0.2); }
+  html.dark .ks-swatch {
+    background-image:
+      linear-gradient(45deg, #555 25%, transparent 25%),
+      linear-gradient(-45deg, #555 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #555 75%),
+      linear-gradient(-45deg, transparent 75%, #555 75%);
+  }
+  html.dark .ks-css__error { color: #fca5a5; }
+
+  @media (max-width: 1100px) {
+    .ks-row { grid-template-columns: 220px 1fr; }
+    .ks-css { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+<div class="ks-wrap">
+
+<header class="ks-intro">
+  <h1>BoostLook v3 — Element Catalog</h1>
+  <p>
+    First occurrence of every distinct element type styled by
+    <code>boostlook-v3.css</code>. Each row pairs a semantic label
+    (left), the rendered element wrapped in the same Antora
+    <code>.boostlook .doc</code> ancestry as the live site (middle),
+    and the
+    computed CSS properties for the labeled element (right). Labels match the taxonomy used to annotate the live
+    <em>charconv</em> and <em>capy</em> pages for
+    <a href="https://github.com/boostorg/website-v2/issues/2416">boostorg/website-v2#2416</a>.
+  </p>
+</header>
+
+<nav class="ks-nav" id="ks-nav">
+  <span class="ks-nav__title">Jump to</span>
+  <div class="ks-nav__actions" id="ks-nav-actions">
+    <button class="ks-toggle" id="ks-toggle-defaults" type="button" title="Toggle visibility of default values (none, 0px, normal, transparent, etc.)">Show CSS defaults</button>
+    <button class="ks-toggle" id="ks-toggle-theme" type="button" title="Toggle boostlook light / dark theme (html.dark)">Dark theme</button>
+  </div>
+</nav>
+
+<!-- HEADINGS -->
+<section class="ks-section">
+  <h2 class="ks-section__title">Headings</h2>
+
+  <div class="ks-row" data-target=".doc > h1.page">
+    <div class="ks-label">H1 — page title</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <h1 class="page">The quick brown fox</h1>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".doc > h1.page code">
+    <div class="ks-label">H1 — page title, with inline code</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <h1 class="page">Reference for <code>std::to_chars</code></h1>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".sect1 > h2">
+    <div class="ks-label">H2 — section heading</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1">
+        <h2 id="section">Section heading</h2>
+        <div class="sectionbody"></div>
+      </div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".sect1 > h2 code">
+    <div class="ks-label">H2 — with inline code</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1">
+        <h2 id="section-code">Using <code>from_chars</code></h2>
+        <div class="sectionbody"></div>
+      </div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".sect2 > h3">
+    <div class="ks-label">H3 — subsection heading</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2">
+        <h3 id="sub">Subsection heading</h3>
+        <div class="sectionbody"></div>
+      </div></div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".sect2 > h3 code">
+    <div class="ks-label">H3 — with inline code</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2">
+        <h3 id="sub-code">Overload <code>to_chars(char*, char*, T)</code></h3>
+        <div class="sectionbody"></div>
+      </div></div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".sect2 > h3 > .anchor">
+    <div class="ks-label">Heading anchor / permalink icon (hover-visible on real site)</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2">
+        <h3 id="sub-anchor"><a class="anchor" href="#sub-anchor"></a>Subsection with anchor link</h3>
+        <div class="sectionbody"></div>
+      </div></div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".sect3 > h4">
+    <div class="ks-label">H4 — sub-subsection heading</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3">
+        <h4 id="subsub">Sub-subsection heading</h4>
+        <div class="sectionbody"></div>
+      </div></div></div></div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".sect4 > h5">
+    <div class="ks-label">H5 — deep heading</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3"><div class="sectionbody"><div class="sect4">
+        <h5 id="h5">H5 heading</h5>
+      </div></div></div></div></div></div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".sect5 > h6">
+    <div class="ks-label">H6 — deepest heading</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2"><div class="sectionbody"><div class="sect3"><div class="sectionbody"><div class="sect4"><div class="sectionbody"><div class="sect5">
+        <h6 id="h6">H6 heading</h6>
+      </div></div></div></div></div></div></div></div></div>
+    </article></div></div>
+  </div>
+</section>
+
+<!-- BLOCK TEXT -->
+<section class="ks-section">
+  <h2 class="ks-section__title">Block text</h2>
+
+  <div class="ks-row" data-target=".paragraph > p">
+    <div class="ks-label">Paragraph</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>Boost.Charconv converts character buffers to numbers, and numbers to character buffers. It is a small library of two overloaded functions designed for performance and consistency across supported development environments.</p></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".paragraph > p > a">
+    <div class="ks-label">Paragraph — with inline link</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>See <a href="#section">the section on conversions</a> for details, and the <a href="https://en.cppreference.com/w/cpp/utility/to_chars">cppreference page for <code>to_chars</code></a> for the standard reference.</p></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".paragraph > p > code">
+    <div class="ks-label">Paragraph — with inline code</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>Call <code>boost::charconv::to_chars</code> with a buffer range and a numeric value. The result holds a <code>ptr</code> and an <code>ec</code> field.</p></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".paragraph > p > strong">
+    <div class="ks-label">Paragraph — with strong</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>The library is <strong>locale-independent</strong>, <strong>non-allocating</strong>, and <strong>non-throwing</strong>.</p></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".paragraph > p > em">
+    <div class="ks-label">Paragraph — with em</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>Conversions are <em>round-trip safe</em> for all finite IEEE-754 values.</p></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".paragraph > p > sup">
+    <div class="ks-label">Paragraph — with sup/sub footnote</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>Charconv is non-allocating<sup>1</sup>. The exponent uses base 10<sub>10</sub> internally.</p></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target="hr">
+    <div class="ks-label">Horizontal rule</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><hr></div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".quoteblock">
+    <div class="ks-label">Blockquote</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="quoteblock">
+          <blockquote>
+            <div class="paragraph"><p>This library can be used in place of the standard library &lt;charconv&gt; if unavailable with your toolchain.</p></div>
+          </blockquote>
+          <div class="attribution">— Matt Borland<br><cite>Boost.Charconv docs</cite></div>
+        </div>
+      </div></div>
+    </article></div></div>
+  </div>
+</section>
+
+<!-- ADMONITIONS -->
+<section class="ks-section">
+  <h2 class="ks-section__title">Admonitions</h2>
+
+  <div class="ks-row" data-target=".admonitionblock.note">
+    <div class="ks-label">Admonition — note</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="admonitionblock note">
+          <table>
+            <tr>
+              <td class="icon">
+                <div class="title">Note</div>
+              </td>
+              <td class="content">This implementation is header-only on most platforms.</td>
+            </tr>
+          </table>
+        </div>
+      </div></div>
+    </article></div></div></div>
+  </div>
+  <div class="ks-row" data-target=".admonitionblock.tip">
+    <div class="ks-label">Admonition — tip</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="admonitionblock tip">
+          <table>
+            <tr>
+              <td class="icon">
+                <div class="title">Tip</div>
+              </td>
+              <td class="content">Reserve <code>32</code> bytes for the buffer when serializing <code>double</code> in shortest round-trip form.</td>
+            </tr>
+          </table>
+        </div>
+      </div></div>
+    </article></div></div></div>
+  </div>
+  <div class="ks-row" data-target=".admonitionblock.important">
+    <div class="ks-label">Admonition — important</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="admonitionblock important">
+          <table>
+            <tr>
+              <td class="icon">
+                <div class="title">Important</div>
+              </td>
+              <td class="content">libquadmath is only available on supported platforms.</td>
+            </tr>
+          </table>
+        </div>
+      </div></div>
+    </article></div></div></div>
+  </div>
+  <div class="ks-row" data-target=".admonitionblock.warning">
+    <div class="ks-label">Admonition — warning</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="admonitionblock warning">
+          <table>
+            <tr>
+              <td class="icon">
+                <div class="title">Warning</div>
+              </td>
+              <td class="content">Mixing <code>chars_format::scientific</code> with <code>chars_format::fixed</code> as a bitwise combination changes the parser behavior.</td>
+            </tr>
+          </table>
+        </div>
+      </div></div>
+    </article></div></div></div>
+  </div>
+</section>
+
+<!-- LISTS -->
+<section class="ks-section">
+  <h2 class="ks-section__title">Lists</h2>
+
+  <div class="ks-row" data-target=".ulist > ul">
+    <div class="ks-label">Bullet list — single level</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="ulist"><ul>
+          <li><p>GCC 5 or later</p></li>
+          <li><p>Clang 3.8 or later</p></li>
+          <li><p>Visual Studio 2015 (14.0) or later</p></li>
+        </ul></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".ulist li a">
+    <div class="ks-label">Bullet list — item with inline link</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="ulist"><ul>
+          <li><p>Tested on <a href="https://github.com/boostorg/charconv/actions">GitHub Actions</a> and <a href="https://drone.cpp.al/boostorg/charconv">Drone</a>.</p></li>
+        </ul></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".ulist li code">
+    <div class="ks-label">Bullet list — item with inline code</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="ulist"><ul>
+          <li><p>Depends on <code>boost::assert</code>, <code>boost::config</code>, and <code>boost::core</code>.</p></li>
+        </ul></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".ulist ul ul">
+    <div class="ks-label">Bullet list — nested levels 2 &amp; 3</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="ulist"><ul>
+          <li><p>Level 1 — Integer conversions</p>
+            <ul>
+              <li><p>Level 2 — Signed</p>
+                <ul>
+                  <li><p>Level 3 — <code>std::int8_t</code></p></li>
+                  <li><p>Level 3 — <code>std::int16_t</code></p></li>
+                </ul>
+              </li>
+              <li><p>Level 2 — Unsigned</p></li>
+            </ul>
+          </li>
+          <li><p>Level 1 — Floating-point conversions</p></li>
+        </ul></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".olist > ol">
+    <div class="ks-label">Ordered list</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="olist arabic"><ol class="arabic">
+          <li><p>Clone the repository.</p></li>
+          <li><p>Run <code>./bootstrap</code>.</p></li>
+          <li><p>Run <code>./b2 cxxstd=11</code>.</p></li>
+        </ol></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".dlist > dl">
+    <div class="ks-label">Description list</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="dlist"><dl>
+          <dt class="hdlist1"><code>chars_format::scientific</code></dt>
+          <dd><p>Always emit an exponent.</p></dd>
+          <dt class="hdlist1"><code>chars_format::fixed</code></dt>
+          <dd><p>Never emit an exponent.</p></dd>
+          <dt class="hdlist1"><code>chars_format::general</code></dt>
+          <dd><p>Pick whichever form is shorter.</p></dd>
+        </dl></div>
+      </div></div>
+    </article></div></div>
+  </div>
+</section>
+
+<!-- CODE -->
+<section class="ks-section">
+  <h2 class="ks-section__title">Code</h2>
+
+  <div class="ks-row" data-target=".paragraph > p > code">
+    <div class="ks-label">Inline code — in paragraph</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="paragraph"><p>Use the <code>boost::charconv::to_chars</code> overloads to serialize numbers.</p></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".ulist li code">
+    <div class="ks-label">Inline code — in list item</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="ulist"><ul>
+          <li><p>Returns a <code>to_chars_result</code> structure containing <code>ptr</code> and <code>ec</code>.</p></li>
+        </ul></div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".sect2 > h3 > code">
+    <div class="ks-label">Inline code — in heading</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody"><div class="sect2">
+        <h3 id="overload">Overload <code>to_chars(char*, char*, T, int)</code></h3>
+        <div class="sectionbody"></div>
+      </div></div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".listingblock > .title">
+    <div class="ks-label">Code block — title / caption</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="listingblock">
+          <div class="title">Code Example 1. Serialize an integer</div>
+          <div class="content">
+            <pre class="rouge highlight"><code class="language-cpp" data-lang="cpp">int main() { return 0; }</code></pre>
+          </div>
+        </div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".listingblock pre">
+    <div class="ks-label">Code block — listing (Rouge highlighting)</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="listingblock">
+          <div class="title">Code Example 1. Serialize an integer</div>
+          <div class="content">
+            <pre class="rouge highlight"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;boost/charconv.hpp&gt;</span>
+
+<span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+<span class="k">auto</span> <span class="n">r</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">charconv</span><span class="o">::</span><span class="n">to_chars</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">ec</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">errc</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// success</span>
+<span class="p">}</span></code></pre>
+          </div>
+        </div>
+      </div></div>
+    </article></div></div>
+  </div>
+  <div class="ks-row" data-target=".literalblock pre">
+    <div class="ks-label">Code block — literal (no highlighting)</div>
+    <div class="ks-body"><div class="boostlook"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <div class="literalblock">
+          <div class="content">
+            <pre>./bootstrap
+./b2 cxxstd=11
+./b2 install</pre>
+          </div>
+        </div>
+      </div></div>
+    </article></div></div>
+  </div>
+</section>
+
+<!-- TABLES -->
+<section class="ks-section">
+  <h2 class="ks-section__title">Tables</h2>
+
+  <div class="ks-row" data-target="table.tableblock > caption.title">
+    <div class="ks-label">Table — caption / title</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <caption class="title">Table 1. Supported types</caption>
+          <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Supported</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><code>int</code></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+  </div>
+  <div class="ks-row" data-target="table.tableblock">
+    <div class="ks-label">Table — header row + body</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <colgroup>
+            <col style="width: 33.3333%;">
+            <col style="width: 33.3333%;">
+            <col style="width: 33.3334%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Return Value</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Supported</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><code>std::errc()</code></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Successful Parsing</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><code>std::errc::invalid_argument</code></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">1) Parsing a negative into an unsigned type</p>
+                <p class="tableblock">2) Leading <code>+</code> sign</p>
+                <p class="tableblock">3) Leading space</p>
+                <p class="tableblock">4) See <a href="#overload">overloads</a></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><code>std::errc::result_out_of_range</code></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">1) Overflow</p>
+                <p class="tableblock">2) Underflow</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+  </div>
+
+  <div class="ks-row" data-target="tbody > tr:first-child > td.tableblock">
+    <div class="ks-label">Table — header cell (first-row td)</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Return Value</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><code>std::errc()</code></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Successful</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+  </div>
+  <div class="ks-row" data-target="tbody > tr:nth-child(2) > td.tableblock">
+    <div class="ks-label">Table — body cell</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Return Value</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><code>std::errc()</code></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Successful</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+  </div>
+  <div class="ks-row" data-target="td.tableblock code">
+    <div class="ks-label">Table — inline code in cell</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Return Value</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><code>boost::ec</code></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">See <code>std::errc</code> for codes</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+  </div>
+  <div class="ks-row" data-target="td.tableblock a">
+    <div class="ks-label">Table — link in cell</div>
+    <div class="ks-body"><div class="boostlook"><div id="content"><article class="doc">
+      <div class="sect1"><div class="sectionbody">
+        <table class="tableblock frame-all grid-all stretch">
+          <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Return Value</p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#overload">overloads</a></p></td>
+              <td class="tableblock halign-left valign-top"><p class="tableblock">See <a href="#sub">subsection</a></p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+    </article></div></div></div>
+  </div>
+</section>
+
+<!-- NAVIGATION & CHROME -->
+<section class="ks-section">
+  <h2 class="ks-section__title">Navigation &amp; chrome</h2>
+
+  <div class="ks-row" data-target=".toolbar">
+    <div class="ks-label">Antora toolbar — breadcrumbs</div>
+    <div class="ks-body"><div class="boostlook" id="antora-template-wrapper"><div id="content"><article class="doc">
+      <div class="toolbar" role="navigation">
+        <button class="nav-toggle"></button>
+        <nav class="breadcrumbs" aria-label="breadcrumbs">
+          <ul>
+            <li>
+              <a aria-label="Home: Boost.Capy" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z"/></svg>
+              </a>
+            </li>
+            <li aria-current="page"><a href="#">Introduction</a></li>
+          </ul>
+        </nav>
+      </div>
+    </article></div></div></div>
+  </div>
+
+  <div class="ks-row" data-target=".edit-this-page a">
+    <div class="ks-label">"Edit this page" link</div>
+    <div class="ks-body"><div class="boostlook" id="antora-template-wrapper"><article class="doc">
+      <div class="edit-this-page">
+        <a href="https://github.com/boostorg/charconv/edit/develop/doc/charconv.adoc">Edit this page</a>
+      </div>
+    </article></div></div>
+  </div>
+
+  <div class="ks-row" data-target="#footer">
+    <div class="ks-label">Footer — copyright / license</div>
+    <div class="ks-body"><div class="boostlook">
+      <div id="footer">
+        <div id="footer-text">
+          Copyright © 2022 Peter Dimov, 2023–2024 Matt Borland.<br>
+          Distributed under the Boost Software License, Version 1.0.<br>
+          Last updated 2026-05-12 12:00:00 UTC
+        </div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+
+</div>
+
+<script>
+(function () {
+  const PROPS = [
+    'font-family',
+    'font-size',
+    'font-weight',
+    'font-style',
+    'line-height',
+    'letter-spacing',
+    'color',
+    'background-color',
+    'text-transform',
+    'text-decoration',
+    'text-align',
+    'padding',
+    'margin',
+    'border',
+    'border-radius',
+  ];
+
+  const DEFAULTS = new Set([
+    'normal',
+    'none',
+    '0px',
+    'rgba(0, 0, 0, 0)',
+    'transparent',
+    'start',
+    'left',
+    'auto',
+  ]);
+
+  function fourSide(cs, prop) {
+    const t = cs.getPropertyValue(prop + '-top');
+    const r = cs.getPropertyValue(prop + '-right');
+    const b = cs.getPropertyValue(prop + '-bottom');
+    const l = cs.getPropertyValue(prop + '-left');
+    if (t === r && r === b && b === l) return t;
+    if (t === b && l === r) return t + ' ' + r;
+    return [t, r, b, l].join(' ');
+  }
+
+  function valueFor(cs, prop) {
+    if (prop === 'margin' || prop === 'padding') return fourSide(cs, prop);
+    if (prop === 'border') {
+      const w = cs.getPropertyValue('border-top-width');
+      const s = cs.getPropertyValue('border-top-style');
+      const c = cs.getPropertyValue('border-top-color');
+      if (s === 'none' || w === '0px') return 'none';
+      return [w, s, rgbToHex(c)].join(' ');
+    }
+    if (prop === 'border-radius') {
+      const tl = cs.getPropertyValue('border-top-left-radius');
+      const tr = cs.getPropertyValue('border-top-right-radius');
+      const br = cs.getPropertyValue('border-bottom-right-radius');
+      const bl = cs.getPropertyValue('border-bottom-left-radius');
+      if (tl === tr && tr === br && br === bl) return tl;
+      return [tl, tr, br, bl].join(' ');
+    }
+    if (prop === 'text-decoration') {
+      const line = cs.getPropertyValue('text-decoration-line');
+      if (line === 'none') return 'none';
+      const style = cs.getPropertyValue('text-decoration-style');
+      const color = cs.getPropertyValue('text-decoration-color');
+      return [line, style, rgbToHex(color)].join(' ');
+    }
+    return cs.getPropertyValue(prop);
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[c]);
+  }
+
+  function rgbToHex(s) {
+    if (!s) return s;
+    const m = s.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([0-9.]+))?\s*\)$/);
+    if (!m) return s;
+    const r = parseInt(m[1], 10);
+    const g = parseInt(m[2], 10);
+    const b = parseInt(m[3], 10);
+    const a = m[4] !== undefined ? parseFloat(m[4]) : 1;
+    const h = (n) => n.toString(16).padStart(2, '0').toUpperCase();
+    let out = '#' + h(r) + h(g) + h(b);
+    if (a < 1) out += h(Math.round(a * 255));
+    return out;
+  }
+
+
+  function shortenFontFamily(val) {
+    const first = val.split(',')[0].trim().replace(/^["']|["']$/g, '');
+    return { display: first, full: val };
+  }
+
+  function isColorProp(prop) {
+    return prop === 'color' || prop === 'background-color';
+  }
+
+  function valueHtml(prop, val) {
+    if (prop === 'font-family') {
+      const { display, full } = shortenFontFamily(val);
+      return '<span title="' + escapeHtml(full) + '">' + escapeHtml(display) + '</span>';
+    }
+    if (isColorProp(prop) && val && val !== 'transparent' && val !== 'rgba(0, 0, 0, 0)') {
+      const hex = rgbToHex(val);
+      return '<span class="ks-swatch" title="' + escapeHtml(hex) + '"><span class="ks-swatch__color" style="background:' + val + '"></span></span>' + escapeHtml(hex);
+    }
+    return escapeHtml(val);
+  }
+
+  function renderPanel(targetSel, target) {
+    const panel = document.createElement('div');
+    panel.className = 'ks-css';
+    if (!target) {
+      panel.innerHTML = '<div class="ks-css__error">Target <code>' + escapeHtml(targetSel) + '</code> not found.</div>';
+      return panel;
+    }
+    const cs = getComputedStyle(target);
+    const entries = PROPS.map(prop => {
+      const val = valueFor(cs, prop);
+      const isDefault = DEFAULTS.has(val);
+      return { prop, val, isDefault };
+    });
+    const header =
+      '<div class="ks-css__header">' +
+        '<code>' + escapeHtml(targetSel) + '</code>' +
+      '</div>';
+    const rows = entries.map(({ prop, val, isDefault }) => {
+      const cls = isDefault ? 'ks-css__row is-default' : 'ks-css__row';
+      return '<div class="' + cls + '"><span class="ks-css__prop">' + prop + '</span><span class="ks-css__val">' + valueHtml(prop, val) + '</span></div>';
+    }).join('');
+    panel.innerHTML = header + rows;
+    return panel;
+  }
+
+  function buildSectionNav() {
+    const nav = document.getElementById('ks-nav');
+    if (!nav) return;
+    const actions = document.getElementById('ks-nav-actions');
+    document.querySelectorAll('.ks-section').forEach((section, i) => {
+      const title = section.querySelector('.ks-section__title');
+      if (!title) return;
+      const id = 'sec-' + (title.textContent || ('s' + i)).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      section.id = id;
+      const a = document.createElement('a');
+      a.href = '#' + id;
+      a.textContent = title.textContent;
+      if (actions) nav.insertBefore(a, actions);
+      else nav.appendChild(a);
+    });
+  }
+
+  function wireDefaultsToggle() {
+    const btn = document.getElementById('ks-toggle-defaults');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('ks-show-defaults');
+      btn.textContent = document.body.classList.contains('ks-show-defaults') ? 'Hide CSS defaults' : 'Show CSS defaults';
+    });
+  }
+
+  function applyTheme(isDark) {
+    document.documentElement.classList.toggle('dark', isDark);
+    const btn = document.getElementById('ks-toggle-theme');
+    if (btn) {
+      btn.textContent = isDark ? 'Light theme' : 'Dark theme';
+      btn.classList.toggle('is-active', isDark);
+    }
+  }
+
+  function wireThemeToggle() {
+    const btn = document.getElementById('ks-toggle-theme');
+    if (!btn) return;
+    let stored = null;
+    try { stored = localStorage.getItem('ks-theme'); } catch (e) {}
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialDark = stored === 'dark' || (stored === null && prefersDark);
+    applyTheme(initialDark);
+    btn.addEventListener('click', () => {
+      const next = !document.documentElement.classList.contains('dark');
+      applyTheme(next);
+      try { localStorage.setItem('ks-theme', next ? 'dark' : 'light'); } catch (e) {}
+    });
+  }
+
+  function init() {
+    buildSectionNav();
+    wireDefaultsToggle();
+    wireThemeToggle();
+    document.querySelectorAll('.ks-row[data-target]').forEach(row => {
+      const sel = row.dataset.target;
+      const body = row.querySelector('.ks-body');
+      let target = null;
+      try { target = body.querySelector(sel); } catch (e) {}
+      row.appendChild(renderPanel(sel, target));
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
