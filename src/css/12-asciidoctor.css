@@ -85,4 +85,61 @@ html.dark .boostlook #toctitle .theme-toggle:hover {
 html.dark .boostlook #toctitle .theme-toggle .theme-icon-light { display: inline; }
 html.dark .boostlook #toctitle .theme-toggle .theme-icon-dark { display: none; }
 
+/* Collapsible TOC tree — matches the Antora nav-tree caret (see 13-antora.css):
+   parent items become flex rows with a right-aligned dotted chevron that flips
+   from down to up on expand; branches collapse by default (.is-active expands
+   them). A consumer script adds .nav-item + .nav-item-toggle, toggles .is-active. */
+.boostlook #toc ul[class^="sectlevel"] {
+  list-style: none;
+}
+.boostlook #toc .nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  cursor: pointer; /* the row collapses on click */
+}
+/* the link keeps normal link behavior; clicking it navigates, not collapses */
+.boostlook #toc .nav-item > a {
+  order: 0;
+  cursor: pointer;
+}
+/* nested list wraps to full width below the row; reset cursor so leaf/child
+   rows aren't falsely marked as collapsible (nested .nav-item rows re-apply it) */
+.boostlook #toc .nav-item > ul {
+  flex-basis: 100%;
+  order: 2;
+  cursor: default;
+}
+.boostlook #toc .nav-item-toggle {
+  order: 1;
+  background: none;
+  border: none;
+  outline: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.boostlook #toc .nav-item-toggle::after {
+  content: "";
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--text-main-text-body-secondary, #494d50);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M13 16h-2v-2h2v2Zm-2-2H9v-2h2v2Zm4 0h-2v-2h2v2Zm-6-2H7v-2h2v2Zm8 0h-2v-2h2v2ZM7 10H5V8h2v2Zm12 0h-2V8h2v2Z'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M13 16h-2v-2h2v2Zm-2-2H9v-2h2v2Zm4 0h-2v-2h2v2Zm-6-2H7v-2h2v2Zm8 0h-2v-2h2v2ZM7 10H5V8h2v2Zm12 0h-2V8h2v2Z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.boostlook #toc .nav-item.is-active > .nav-item-toggle::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M13 10h-2V8h2v2ZM11 12H9v-2h2v2Zm4 0h-2v-2h2v2ZM9 14H7v-2h2v2Zm8 0h-2v-2h2v2ZM7 16H5v-2h2v2Zm12 0h-2v-2h2v2Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M13 10h-2V8h2v2ZM11 12H9v-2h2v2Zm4 0h-2v-2h2v2ZM9 14H7v-2h2v2Zm8 0h-2v-2h2v2ZM7 16H5v-2h2v2Zm12 0h-2v-2h2v2Z'/%3E%3C/svg%3E");
+}
+/* collapsed by default; expanded when active (Antora parity) */
+.boostlook #toc .nav-item:not(.is-active) > ul {
+  display: none;
+}
+
 /*----------------- Styles specific to AsciiDoctor content end -----------------*/

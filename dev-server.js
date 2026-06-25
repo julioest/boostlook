@@ -62,7 +62,7 @@ function renderSpecimen () {
   fs.mkdirSync(path.dirname(SPECIMEN_OUT), { recursive: true })
   try {
     execFileSync('asciidoctor', [
-      '-r', path.join(ROOT, 'boostlook.rb'),
+      '-r', path.join(ROOT, 'boostlook-v3.rb'),
       '-a', 'linkcss',
       '-a', 'copycss!', // we serve the CSS via middleware; don't copy it out
       '-a', 'stylesdir=/_/css',
