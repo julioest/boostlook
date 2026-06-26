@@ -90,7 +90,7 @@ function esc (s) {
 function getChangelog () {
   try {
     const raw = execFileSync('git',
-      ['log', '-14', '--no-merges', '--pretty=format:%h\x1f%s\x1f%cr'],
+      ['log', '-14', '--no-merges', '--date=format:%Y-%m-%d %H:%M', '--pretty=format:%h\x1f%s\x1f%cd'],
       { cwd: ROOT }).toString()
     return raw.split('\n').filter(Boolean).map((line) => {
       const [hash, subject, when] = line.split('\x1f')
@@ -179,9 +179,13 @@ ${cards}
     '<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" ' +
     'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
     '<path d="M6 9l6 6 6-6"/></svg>'
+  const clock =
+    '<svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" ' +
+    'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+    '<circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>'
   const changelogMenu = log.length ? `<div class="cl-menu">
-        <button id="cl-btn" class="cl-btn" type="button" aria-expanded="false" aria-controls="cl-panel" title="Recent commits — from git log">
-          <span>Recent changes</span><span class="cl-count">${log.length}</span>${chev}
+        <button id="cl-btn" class="cl-btn" type="button" aria-expanded="false" aria-controls="cl-panel" title="Recent changes — from git log">
+          ${clock}<span class="cl-label">Recent changes</span><span class="cl-count">${log.length}</span>${chev}
         </button>
         <div id="cl-panel" class="cl-panel" role="region" aria-label="Recent changes" hidden>
           <ol class="cl-list">
@@ -339,6 +343,13 @@ ${log.map((c) => `            <li class="cl-item">
   .cl-btn { display: inline-flex; align-items: center; gap: .45rem; height: 38px; padding: 0 .8rem; border: 1px solid var(--border); background: var(--panel); color: var(--text); border-radius: 10px; font: inherit; font-size: .82rem; font-weight: 600; cursor: pointer; box-shadow: var(--shadow); transition: border-color .15s; white-space: nowrap; }
   .cl-btn:hover { border-color: var(--border-strong); }
   .cl-count { font-size: .66rem; font-weight: 800; color: var(--pill-text); background: var(--pill); padding: .1rem .42rem; border-radius: 999px; }
+  .cl-icon { display: none; flex: none; color: var(--faint); }
+  @media (max-width: 600px) {
+    .brand .tag { display: none; }
+    .cl-label { display: none; }
+    .cl-icon { display: inline-flex; }
+    .cl-btn { padding: 0 .55rem; gap: .35rem; }
+  }
   .chev { color: var(--faint); transition: transform .2s; flex: none; }
   .cl-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
   .cl-panel { position: absolute; right: 0; top: calc(100% + .55rem); width: min(400px, 88vw); max-height: min(64vh, 540px); overflow: auto; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 16px 44px rgba(20,30,60,.18); z-index: 50; }
