@@ -53,11 +53,18 @@
 }
 
 /* Heading Sizes — Metalab 2.0 */
-/* h1: Display/Desktop/Medium/3XL */
+/* h1: Title / 2XL (48px desktop) */
 .boostlook h1,
 .boostlook .doc h1 {
   font-size: var(--typography-font-size-h1, 2rem);
   letter-spacing: -0.01em;
+}
+
+/* Antora pins its page title via .doc>h1.page:first-child (0,3,1), which beats
+   .boostlook .doc h1 (0,2,1); restate the global h1 size at higher specificity
+   (0,4,1) so the title matches across Antora + AsciiDoctor. */
+.boostlook .doc > h1.page:first-child {
+  font-size: var(--typography-font-size-h1, 3rem);
 }
 
 /* h2: Display/Desktop/Medium/Large */

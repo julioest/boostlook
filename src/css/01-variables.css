@@ -374,10 +374,10 @@
     --typography-line-height-4xl: var(--font-line-height-4xl);
 
     /* Heading — Metalab 2.0 (desktop) */
-    --typography-font-size-h1: var(--font-size-4xl);
-    --typography-font-size-h2: var(--font-size-lg);
-    --typography-font-size-h3: var(--font-size-md);
-    --typography-font-size-h4: var(--font-size-sm);
+    --typography-font-size-h1: 3rem; /* 48px — Figma Title / 2XL */
+    --typography-font-size-h2: var(--font-size-xl); /* 24px — Figma Large */
+    --typography-font-size-h3: var(--font-size-md); /* 18px */
+    --typography-font-size-h4: var(--font-size-sm); /* 16px */
   }
 }
 
