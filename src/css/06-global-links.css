@@ -122,11 +122,14 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   transition: color 0.3s ease;
 }
 
-/* Content body links: underline per Figma (paragraphs and lists only) */
-.boostlook #content .doc .paragraph a:not(.anchor),
-.boostlook #content .doc .ulist a:not(.anchor),
-.boostlook #content .doc .olist a:not(.anchor),
-.boostlook #content .doc .dlist a:not(.anchor) {
+/* Content body links: underline per Figma. Scoped to content block classes so
+   it covers BOTH Antora (.doc) and standalone AsciiDoctor (#content, no .doc);
+   nav/TOC links (.nav-list / #toc .sectlevel*) are unaffected. Color comes from
+   the base .boostlook a rule (--text-main-text-link-blue = #0077B8). */
+.boostlook .paragraph a:not(.anchor),
+.boostlook .ulist a:not(.anchor),
+.boostlook .olist a:not(.anchor),
+.boostlook .dlist a:not(.anchor) {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
