@@ -196,6 +196,11 @@
   display: flex;
 }
 
+/* Hide the Antora on-page TOC sidebar; the article reclaims the width */
+.boostlook .toc.sidebar {
+  display: none;
+}
+
 .boostlook #footer:has(> script):not(:has(> div)) {
   padding-top: 0;
   padding-bottom: 0;
