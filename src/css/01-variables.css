@@ -92,7 +92,7 @@
   --colors-secondary-950: #000d14;
 
   /* Atom One Dark Theme Colors */
-  --atom-one-dark-bg: #282c34;
+  --atom-one-dark-bg: #1A1C29; /* code block surface — Figma 2.0 dark (= primary-850) */
   --atom-one-dark-text: #FFFFFF;
   --atom-one-dark-keyword: #c678dd;
   --atom-one-dark-operator: #e06c75;

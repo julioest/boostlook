@@ -125,7 +125,7 @@ html:has(.boostlook) {
   --surface-icons-icon-blue: var(--colors-secondary-600);
   --surface-icons-icon-blue-light: var(--colors-secondary-200);
 
-  --border-border-primary: var(--colors-primary-100);
+  --border-border-primary: rgba(5, 8, 22, 0.1); /* Figma 2.0 standard 1px border (light) */
   --border-border-secondary: var(--colors-primary-150);
   --border-border-tetriary: var(--colors-primary-300);
   --border-border-quaternary: var(--colors-primary-600);
@@ -261,7 +261,7 @@ html.dark:has(.boostlook) {
   --surface-icons-icon-blue: var(--colors-secondary-400);
   --surface-icons-icon-blue-light: var(--colors-secondary-700);
 
-  --border-border-primary: var(--colors-primary-850);
+  --border-border-primary: rgba(247, 247, 248, 0.1); /* Figma 2.0 standard 1px border (dark) */
   --border-border-secondary: var(--colors-primary-800);
   --border-border-tetriary: var(--colors-primary-700);
   --border-border-quaternary: var(--colors-primary-500);
