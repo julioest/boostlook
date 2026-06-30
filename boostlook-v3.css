@@ -3094,77 +3094,24 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   color: #c00;
 }
 
-/* Ordered Lists */
+/* Ordered Lists — native numbering (Metalab 2.0, #116-1) */
 .boostlook .olist.arabic > ol,
-.boostlook .olist.loweralpha > ol,
 .boostlook:not(:has(.doc)) .orderedlist > ol {
-  list-style: none;
-  counter-reset: list-counter;
-  padding-left: 0;
+  list-style: decimal;
+  padding-left: 2rem;
   padding-bottom: 1rem;
 }
 
-/* Arabic Ordered List */
+.boostlook .olist.loweralpha > ol {
+  list-style: lower-alpha;
+  padding-left: 2rem;
+  padding-bottom: 1rem;
+}
+
 .boostlook .olist.arabic > ol > li,
+.boostlook .olist.loweralpha > ol > li,
 .boostlook:not(:has(.doc)) .orderedlist > ol > li {
-  position: relative;
-  padding-left: 2rem;
-  counter-increment: list-counter;
   line-height: var(--typography-line-height-lg, 1.5rem);
-}
-
-.boostlook .olist.arabic > ol > li::before,
-.boostlook:not(:has(.doc)) .orderedlist > ol > li::before {
-  content: counter(list-counter)".";
-  position: absolute;
-  left: 0;
-  top: -4px;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-main-text-primary, #18191b);
-  font-size: var(--typography-font-size-sm, 1rem);
-  line-height: var(--typography-line-height-sm, 1rem); /* 133.333% */
-}
-
-.boostlook .olist.arabic > ol > li::after,
-.boostlook:not(:has(.doc)) .orderedlist > ol > li::after {
-  content: "";
-  position: absolute;
-  left: 1px;
-  top: 0px;
-  width: 30px;
-  height: 24px;
-  /*border: 1px solid var(--border-border-tetriary);*/
-  /* Mask to make square brackets for marker to make it look like [ 01 ] */
-  /*clip-path: polygon(0 0, 3px 0, 3px 3px, 27px 3px, 27px 0, 30px 0, 30px 24px, 27px 24px, 27px 21px, 3px 21px, 3px 24px, 0 24px);*/
-}
-
-/* LowerAlfa Ordered List */
-.boostlook .olist.loweralpha > ol > li {
-  position: relative;
-  padding-left: 2rem;
-  counter-increment: list-counter;
-  line-height: var(--typography-line-height-lg, 1.5rem);
-}
-
-.boostlook .olist.loweralpha > ol > li::before {
-  content: counter(list-counter, lower-alpha) ". ";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-main-text-primary, #18191b);
-  font-size: var(--typography-font-size-xs, 0.875rem);
-  font-variation-settings: "wght" 500, "wdth" 87.5;
-  line-height: var(--Typography-line-height-lg, 1.5rem); /* 171.429% */
-  letter-spacing: var(--spacing-size-size-0, 0rem);
 }
 
 /* Conum */
