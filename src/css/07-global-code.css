@@ -63,7 +63,7 @@
 .boostlook .sidebarblock {
   padding: var(--spacing-size-xs, 0.75rem) var(--spacing-size-sm, 1rem);
   background: var(--atom-one-light-bg, #fafafa) !important;
-  border-radius: var(--radius-xxl, 1rem);
+  border-radius: 0.5rem; /* 8px — Figma 2.0 code block (#116-5) */
   border: 1px solid var(--border-border-primary, #e4e7ea);
   box-shadow: none;
   line-height: 130%;
@@ -227,7 +227,7 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook .content:has(> pre) pre.highlight,
 .boostlook .literalblock > .content > pre:not(.highlight) {
   border: 1px solid var(--border-border-primary, #e4e7ea);
-  border-radius: var(--radius-xxl, 1rem);
+  border-radius: 0.5rem; /* 8px — Figma 2.0 code block (#116-5) */
 }
 .boostlook .content:has(> pre):has(> .source-toolbox) pre {
   /*border: 1px solid var(--border-border-secondary, #d5d7d9);*/

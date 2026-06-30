@@ -100,7 +100,7 @@
   --atom-one-dark-class: #e6c07b;
 
   /* Atom One Light Theme Colors */
-  --atom-one-light-bg: #fafafa;
+  --atom-one-light-bg: #ffffff; /* code block surface — Figma 2.0 (#116-5) */
   --atom-one-light-text: #050816;
   --atom-one-light-keyword: #a626a4;
   --atom-one-light-operator: #e45649;
