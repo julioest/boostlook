@@ -373,7 +373,7 @@ html.dark .boostlook nav.pagination > span:hover a {
 .boostlook #content .admonitionblock.note,
 .boostlook:not(:has(.doc)) div.note,
 .boostlook:not(:has(.doc)) .notices.note {
-  border-color: var(--stroke-weak, rgba(13 14 15 / 0.1));
+  border-color: var(--stroke-weak, rgba(5 8 22 / 0.1));
   background-color: var(--surface-weak, #fff);
 }
 
@@ -448,7 +448,7 @@ html.dark .boostlook nav.pagination > span:hover a {
 .boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(dl > dt.hdlist1:only-of-type + dd:last-child) {
   padding: var(--spacing-large, 1rem);
   border-radius: var(--radius-xxl, 1rem);
-  border: 1px solid var(--stroke-weak, rgba(13 14 15 / 0.1));
+  border: 1px solid var(--stroke-weak, rgba(5 8 22 / 0.1));
   background-color: var(--surface-weak, #fff);
   margin-top: var(--padding-padding-sm, 1rem);
 }

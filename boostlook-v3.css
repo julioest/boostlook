@@ -649,7 +649,7 @@ html:has(.boostlook) {
   --surface-weak: var(--colors-primary-0);
   --stroke-strong: rgba(5 8 22 / 0.25);
   --stroke-mid: rgba(5 8 22 / 0.17);
-  --stroke-weak: rgba(13 14 15 / 0.1);
+  --stroke-weak: rgba(5 8 22 / 0.1); /* Figma 2.0 standard 1px stroke (light) */
 
   /*----------------- New Look Variables End -----------------*/
 }
@@ -785,7 +785,7 @@ html.dark:has(.boostlook) {
   --surface-weak: var(--colors-primary-850);
   --stroke-strong: rgba(247 247 248 / 0.21);
   --stroke-mid: rgba(247 247 248 / 0.17);
-  --stroke-weak: rgba(255 255 255 / 0.1);
+  --stroke-weak: rgba(247 247 248 / 0.1); /* Figma 2.0 standard 1px stroke (dark) */
 
   /*----------------- New Look Variables Dark Mode Start -----------------*/
 }
@@ -2644,7 +2644,7 @@ html.dark .boostlook nav.pagination > span:hover a {
 .boostlook #content .admonitionblock.note,
 .boostlook:not(:has(.doc)) div.note,
 .boostlook:not(:has(.doc)) .notices.note {
-  border-color: var(--stroke-weak, rgba(13 14 15 / 0.1));
+  border-color: var(--stroke-weak, rgba(5 8 22 / 0.1));
   background-color: var(--surface-weak, #fff);
 }
 
@@ -2719,7 +2719,7 @@ html.dark .boostlook nav.pagination > span:hover a {
 .boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(dl > dt.hdlist1:only-of-type + dd:last-child) {
   padding: var(--spacing-large, 1rem);
   border-radius: var(--radius-xxl, 1rem);
-  border: 1px solid var(--stroke-weak, rgba(13 14 15 / 0.1));
+  border: 1px solid var(--stroke-weak, rgba(5 8 22 / 0.1));
   background-color: var(--surface-weak, #fff);
   margin-top: var(--padding-padding-sm, 1rem);
 }
