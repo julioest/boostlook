@@ -170,6 +170,40 @@ Asciidoctor::Extensions.register do
         </script>
       HTML
 
+      # Theme init — mirror the Antora UI (head-scripts.hbs + 00-theme-toggle.js)
+      # so standalone AsciiDoctor docs follow the user's OS theme. Injected at the
+      # top of <head> so html.dark is set before first paint (no flash). Honors a
+      # saved 'antora-theme' choice if present, otherwise prefers-color-scheme, and
+      # live-updates on OS changes unless the user has pinned a theme. Skipped when
+      # embedded in an iframe (the host page controls the theme there).
+      theme = <<~'HTML'
+        <script>
+        (function () {
+          if (window.self !== window.top) return;
+          var html = document.documentElement;
+          function prefersDark() {
+            return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          }
+          try {
+            var saved = localStorage.getItem('antora-theme');
+            html.classList.toggle('dark', saved ? saved === 'dark' : prefersDark());
+          } catch (e) {
+            if (prefersDark()) html.classList.add('dark');
+          }
+          if (window.matchMedia) {
+            var mq = window.matchMedia('(prefers-color-scheme: dark)');
+            var onChange = function (e) {
+              try { if (localStorage.getItem('antora-theme')) return; } catch (_) {}
+              html.classList.toggle('dark', e.matches);
+            };
+            if (mq.addEventListener) mq.addEventListener('change', onChange);
+            else if (mq.addListener) mq.addListener(onChange);
+          }
+        })();
+        </script>
+      HTML
+
+      output = output.sub(/<head[^>]*>/) { |m| m + theme }
       output.sub('</body>', "#{scripts}</body>")
     end
   end
