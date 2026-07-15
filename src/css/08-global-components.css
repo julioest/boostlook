@@ -390,11 +390,6 @@ html.dark .boostlook nav.pagination > span:hover a {
   border-color: var(--border-border-positive, #f8fefb);
   background-color: var(--surface-background-states-surface-positive-primary, #f6fafd);
 }
-/* .boostlook #content .admonitionblock.tip > table tr td.icon,
-.boostlook:not(:has(.doc)) div.tip > table tr:first-child th,
-.boostlook:not(:has(.doc)) .notices.tip .heading {
-  background: var(--border-border-positive, #bdeed6);
-} */
 .boostlook #content .admonitionblock.tip > table tr td.icon > *,
 .boostlook:not(:has(.doc)) div.tip > table tr:first-child th,
 .boostlook:not(:has(.doc)) .notices.tip .heading {
@@ -410,13 +405,6 @@ html.dark .boostlook nav.pagination > span:hover a {
   border-color: var(--border-border-brand-orange, #ffd897);
   background-color: var(--surface-background-states-surface-warning-primary, #fefcf9);
 }
-/* .boostlook #content .admonitionblock.important > table tr td.icon,
-.boostlook #content .admonitionblock.caution > table tr td.icon,
-.boostlook:not(:has(.doc)) div.important > table tr:first-child th,
-.boostlook:not(:has(.doc)) div.caution > table tr:first-child th,
-.boostlook:not(:has(.doc)) .notices.important {
-  background: var(--surface-background-states-surface-warning-tetriary, #ffd4b3);
-} */
 .boostlook #content .admonitionblock.important > table tr td.icon > *,
 .boostlook #content .admonitionblock.caution > table tr td.icon > *,
 .boostlook:not(:has(.doc)) div.important > table tr:first-child th,
@@ -432,11 +420,6 @@ html.dark .boostlook nav.pagination > span:hover a {
   border-color: var(--border-border-negative, #ffcad2);
   background-color: var(--surface-background-states-surface-negative-primary, #fdf1f3);
 }
-/* .boostlook #content .admonitionblock.warning > table tr td.icon,
-.boostlook:not(:has(.doc)) div.warning > table tr:first-child th,
-.boostlook:not(:has(.doc)) .notices.warning .heading {
-  background: var(--surface-background-states-surface-negative-tetriary, #ffcad2);
-} */
 .boostlook #content .admonitionblock.warning > table tr td.icon > *,
 .boostlook:not(:has(.doc)) div.warning > table tr:first-child th,
 .boostlook:not(:has(.doc)) .notices.warning .heading {
@@ -504,7 +487,6 @@ html.dark .boostlook nav.pagination > span:hover a {
   letter-spacing: var(--spacing-size-size-0, 0rem);
   font-weight: 600;
   color: var(--text-main-text-primary, #18191b) !important;
-  /*margin-bottom: var(--spacing-size-2xs, 0.5rem);*/
 }
 .boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(.hdlist1) dd  a:hover {
   color: var(--text-states-text-warning, #FF9442);
@@ -545,7 +527,6 @@ html.dark .boostlook nav.pagination > span:hover a {
   padding: initial;
   border-radius: initial;
   border: initial;
-  /* border-bottom-left-radius: unset; */
   background: initial;
   color: var(--text-code-text, #050816);
   font-size: var(--typography-font-size-xs, 0.875rem);
@@ -863,7 +844,6 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   text-indent: unset;
   color: var(--text-main-text-primary, #18191b);
   text-align: center;
-  /*background: var(--surface-background-main-surface-secondary, #e4e7ea);*/
 }
 .boostlook .doc code .conum[data-value] {
   background: transparent;
