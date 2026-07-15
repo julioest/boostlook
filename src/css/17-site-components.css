@@ -1,0 +1,53 @@
+
+/* ============================================================
+   Site component refinements (website-v2), scoped under .boostlook.
+   These layer on the shared Boostlook typography for specific consumer
+   components. They only match where the component class is present (the
+   website-v2 site), so they are inert in Antora/standalone contexts.
+   Note: these reference website-v2 design tokens by design.
+   ============================================================ */
+
+/* Content modal (testimonials) — #2491 */
+.boostlook.content-modal__prose {
+  /* Sit on the modal surface; clear the white background the global
+     `.boostlook` rule applies. */
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-default);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.boostlook.content-modal__prose :is(h2, h3, h4, h5, h6) {
+  margin: var(--space-xlarge) 0 var(--space-large);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-display-regular);
+}
+
+.boostlook.content-modal__prose h2 {
+  font-size: var(--font-size-large);
+}
+
+.boostlook.content-modal__prose h3 {
+  font-size: var(--font-size-base);
+}
+
+.boostlook.content-modal__prose :is(h4, h5, h6) {
+  font-size: var(--font-size-small);
+}
+
+/* Sit flush with the top, no leading margin on the first prose element. */
+.boostlook.content-modal__prose > :first-child {
+  margin-top: 0;
+}
+
+.boostlook.content-modal__prose p {
+  margin: var(--space-default) 0;
+  padding: 0;
+  line-height: var(--line-height-loose);
+}
