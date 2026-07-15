@@ -14,6 +14,37 @@
   margin-top: var(--padding-padding-md, 1rem);
 }
 
+/* Markdown paragraphs — plain <p> siblings rendered by markdown (site
+   components, READMEs) that lack Antora's .paragraph wrapper, so the rule
+   above never matches them. Scoped :not(:has(.doc)) so Antora doc content
+   keeps its own structure-based spacing below. */
+.boostlook:not(:has(.doc)) p + p {
+  margin-top: var(--padding-padding-md, 1rem);
+}
+
+/* Markdown lists — bare <ul>/<ol> from markdown (site components, READMEs)
+   that lack Antora's .ulist/.olist wrappers. Tailwind's preflight strips the
+   markers, indent and margins on the site, and boostlook's Antora list rules
+   never match these, so restore them here. Scoped :not(:has(.doc)) and
+   :not([class]) so only bare markdown lists are touched, never Antora or
+   classed nav/tab lists. */
+.boostlook:not(:has(.doc)) :is(ul, ol):not([class]) {
+  margin: var(--padding-padding-md, 1rem) 0;
+  padding-left: var(--spacing-size-lg, 1.5rem);
+}
+.boostlook:not(:has(.doc)) ul:not([class]) {
+  list-style: disc;
+}
+.boostlook:not(:has(.doc)) ol:not([class]) {
+  list-style: decimal;
+}
+.boostlook:not(:has(.doc)) :is(ul, ol):not([class]) li + li {
+  margin-top: var(--padding-padding-3xs, 0.25rem);
+}
+.boostlook:not(:has(.doc)) li > :is(ul, ol):not([class]) {
+  margin: var(--padding-padding-3xs, 0.25rem) 0 0;
+}
+
 .boostlook:not(:has(.doc)) .section > p + p,
 .boostlook:not(:has(.doc)) .chapter > p + p,
 .boostlook div.blockquote blockquote p + p,
