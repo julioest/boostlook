@@ -12,7 +12,12 @@
  * 6. Responsive Design - Mobile-first breakpoint variables
  */
 
-:root:has(.boostlook) {
+/* Core design tokens. Scoped to the .boostlook subtree (not the page root) so a
+   component island on a v3 site page cannot redefine the host page's tokens
+   (which caused the hero heading to shift). The :root:not(.v3) branch keeps them
+   page-level for full-page docs, whose html has no .v3. */
+:root:not(.v3):has(.boostlook),
+.boostlook {
   /* General Variables - Core design tokens for all themes */
   --bl-primary-color: rgb(255, 159, 0); /* Boost's signature orange color */
 
@@ -311,7 +316,8 @@
 
 /*----------------- New Look Responsive Desktop Start -----------------*/
 @media (min-width: 768px) {
-  :root:has(.boostlook) {
+  :root:not(.v3):has(.boostlook),
+  .boostlook {
     /* Spacing — Metalab 2.0 (desktop) */
     --spacing-xs: 0.125rem;
     --spacing-s: 0.25rem;
@@ -382,7 +388,9 @@
 }
 
 @media (min-width: 990px) {
-  :root:has(.boostlook) {
+  /* Doc-layout widths, read by ancestors outside .boostlook, so they stay on
+     :root. Gated :not(.v3) so they don't land on a v3 site page. */
+  :root:not(.v3):has(.boostlook) {
     --main-max-width-leftbar: 21.25rem;
     --main-margin: 8.625rem;
   }

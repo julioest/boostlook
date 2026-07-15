@@ -9,8 +9,12 @@
  * 2. Dark Theme (activated by html.dark class)
  */
 
-/* Light Theme (Default) Configuration */
-html:has(.boostlook) {
+/* Light Theme (Default) Configuration.
+   Defined on the .boostlook scope (not the page root) so a component island on
+   a v3 site page does not push these theme vars onto the host :root. The
+   :root:not(.v3) branch keeps them page-level for full-page docs. */
+:root:not(.v3):has(.boostlook),
+.boostlook {
   color-scheme: light;
   /*----------------- New Look Variables Start -----------------*/
   --icon-anchor: var(--icon-anchor-light);
@@ -146,8 +150,10 @@ html:has(.boostlook) {
   /*----------------- New Look Variables End -----------------*/
 }
 
-/* Dark Theme Configuration */
-html.dark:has(.boostlook) {
+/* Dark Theme Configuration. Scoped like the light theme above so dark theme
+   vars land on the .boostlook subtree, not the host :root, on v3 site pages. */
+html.dark:not(.v3):has(.boostlook),
+html.dark .boostlook {
   color-scheme: dark;
   /*----------------- New Look Variables Dark Mode Start -----------------*/
   --icon-anchor: var(--icon-anchor-dark);

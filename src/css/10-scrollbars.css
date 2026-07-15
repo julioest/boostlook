@@ -27,8 +27,11 @@
  */
 
 @supports (scrollbar-width: thin) {
-  /* HTML Matches its scroll background to content background */
-  html:has(.boostlook) {
+  /* HTML Matches its scroll background to content background.
+     Gated :not(.v3) so a component-level .boostlook island on a v3 site page
+     does not restyle (and resize) the whole page scrollbar. Docs render in an
+     iframe whose html has no .v3, so they keep this. */
+  html:not(.v3):has(.boostlook) {
     scrollbar-width: thin;
     scrollbar-color: var(--border-border-tetriary, #afb3b6) var(--surface-background-main-base-primary, #fff);
   }
@@ -58,14 +61,14 @@
   }
 }
 
-html:has(.boostlook)::-webkit-scrollbar,
+html:not(.v3):has(.boostlook)::-webkit-scrollbar,
 .boostlook::-webkit-scrollbar,
 .boostlook *::-webkit-scrollbar {
   width: 8px !important;
   height: 8px !important;
 }
 
-html:has(.boostlook)::-webkit-scrollbar-track {
+html:not(.v3):has(.boostlook)::-webkit-scrollbar-track {
   background: var(--surface-background-main-base-primary, #fff);
   border-radius: var(--spacing-size-2xs, 0.5rem);
 }
@@ -80,7 +83,7 @@ html:has(.boostlook)::-webkit-scrollbar-track {
   border-radius: var(--spacing-size-2xs, 0.5rem);
 }
 
-html:has(.boostlook)::-webkit-scrollbar-thumb,
+html:not(.v3):has(.boostlook)::-webkit-scrollbar-thumb,
 .boostlook::-webkit-scrollbar-thumb,
 .boostlook *::-webkit-scrollbar-thumb,
 .boostlook pre::-webkit-scrollbar-thumb,
