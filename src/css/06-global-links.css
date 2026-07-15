@@ -18,30 +18,33 @@
    components, READMEs) that lack Antora's .paragraph wrapper, so the rule
    above never matches them. Scoped :not(:has(.doc)) so Antora doc content
    keeps its own structure-based spacing below. */
-.boostlook:not(:has(.doc)) p + p {
+/* The :not(...) guards are wrapped in :where() so they add no specificity:
+   this bare-markdown layer is a low baseline (.boostlook + element level) that
+   component rules (e.g. .boostlook.markdown-content ul) can override cleanly. */
+.boostlook:where(:not(:has(.doc))) p + p {
   margin-top: var(--padding-padding-md, 1rem);
 }
 
 /* Markdown lists — bare <ul>/<ol> from markdown (site components, READMEs)
    that lack Antora's .ulist/.olist wrappers. Tailwind's preflight strips the
    markers, indent and margins on the site, and boostlook's Antora list rules
-   never match these, so restore them here. Scoped :not(:has(.doc)) and
-   :not([class]) so only bare markdown lists are touched, never Antora or
-   classed nav/tab lists. */
-.boostlook:not(:has(.doc)) :is(ul, ol):not([class]) {
+   never match these, so restore them here. Scoped :where(:not(:has(.doc))) and
+   :where(:not([class])) so only bare markdown lists are touched, never Antora
+   or classed nav/tab lists, and with no added specificity. */
+.boostlook:where(:not(:has(.doc))) :is(ul, ol):where(:not([class])) {
   margin: var(--padding-padding-md, 1rem) 0;
   padding-left: var(--spacing-size-lg, 1.5rem);
 }
-.boostlook:not(:has(.doc)) ul:not([class]) {
+.boostlook:where(:not(:has(.doc))) ul:where(:not([class])) {
   list-style: disc;
 }
-.boostlook:not(:has(.doc)) ol:not([class]) {
+.boostlook:where(:not(:has(.doc))) ol:where(:not([class])) {
   list-style: decimal;
 }
-.boostlook:not(:has(.doc)) :is(ul, ol):not([class]) li + li {
+.boostlook:where(:not(:has(.doc))) :is(ul, ol):where(:not([class])) li + li {
   margin-top: var(--padding-padding-3xs, 0.25rem);
 }
-.boostlook:not(:has(.doc)) li > :is(ul, ol):not([class]) {
+.boostlook:where(:not(:has(.doc))) li > :is(ul, ol):where(:not([class])) {
   margin: var(--padding-padding-3xs, 0.25rem) 0 0;
 }
 
