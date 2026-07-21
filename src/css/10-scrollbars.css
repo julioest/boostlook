@@ -40,7 +40,7 @@
   .boostlook *,
   .boostlook pre,
   .boostlook code,
-  .boostlook:has(:not(.doc)) div.table .table-contents {
+  .boostlook:not(:has(.doc)) div.table .table-contents {
     scrollbar-width: thin;
     scrollbar-color: var(--border-border-tetriary, #afb3b6) transparent;
   }
@@ -48,14 +48,14 @@
   @media screen and (min-width: 768px) {
     .boostlook pre,
     .boostlook code,
-    .boostlook:has(:not(.doc)) div.table .table-contents {
+    .boostlook:not(:has(.doc)) div.table .table-contents {
       scrollbar-width: thin;
       scrollbar-color: transparent transparent;
     }
 
     .boostlook pre:hover,
     .boostlook code:hover,
-    .boostlook:has(:not(.doc)) div.table .table-contents:hover {
+    .boostlook:not(:has(.doc)) div.table .table-contents:hover {
       scrollbar-color: var(--border-border-tetriary, #afb3b6) transparent;
     }
   }
@@ -77,7 +77,7 @@ html:not(.v3):has(.boostlook)::-webkit-scrollbar-track {
 .boostlook *::-webkit-scrollbar-track,
 .boostlook pre::-webkit-scrollbar-track,
 .boostlook code::-webkit-scrollbar-track,
-.boostlook:has(:not(.doc)) div.table .table-contents::-webkit-scrollbar-track {
+.boostlook:not(:has(.doc)) div.table .table-contents::-webkit-scrollbar-track {
   width: 6px;
   background: transparent;
   border-radius: var(--spacing-size-2xs, 0.5rem);
@@ -88,7 +88,7 @@ html:not(.v3):has(.boostlook)::-webkit-scrollbar-thumb,
 .boostlook *::-webkit-scrollbar-thumb,
 .boostlook pre::-webkit-scrollbar-thumb,
 .boostlook code::-webkit-scrollbar-thumb,
-.boostlook:has(:not(.doc)) div.table .table-contents::-webkit-scrollbar-thumb {
+.boostlook:not(:has(.doc)) div.table .table-contents::-webkit-scrollbar-thumb {
   width: 6px;
   background: var(--border-border-tetriary, #afb3b6);
 }
@@ -96,13 +96,13 @@ html:not(.v3):has(.boostlook)::-webkit-scrollbar-thumb,
 @media screen and (min-width: 768px) {
   .boostlook pre::-webkit-scrollbar-thumb,
   .boostlook code::-webkit-scrollbar-thumb,
-  .boostlook:has(:not(.doc)) div.table .table-contents::-webkit-scrollbar-thumb {
+  .boostlook:not(:has(.doc)) div.table .table-contents::-webkit-scrollbar-thumb {
     background: transparent;
   }
 
   .boostlook pre:hover::-webkit-scrollbar-thumb,
   .boostlook code:hover::-webkit-scrollbar-thumb,
-  .boostlook:has(:not(.doc)) div.table .table-contents:hover:-webkit-scrollbar-thumb {
+  .boostlook:not(:has(.doc)) div.table .table-contents:hover::-webkit-scrollbar-thumb {
     background-color: var(--border-border-tetriary, #afb3b6);
   }
 }

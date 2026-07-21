@@ -132,34 +132,12 @@ html.dark .boostlook .listingblock > .content > pre {
  * Applies only if codeblock has child with class .toolbox
  * and it`s title doesn`t includes any other elems as children
 */
+/* Filename title intentionally hidden in the 2.0 toolbox design (only the copy
+   button shows). Collapsed to display:none; the former flex/layout declarations
+   were dead because the element never renders. */
 .boostlook .doc .listingblock:has(.source-toolbox) .title:not(:has(a, span, p, code, pre)),
 .boostlook .listingblock:has(.source-toolbox) .title:not(:has(a, span, p, code, pre)) {
-  position: absolute;
-  top: 1px;
-  height: 2rem;
-  max-width: calc(100% - 5rem);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0;
-  padding-left: var(--spacing-size-sm);
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-size-2xs, 0.5rem);
-  color: var(--text-main-text-body-tetriary, #62676b);
-  font-family: "Mona Sans";
-  font-size: var(--typography-font-size-2xs, 0.75rem);
-  font-style: normal;
-  line-height: var(--typography-line-height-sm, 1rem);
-  letter-spacing: var(--spacing-size-size-0, 0rem);
-  z-index: 1;
   display: none;
-}
-
-.boostlook .doc .listingblock:has(.source-toolbox) .title:not(:has(a, span, p, code, pre))::before,
-.boostlook .listingblock:has(.source-toolbox) .title:not(:has(a, span, p, code, pre))::before {
-  content: var(--icon-file);
-  line-height: 0;
 }
 
 /* Code Block Margins */
@@ -289,7 +267,6 @@ html.dark .boostlook .listingblock > .content > pre {
   border: 1px solid var(--border-border-primary, #e4e7ea);
   background: var(--surface-background-main-surface-primary, #f5f6f8);
   opacity: 0;
-  visibility: hidden;
   transition: all 0.2s ease;
 }
 
@@ -297,9 +274,16 @@ html.dark .boostlook .listingblock > .content > pre {
   border: 1px solid var(--border-border-blue, #92cbe9);
 }
 
-.boostlook .content:has(> pre):has(> .source-toolbox):hover .copy-button {
+.boostlook .content:has(> pre):has(> .source-toolbox):hover .copy-button,
+.boostlook .content:has(> pre):has(> .source-toolbox) .copy-button:focus-visible {
   opacity: 1;
-  visibility: visible;
+}
+
+/* Keyboard users can tab to the copy button (kept in the tab order via opacity
+   rather than visibility:hidden) and get a visible focus ring. */
+.boostlook .content:has(> pre):has(> .source-toolbox) .copy-button:focus-visible {
+  outline: 2px solid var(--border-border-blue, #92cbe9);
+  outline-offset: 2px;
 }
 
 /* Mobile: hide copy button (clipboard API requires HTTPS) */

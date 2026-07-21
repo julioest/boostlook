@@ -596,7 +596,7 @@
 }
 
 .boostlook .search-result-item:hover {
-  background: var(--colors-primary-50);
+  background: var(--surface-background-main-surface-primary);
 }
 
 .boostlook .search-result-item .no-result {
@@ -643,7 +643,7 @@
 .boostlook .search-result-document-hit .search-result-highlight {
   padding: 0.1em 0.2em;
   border-radius: var(--radius-xs, 0.125rem);
-  background: var(--colors-secondary-50);
+  background: var(--surface-background-main-surface-blue-secondary);
   color: var(--text-main-text-link-blue);
   font-weight: 500;
 }

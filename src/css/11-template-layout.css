@@ -421,6 +421,13 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   transform: none;
 }
 
+/* Restore a visible focus ring for keyboard users (the rule above clears the
+   default outline). */
+.boostlook #toc .nav-item-toggle:focus-visible {
+  outline: 2px solid var(--border-border-blue, #92cbe9);
+  outline-offset: 2px;
+}
+
 /* Down-pointing caret (collapsed) */
 .boostlook #toc .nav-item-toggle::after {
   content: "";

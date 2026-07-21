@@ -320,19 +320,19 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) div.spi
 
 /* Tables */
 /* Make div with Table display block */
-.boostlook:has(:not(.doc)) div.table {
+.boostlook:not(:has(.doc)) div.table {
   display: block;
 }
 
 /* Enable Horizontal Scroll */
-.boostlook:has(:not(.doc)) div.table .table-contents,
-.boostlook:has(:not(.doc)) .informaltable:has(> .table) {
+.boostlook:not(:has(.doc)) div.table .table-contents,
+.boostlook:not(:has(.doc)) .informaltable:has(> .table) {
   overflow: auto;
 }
 
 /* References Table */
 /* This is specific selector for refences tables which containes many tables and only tables as direct children */
-.boostlook:has(:not(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) {
+.boostlook:not(:has(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) {
   display: flex;
   flex-direction: column;
   gap: var(--padding-padding-md, 1.125rem);
@@ -340,12 +340,12 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) div.spi
 }
 
 /* Disable margins for all Headings inside table */
-.boostlook:has(:not(.doc)) .informaltable:has(> .table) :is(h1, h2, h3, h4, h5, h6) {
+.boostlook:not(:has(.doc)) .informaltable:has(> .table) :is(h1, h2, h3, h4, h5, h6) {
   margin: 0;
 }
 
 /* Table has inner table th  */
-.boostlook:has(:not(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) .table:has(.simplelist) th {
+.boostlook:not(:has(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) .table:has(.simplelist) th {
   border: none;
   padding: 0 0 var(--padding-padding-xs, 0.75rem) 0;
   background: none;
@@ -358,24 +358,24 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) div.spi
 }
 
 /* Disable global cell paddings */
-.boostlook:has(:not(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) .table:has(.simplelist) > tbody > tr > td {
+.boostlook:not(:has(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) .table:has(.simplelist) > tbody > tr > td {
   padding: 0;
 }
 
 /* Add border radius to tbody first row */
-.boostlook:has(:not(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) .table:has(.simplelist) tr:last-child td:first-child {
+.boostlook:not(:has(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) .table:has(.simplelist) tr:last-child td:first-child {
   border-top-left-radius: var(--spacing-size-2xs, 0.5rem);
   overflow: hidden;
 }
 
 /* Add border radius to tbody first row */
-.boostlook:has(:not(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) .table:has(.simplelist) tr:last-child td:last-child {
+.boostlook:not(:has(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) .table:has(.simplelist) tr:last-child td:last-child {
   border-top-right-radius: var(--spacing-size-2xs, 0.5rem);
   overflow: hidden;
 }
 
 /* Select Inner Headings and make it look as table head */
-.boostlook:has(:not(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) .table:has(.simplelist) tbody :is(h1, h2, h3, h4, h5, h6) {
+.boostlook:not(:has(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) .table:has(.simplelist) tbody :is(h1, h2, h3, h4, h5, h6) {
   padding: var(--padding-padding-3xs, 0.25rem) var(--padding-padding-2xs, 0.5rem);
   gap: var(--spacing-size-xs, 0.75rem);
   background: var(--surface-background-main-surface-primary, #f5f6f8);
@@ -388,22 +388,22 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) div.spi
 }
 
 /* Inner table styles */
-.boostlook:has(:not(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) table.simplelist {
+.boostlook:not(:has(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) table.simplelist {
   width: 100%;
 }
 
-.boostlook:has(:not(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) table.simplelist td {
+.boostlook:not(:has(.doc)) .informaltable:has(> table:nth-of-type(2)):not(:has(> *:not(table))) table.simplelist td {
   border: none;
   padding: var(--padding-padding-3xs, 0.25rem) var(--padding-padding-2xs, 0.5rem);
 }
 
 /* Footnotes */
-.boostlook:has(:not(.doc)) .footnotes {
+.boostlook:not(:has(.doc)) .footnotes {
   margin-top: var(--padding-padding-lg);
   border-top: 1px solid var(--border-border-primary);
 }
 
-.boostlook:has(:not(.doc)) .footnotes hr {
+.boostlook:not(:has(.doc)) .footnotes hr {
   display: none;
 }
 
