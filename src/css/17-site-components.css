@@ -14,16 +14,10 @@ html.v3 .boostlook {
   background: transparent;
 }
 
-/* Non-doc site components use v2's primary text color (near-black in light,
-   white in dark) rather than boostlook's lighter doc body grey. Paragraphs
-   inherit their container instead of boostlook's hardcoded `.boostlook p`
-   grey, so each component's own color flows through.
-   Font: boostlook's base container forces "Mona Sans" (!important) plus a
-   condensed font-variation-settings ("wght" 400, "wdth" 95). Non-doc site
-   components should render the site's own type instead, so inherit both the
-   family (!important to beat boostlook's base rule) and the variation settings
-   from the host page. Headings that set their own font-family (e.g.
-   --font-display) still win. */
+/* Non-doc site components use v2's own text color and type, not boostlook's doc
+   grey and forced condensed "Mona Sans". Inherit family (!important to beat
+   boostlook's base rule) and variation settings from the host page; headings
+   with their own font-family (e.g. --font-display) still win. */
 .boostlook:where(:not(:has(.doc))) {
   color: var(--color-text-primary);
   font-family: inherit !important;
@@ -71,7 +65,6 @@ html.v3 .boostlook {
   font-size: var(--font-size-small);
 }
 
-/* Sit flush with the top, no leading margin on the first prose element. */
 .boostlook.content-modal__prose > :first-child {
   margin-top: 0;
 }
@@ -131,9 +124,8 @@ html.v3 .boostlook {
   color: var(--color-text-primary);
 }
 
-/* Ordered lists: native decimal numbering (a custom ::before counter only
-   suits the single bullet char and misaligns; browsers render numbers
-   cleanly and follow the item's font size). */
+/* Ordered lists: native decimal numbering (a custom ::before counter
+   misaligns; native numbers follow the item's font size cleanly). */
 .boostlook.markdown-content ol {
   list-style: decimal;
   padding-left: var(--space-xl);
@@ -150,10 +142,8 @@ html.v3 .boostlook {
   text-underline-position: from-font;
 }
 
-/* Code blocks: defer to boostlook's own code styling (the boxed .boostlook pre
-   with its light/dark background, border and radius, and .boostlook pre code
-   for the monospace body). Only add horizontal-scroll safety so a wide line
-   scrolls inside the narrow card instead of overflowing it. */
+/* Code blocks defer to boostlook's own code styling; only add horizontal-scroll
+   safety so a wide line scrolls inside the narrow card instead of overflowing. */
 .boostlook.markdown-content pre {
   overflow-x: auto;
 }
@@ -191,20 +181,14 @@ html.v3 .boostlook {
   font-weight: var(--font-weight-medium);
 }
 
+/* Color comes from the non-doc `color: inherit` rule above; this just keeps v2's size/spacing. */
 .boostlook.markdown-content p {
-  /* Keep the card's paragraph size/spacing faithful to v2. Color comes from
-     the non-doc `color: inherit` rule above, so it follows the container
-     (v2's primary near-black) instead of boostlook's grey. */
   font-size: var(--font-size-small);
   line-height: var(--line-height-code);
   letter-spacing: var(--letter-spacing-tight);
   padding: 0;
   margin: 0;
 }
-
-/* Inline code + code blocks intentionally have no card-specific override:
-   they inherit boostlook's code styling so the card matches the doc/site code
-   treatment (monospace inline code, boxed pre blocks with syntax colors). */
 
 /* Post detail (news article body) — #2491. The container keeps its layout
    (flex/gap/border) in post-detail.css; the rich-text typography lives here.
@@ -274,13 +258,9 @@ html.v3 .boostlook {
   font-weight: var(--font-weight-medium);
 }
 
-/* Release highlights card (what's-new descriptions via inline_markdown) — #2491.
-   The description's layout and base type (secondary color, size, spacing) stay in
-   release-highlights-card.css; the only rich-text spans inline_markdown can emit
-   are <strong> and <code>. Bold uses the site's medium weight (the non-doc rule
-   above already drops boostlook's condensed axis). Inline code has no override, so
-   it inherits boostlook's code treatment — matching the release notes markdown card
-   on the same page. */
+/* Release highlights card (what's-new via inline_markdown) — #2491. inline_markdown
+   emits only <strong> and <code>; layout/base type stays in release-highlights-card.css.
+   Bold uses the site's medium weight; inline code inherits boostlook's treatment. */
 .boostlook.release-highlight__description strong {
   font-weight: var(--font-weight-medium);
 }
