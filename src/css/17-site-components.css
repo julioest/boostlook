@@ -175,6 +175,13 @@ html.v3 .boostlook {
 .boostlook.markdown-content h5,
 .boostlook.markdown-content h6 { font-size: var(--font-size-small); }
 
+/* Asciidoctor wraps each heading in a .sectN div, so it isn't a direct flex child and the
+   container gap can't space it — the `margin: 0` above collapses it against its body text.
+   Restore the gap, scoped to the nested case so flat markdown doesn't double up. #2535. */
+.boostlook.markdown-content :is(.sect1, .sect2, .sect3) > :is(h1, h2, h3, h4, h5, h6) {
+  margin-bottom: var(--space-default);
+}
+
 .boostlook.markdown-content b,
 .boostlook.markdown-content strong {
   color: var(--color-text-primary);
@@ -260,7 +267,8 @@ html.v3 .boostlook {
 
 /* Release highlights card (what's-new via inline_markdown) — #2491. inline_markdown
    emits only <strong> and <code>; layout/base type stays in release-highlights-card.css.
-   Bold uses the site's medium weight; inline code inherits boostlook's treatment. */
+   Bold uses the site's medium weight; inline code inherits boostlook's treatment (the
+   leaf-case reset in 04-reset.css covers `p.boostlook > code`). */
 .boostlook.release-highlight__description strong {
   font-weight: var(--font-weight-medium);
 }
