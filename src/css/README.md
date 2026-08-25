@@ -38,37 +38,6 @@ sh build-css.sh
 
 This concatenates all modules (in numeric order) into `boostlook-v3.css` at the repo root.
 
-## Local Preview (Dev Server)
-
-A browser-sync dev server previews `boostlook-v3.css` against **real Boost docs of
-every type** — Antora site guides (User/Contributor/Formal Reviews), Antora library
-docs (Capy, MSM, URL), and a standalone AsciiDoctor doc (the CharConv `specimen.adoc`).
-Edit any `src/css/*.css` module and the styles hot-reload in every open tab without a
-full page refresh.
-
-```sh
-npm install     # once — installs browser-sync
-npm run dev     # serves http://localhost:3000/preview.html
-```
-
-How it works (see `dev-server.js`):
-
-- It serves the **already-built** docs from `../website-v2-docs/build/` (rendered Antora
-  output) rather than rebuilding them — fast startup, no Antora/`b2` toolchain needed.
-- Every built page links one stylesheet, `/_/css/boostlook.css`. A middleware route
-  intercepts that path and serves your **working** `boostlook-v3.css` from memory, so
-  `build/` is never modified and requests never see a half-written bundle.
-- The AsciiDoctor specimen is rendered on boot via `boostlook.rb` (which wraps output in
-  `.boostlook`); requires the `asciidoctor` CLI. Skipped gracefully if absent.
-- Saving a `src/css/**` file runs `build-css.sh` (debounced, non-overlapping) and injects
-  the new CSS.
-
-**Prerequisites:** Node + npm, the `asciidoctor` CLI (for the specimen only), and a built
-`website-v2-docs/build/` directory. To regenerate that built site with fresh doc content,
-run `./dev.sh` in the `website-v2-docs` repo (note: its build scripts expect GNU
-`findutils` on macOS — `brew install findutils`). Override the build location with the
-`BOOSTLOOK_DOCS_BUILD` env var, or the port with `PORT`.
-
 ## CSS Tooling Roadmap
 
 > **Status:** Decision deferred — documenting options for future reference.
