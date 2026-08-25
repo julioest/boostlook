@@ -27,8 +27,11 @@
  */
 
 @supports (scrollbar-width: thin) {
-  /* HTML Matches its scroll background to content background */
-  html:has(.boostlook) {
+  /* HTML Matches its scroll background to content background.
+     Gated :not(.v3) so a component-level .boostlook island on a v3 site page
+     does not restyle (and resize) the whole page scrollbar. Docs render in an
+     iframe whose html has no .v3, so they keep this. */
+  html:not(.v3):has(.boostlook) {
     scrollbar-width: thin;
     scrollbar-color: var(--border-border-tetriary, #afb3b6) var(--surface-background-main-base-primary, #fff);
   }
@@ -37,7 +40,7 @@
   .boostlook *,
   .boostlook pre,
   .boostlook code,
-  .boostlook:has(:not(.doc)) div.table .table-contents {
+  .boostlook:not(:has(.doc)) div.table .table-contents {
     scrollbar-width: thin;
     scrollbar-color: var(--border-border-tetriary, #afb3b6) transparent;
   }
@@ -45,27 +48,27 @@
   @media screen and (min-width: 768px) {
     .boostlook pre,
     .boostlook code,
-    .boostlook:has(:not(.doc)) div.table .table-contents {
+    .boostlook:not(:has(.doc)) div.table .table-contents {
       scrollbar-width: thin;
       scrollbar-color: transparent transparent;
     }
 
     .boostlook pre:hover,
     .boostlook code:hover,
-    .boostlook:has(:not(.doc)) div.table .table-contents:hover {
+    .boostlook:not(:has(.doc)) div.table .table-contents:hover {
       scrollbar-color: var(--border-border-tetriary, #afb3b6) transparent;
     }
   }
 }
 
-html:has(.boostlook)::-webkit-scrollbar,
+html:not(.v3):has(.boostlook)::-webkit-scrollbar,
 .boostlook::-webkit-scrollbar,
 .boostlook *::-webkit-scrollbar {
   width: 8px !important;
   height: 8px !important;
 }
 
-html:has(.boostlook)::-webkit-scrollbar-track {
+html:not(.v3):has(.boostlook)::-webkit-scrollbar-track {
   background: var(--surface-background-main-base-primary, #fff);
   border-radius: var(--spacing-size-2xs, 0.5rem);
 }
@@ -74,18 +77,18 @@ html:has(.boostlook)::-webkit-scrollbar-track {
 .boostlook *::-webkit-scrollbar-track,
 .boostlook pre::-webkit-scrollbar-track,
 .boostlook code::-webkit-scrollbar-track,
-.boostlook:has(:not(.doc)) div.table .table-contents::-webkit-scrollbar-track {
+.boostlook:not(:has(.doc)) div.table .table-contents::-webkit-scrollbar-track {
   width: 6px;
   background: transparent;
   border-radius: var(--spacing-size-2xs, 0.5rem);
 }
 
-html:has(.boostlook)::-webkit-scrollbar-thumb,
+html:not(.v3):has(.boostlook)::-webkit-scrollbar-thumb,
 .boostlook::-webkit-scrollbar-thumb,
 .boostlook *::-webkit-scrollbar-thumb,
 .boostlook pre::-webkit-scrollbar-thumb,
 .boostlook code::-webkit-scrollbar-thumb,
-.boostlook:has(:not(.doc)) div.table .table-contents::-webkit-scrollbar-thumb {
+.boostlook:not(:has(.doc)) div.table .table-contents::-webkit-scrollbar-thumb {
   width: 6px;
   background: var(--border-border-tetriary, #afb3b6);
 }
@@ -93,13 +96,13 @@ html:has(.boostlook)::-webkit-scrollbar-thumb,
 @media screen and (min-width: 768px) {
   .boostlook pre::-webkit-scrollbar-thumb,
   .boostlook code::-webkit-scrollbar-thumb,
-  .boostlook:has(:not(.doc)) div.table .table-contents::-webkit-scrollbar-thumb {
+  .boostlook:not(:has(.doc)) div.table .table-contents::-webkit-scrollbar-thumb {
     background: transparent;
   }
 
   .boostlook pre:hover::-webkit-scrollbar-thumb,
   .boostlook code:hover::-webkit-scrollbar-thumb,
-  .boostlook:has(:not(.doc)) div.table .table-contents:hover:-webkit-scrollbar-thumb {
+  .boostlook:not(:has(.doc)) div.table .table-contents:hover::-webkit-scrollbar-thumb {
     background-color: var(--border-border-tetriary, #afb3b6);
   }
 }

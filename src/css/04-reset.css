@@ -71,7 +71,13 @@
   /* Prevent text overflow */
 }
 
-.boostlook :not(pre):not([class^="L"]) > code {
+/* Two forms of the same reset: the code's parent may be a descendant of the
+   .boostlook element (doc/container case, e.g. div.boostlook > p > code) or the
+   .boostlook element itself (leaf case, e.g. p.boostlook > code — used by the
+   website-v2 site components). Covering both keeps inline code from falling
+   through to the host page's global `code` color. */
+.boostlook :not(pre):not([class^="L"]) > code,
+.boostlook:not(pre):not([class^="L"]) > code {
   /* overrides builtin colors */
   color: var(--text-code-text, #050816);
   border: 0;

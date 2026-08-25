@@ -9,8 +9,12 @@
  * 2. Dark Theme (activated by html.dark class)
  */
 
-/* Light Theme (Default) Configuration */
-html:has(.boostlook) {
+/* Light Theme (Default) Configuration.
+   Defined on the .boostlook scope (not the page root) so a component island on
+   a v3 site page does not push these theme vars onto the host :root. The
+   :root:not(.v3) branch keeps them page-level for full-page docs. */
+:root:not(.v3):has(.boostlook),
+.boostlook {
   color-scheme: light;
   /*----------------- New Look Variables Start -----------------*/
   --icon-anchor: var(--icon-anchor-light);
@@ -125,7 +129,7 @@ html:has(.boostlook) {
   --surface-icons-icon-blue: var(--colors-secondary-600);
   --surface-icons-icon-blue-light: var(--colors-secondary-200);
 
-  --border-border-primary: var(--colors-primary-100);
+  --border-border-primary: rgba(5, 8, 22, 0.1); /* Figma 2.0 standard 1px border (light) */
   --border-border-secondary: var(--colors-primary-150);
   --border-border-tetriary: var(--colors-primary-300);
   --border-border-quaternary: var(--colors-primary-600);
@@ -141,13 +145,15 @@ html:has(.boostlook) {
   --surface-weak: var(--colors-primary-0);
   --stroke-strong: rgba(5 8 22 / 0.25);
   --stroke-mid: rgba(5 8 22 / 0.17);
-  --stroke-weak: rgba(13 14 15 / 0.1);
+  --stroke-weak: rgba(5 8 22 / 0.1); /* Figma 2.0 standard 1px stroke (light) */
 
   /*----------------- New Look Variables End -----------------*/
 }
 
-/* Dark Theme Configuration */
-html.dark:has(.boostlook) {
+/* Dark Theme Configuration. Scoped like the light theme above so dark theme
+   vars land on the .boostlook subtree, not the host :root, on v3 site pages. */
+html.dark:not(.v3):has(.boostlook),
+html.dark .boostlook {
   color-scheme: dark;
   /*----------------- New Look Variables Dark Mode Start -----------------*/
   --icon-anchor: var(--icon-anchor-dark);
@@ -261,7 +267,7 @@ html.dark:has(.boostlook) {
   --surface-icons-icon-blue: var(--colors-secondary-400);
   --surface-icons-icon-blue-light: var(--colors-secondary-700);
 
-  --border-border-primary: var(--colors-primary-850);
+  --border-border-primary: rgba(247, 247, 248, 0.1); /* Figma 2.0 standard 1px border (dark) */
   --border-border-secondary: var(--colors-primary-800);
   --border-border-tetriary: var(--colors-primary-700);
   --border-border-quaternary: var(--colors-primary-500);
@@ -277,7 +283,7 @@ html.dark:has(.boostlook) {
   --surface-weak: var(--colors-primary-850);
   --stroke-strong: rgba(247 247 248 / 0.21);
   --stroke-mid: rgba(247 247 248 / 0.17);
-  --stroke-weak: rgba(255 255 255 / 0.1);
+  --stroke-weak: rgba(247 247 248 / 0.1); /* Figma 2.0 standard 1px stroke (dark) */
 
   /*----------------- New Look Variables Dark Mode Start -----------------*/
 }

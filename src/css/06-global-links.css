@@ -14,6 +14,40 @@
   margin-top: var(--padding-padding-md, 1rem);
 }
 
+/* Markdown paragraphs — plain <p> siblings rendered by markdown (site
+   components, READMEs) that lack Antora's .paragraph wrapper, so the rule
+   above never matches them. Scoped :not(:has(.doc)) so Antora doc content
+   keeps its own structure-based spacing below. */
+/* The :not(...) guards are wrapped in :where() so they add no specificity:
+   this bare-markdown layer is a low baseline (.boostlook + element level) that
+   component rules (e.g. .boostlook.markdown-content ul) can override cleanly. */
+.boostlook:where(:not(:has(.doc))) p + p {
+  margin-top: var(--padding-padding-md, 1rem);
+}
+
+/* Markdown lists — bare <ul>/<ol> from markdown (site components, READMEs)
+   that lack Antora's .ulist/.olist wrappers. Tailwind's preflight strips the
+   markers, indent and margins on the site, and boostlook's Antora list rules
+   never match these, so restore them here. Scoped :where(:not(:has(.doc))) and
+   :where(:not([class])) so only bare markdown lists are touched, never Antora
+   or classed nav/tab lists, and with no added specificity. */
+.boostlook:where(:not(:has(.doc))) :is(ul, ol):where(:not([class])) {
+  margin: var(--padding-padding-md, 1rem) 0;
+  padding-left: var(--spacing-size-lg, 1.5rem);
+}
+.boostlook:where(:not(:has(.doc))) ul:where(:not([class])) {
+  list-style: disc;
+}
+.boostlook:where(:not(:has(.doc))) ol:where(:not([class])) {
+  list-style: decimal;
+}
+.boostlook:where(:not(:has(.doc))) :is(ul, ol):where(:not([class])) li + li {
+  margin-top: var(--padding-padding-3xs, 0.25rem);
+}
+.boostlook:where(:not(:has(.doc))) li > :is(ul, ol):where(:not([class])) {
+  margin: var(--padding-padding-3xs, 0.25rem) 0 0;
+}
+
 .boostlook:not(:has(.doc)) .section > p + p,
 .boostlook:not(:has(.doc)) .chapter > p + p,
 .boostlook div.blockquote blockquote p + p,
@@ -122,11 +156,14 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   transition: color 0.3s ease;
 }
 
-/* Content body links: underline per Figma (paragraphs and lists only) */
-.boostlook #content .doc .paragraph a:not(.anchor),
-.boostlook #content .doc .ulist a:not(.anchor),
-.boostlook #content .doc .olist a:not(.anchor),
-.boostlook #content .doc .dlist a:not(.anchor) {
+/* Content body links: underline per Figma. Scoped to content block classes so
+   it covers BOTH Antora (.doc) and standalone AsciiDoctor (#content, no .doc);
+   nav/TOC links (.nav-list / #toc .sectlevel*) are unaffected. Color comes from
+   the base .boostlook a rule (--text-main-text-link-blue = #0077B8). */
+.boostlook .paragraph a:not(.anchor),
+.boostlook .ulist a:not(.anchor),
+.boostlook .olist a:not(.anchor),
+.boostlook .dlist a:not(.anchor) {
   text-decoration: underline;
   text-underline-offset: 2px;
 }

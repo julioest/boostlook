@@ -1,6 +1,9 @@
 
-/* Override for Antora default styles */
-html:has(.boostlook) {
+/* Override for Antora default styles.
+   Gated :not(.v3): page-level html props (root font-size, height, scroll) must
+   not apply when .boostlook is only a component island on a v3 site page. Docs
+   render in an iframe whose html has no .v3, so they keep this. */
+html:not(.v3):has(.boostlook) {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font-size: 1rem;

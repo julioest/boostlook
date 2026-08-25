@@ -1,0 +1,274 @@
+
+/* ============================================================
+   Site component refinements (website-v2), scoped under .boostlook.
+   These layer on the shared Boostlook typography for specific consumer
+   components. They only match where the component class is present (the
+   website-v2 site), so they are inert in Antora/standalone contexts.
+   Note: these reference website-v2 design tokens by design.
+   ============================================================ */
+
+/* v3 site: a .boostlook island sits on the host page's own surface, not
+   boostlook's doc surface, so clear the background boostlook sets on every
+   .boostlook element. Docs (iframe html has no .v3) keep their surface. */
+html.v3 .boostlook {
+  background: transparent;
+}
+
+/* Non-doc site components use v2's own text color and type, not boostlook's doc
+   grey and forced condensed "Mona Sans". Inherit family (!important to beat
+   boostlook's base rule) and variation settings from the host page; headings
+   with their own font-family (e.g. --font-display) still win. */
+.boostlook:where(:not(:has(.doc))) {
+  color: var(--color-text-primary);
+  font-family: inherit !important;
+  font-variation-settings: inherit;
+}
+
+/* boostlook renders bold as a condensed variable-font axis
+   ("wght" 600, "wdth" 87.5); non-doc components should use the site's normal
+   bold weight, so drop the axis override and let font-weight take effect. */
+.boostlook:where(:not(:has(.doc))) :is(b, strong) {
+  font-variation-settings: inherit;
+}
+.boostlook:where(:not(:has(.doc))) p {
+  color: inherit;
+}
+
+/* Content modal (testimonials) — #2491 */
+.boostlook.content-modal__prose {
+  color: var(--color-text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-default);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.boostlook.content-modal__prose :is(h2, h3, h4, h5, h6) {
+  margin: var(--space-xlarge) 0 var(--space-large);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-display-regular);
+}
+
+.boostlook.content-modal__prose h2 {
+  font-size: var(--font-size-large);
+}
+
+.boostlook.content-modal__prose h3 {
+  font-size: var(--font-size-base);
+}
+
+.boostlook.content-modal__prose :is(h4, h5, h6) {
+  font-size: var(--font-size-small);
+}
+
+.boostlook.content-modal__prose > :first-child {
+  margin-top: 0;
+}
+
+.boostlook.content-modal__prose p {
+  margin: var(--space-default) 0;
+  padding: 0;
+  line-height: var(--line-height-loose);
+}
+
+/* Markdown card + user-profile bio (shared .markdown-content) — #2491 */
+.boostlook.markdown-content {
+  gap: var(--space-medium);
+  padding: 0 var(--space-large);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-code);
+  letter-spacing: var(--letter-spacing-tight);
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.boostlook.markdown-content ul,
+.boostlook.markdown-content ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.boostlook.markdown-content li {
+  margin-top: var(--space-medium);
+}
+
+/* The container's flex `gap` already spaces the list from a preceding block,
+   so the first item shouldn't add its own top margin on top of it. */
+.boostlook.markdown-content li:first-child {
+  margin-top: 0;
+}
+
+/* Unordered lists: custom bullet centered in a fixed gutter. */
+.boostlook.markdown-content ul > li {
+  position: relative;
+  padding-left: var(--space-xlarge);
+}
+
+.boostlook.markdown-content ul > li::before {
+  content: "\2022";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--space-xlarge);
+  height: calc(var(--font-size-small) * 1.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+}
+
+/* Ordered lists: native decimal numbering (a custom ::before counter
+   misaligns; native numbers follow the item's font size cleanly). */
+.boostlook.markdown-content ol {
+  list-style: decimal;
+  padding-left: var(--space-xl);
+}
+
+.boostlook.markdown-content ol > li {
+  padding-left: var(--space-s);
+}
+
+.boostlook.markdown-content a {
+  color: var(--color-text-link-accent);
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-underline-position: from-font;
+}
+
+/* Code blocks defer to boostlook's own code styling; only add horizontal-scroll
+   safety so a wide line scrolls inside the narrow card instead of overflowing. */
+.boostlook.markdown-content pre {
+  overflow-x: auto;
+}
+
+/* boostlook's bare-markdown layer adds a margin-top to a pre that follows a
+   paragraph (with !important); the card spaces blocks with the container's
+   flex gap, so cancel it to avoid doubled spacing above code blocks. Matches
+   that rule's (0,2,2) specificity and wins on source order. */
+.boostlook.markdown-content p + pre {
+  margin-top: 0 !important;
+}
+
+.boostlook.markdown-content h1,
+.boostlook.markdown-content h2,
+.boostlook.markdown-content h3,
+.boostlook.markdown-content h4,
+.boostlook.markdown-content h5,
+.boostlook.markdown-content h6 {
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+}
+
+.boostlook.markdown-content h1 { font-size: var(--font-size-large); }
+.boostlook.markdown-content h2 { font-size: var(--font-size-medium); }
+.boostlook.markdown-content h3 { font-size: var(--font-size-base); }
+.boostlook.markdown-content h4,
+.boostlook.markdown-content h5,
+.boostlook.markdown-content h6 { font-size: var(--font-size-small); }
+
+/* Asciidoctor wraps each heading in a .sectN div, so it isn't a direct flex child and the
+   container gap can't space it — the `margin: 0` above collapses it against its body text.
+   Restore the gap, scoped to the nested case so flat markdown doesn't double up. #2535. */
+.boostlook.markdown-content :is(.sect1, .sect2, .sect3) > :is(h1, h2, h3, h4, h5, h6) {
+  margin-bottom: var(--space-default);
+}
+
+.boostlook.markdown-content b,
+.boostlook.markdown-content strong {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Color comes from the non-doc `color: inherit` rule above; this just keeps v2's size/spacing. */
+.boostlook.markdown-content p {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-code);
+  letter-spacing: var(--letter-spacing-tight);
+  padding: 0;
+  margin: 0;
+}
+
+/* Post detail (news article body) — #2491. The container keeps its layout
+   (flex/gap/border) in post-detail.css; the rich-text typography lives here.
+   Body copy is intentionally secondary grey (overrides the non-doc primary
+   default above); headings and bold use primary. */
+.boostlook.post-detail__body {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-loose);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.boostlook.post-detail__body a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.boostlook.post-detail__body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-m);
+}
+
+.boostlook.post-detail__body :is(pre, code) {
+  font-family: var(--font-code);
+  font-size: var(--font-size-small);
+}
+
+.boostlook.post-detail__body pre {
+  padding: var(--space-medium);
+  border-radius: var(--border-radius-m);
+  background: var(--color-surface-mid);
+  overflow-x: auto;
+}
+
+/* Rhythm between blocks comes from the container's flex `gap`, so strip the
+   block margins boostlook's bare-markdown layer adds; otherwise they stack on
+   the gap and the spacing doubles. Lists stay tight (as v2 had them). */
+.boostlook.post-detail__body :is(p, ul, ol, li, pre, h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+}
+
+.boostlook.post-detail__body :is(ul, ol) {
+  padding-left: var(--space-large);
+  list-style-position: outside;
+}
+
+.boostlook.post-detail__body ul { list-style-type: disc; }
+.boostlook.post-detail__body ol { list-style-type: decimal; }
+.boostlook.post-detail__body ul ul { list-style-type: circle; }
+.boostlook.post-detail__body :is(ol ol, ul ol) { list-style-type: lower-alpha; }
+
+.boostlook.post-detail__body :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+}
+
+.boostlook.post-detail__body h1 { font-size: var(--font-size-xl); }
+.boostlook.post-detail__body h2 { font-size: var(--font-size-large); }
+.boostlook.post-detail__body h3 { font-size: var(--font-size-medium); }
+.boostlook.post-detail__body :is(h4, h5, h6) { font-size: var(--font-size-base); }
+
+.boostlook.post-detail__body :is(b, strong) {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Release highlights card (what's-new via inline_markdown) — #2491. inline_markdown
+   emits only <strong> and <code>; layout/base type stays in release-highlights-card.css.
+   Bold uses the site's medium weight; inline code inherits boostlook's treatment (the
+   leaf-case reset in 04-reset.css covers `p.boostlook > code`). */
+.boostlook.release-highlight__description strong {
+  font-weight: var(--font-weight-medium);
+}

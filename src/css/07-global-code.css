@@ -63,7 +63,7 @@
 .boostlook .sidebarblock {
   padding: var(--spacing-size-xs, 0.75rem) var(--spacing-size-sm, 1rem);
   background: var(--atom-one-light-bg, #fafafa) !important;
-  border-radius: var(--radius-xxl, 1rem);
+  border-radius: 0.5rem; /* 8px — Figma 2.0 code block (#116-5) */
   border: 1px solid var(--border-border-primary, #e4e7ea);
   box-shadow: none;
   line-height: 130%;
@@ -100,7 +100,6 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook .content:has(> pre),
 .boostlook .content:has(> pre.highlight) {
   border-radius: 0;
-  /*border: 1px solid var(--border-border-secondary, #d5d7d9);*/
   background: none;
 }
 
@@ -133,34 +132,12 @@ html.dark .boostlook .listingblock > .content > pre {
  * Applies only if codeblock has child with class .toolbox
  * and it`s title doesn`t includes any other elems as children
 */
+/* Filename title intentionally hidden in the 2.0 toolbox design (only the copy
+   button shows). Collapsed to display:none; the former flex/layout declarations
+   were dead because the element never renders. */
 .boostlook .doc .listingblock:has(.source-toolbox) .title:not(:has(a, span, p, code, pre)),
 .boostlook .listingblock:has(.source-toolbox) .title:not(:has(a, span, p, code, pre)) {
-  position: absolute;
-  top: 1px;
-  height: 2rem;
-  max-width: calc(100% - 5rem);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0;
-  padding-left: var(--spacing-size-sm);
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-size-2xs, 0.5rem);
-  color: var(--text-main-text-body-tetriary, #62676b);
-  font-family: "Mona Sans";
-  font-size: var(--typography-font-size-2xs, 0.75rem);
-  font-style: normal;
-  line-height: var(--typography-line-height-sm, 1rem);
-  letter-spacing: var(--spacing-size-size-0, 0rem);
-  z-index: 1;
   display: none;
-}
-
-.boostlook .doc .listingblock:has(.source-toolbox) .title:not(:has(a, span, p, code, pre))::before,
-.boostlook .listingblock:has(.source-toolbox) .title:not(:has(a, span, p, code, pre))::before {
-  content: var(--icon-file);
-  line-height: 0;
 }
 
 /* Code Block Margins */
@@ -183,8 +160,6 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook#libraryReadMe > pre:not(:is(dd pre, td pre)),
 .boostlook#libraryReadMe .literalblock:has(pre):not(:is(dd pre, td pre)),
 .boostlook#libraryReadMe div.highlight:has(> pre):not(:is(dd pre, td pre)) {
-  /*margin-left: var(--spacing-size-xl);*/
-  /*border: 1px solid var(--border-border-secondary, #d5d7d9);*/
   background: var(--atom-one-light-bg, #fafafa);
   margin-top: var(--padding-padding-xs, 0.75rem);
 }
@@ -227,11 +202,7 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook .content:has(> pre) pre.highlight,
 .boostlook .literalblock > .content > pre:not(.highlight) {
   border: 1px solid var(--border-border-primary, #e4e7ea);
-  border-radius: var(--radius-xxl, 1rem);
-}
-.boostlook .content:has(> pre):has(> .source-toolbox) pre {
-  /*border: 1px solid var(--border-border-secondary, #d5d7d9);*/
-  /*border-radius: var(--spacing-size-2xs, 0.5rem);*/
+  border-radius: 0.5rem; /* 8px — Figma 2.0 code block (#116-5) */
 }
 
 .boostlook .content:has(> pre):has(> .source-toolbox) .source-toolbox {
@@ -245,12 +216,10 @@ html.dark .boostlook .listingblock > .content > pre {
   font-family: inherit;
   z-index: 1;
   padding: var(--article-article-compressing-from-12-8--, 0.5rem) var(--spacing-size-sm, 1rem);
-  /*min-height: 2rem;*/
   height: 0;
   max-height: 0;
   min-height: 0;
   padding: 0;
-  /*margin-top: -1px;*/
 }
 
 .boostlook .content:has(> pre):has(> .source-toolbox):not(:has(.source-lang)) .source-toolbox  {
@@ -298,7 +267,6 @@ html.dark .boostlook .listingblock > .content > pre {
   border: 1px solid var(--border-border-primary, #e4e7ea);
   background: var(--surface-background-main-surface-primary, #f5f6f8);
   opacity: 0;
-  visibility: hidden;
   transition: all 0.2s ease;
 }
 
@@ -306,9 +274,16 @@ html.dark .boostlook .listingblock > .content > pre {
   border: 1px solid var(--border-border-blue, #92cbe9);
 }
 
-.boostlook .content:has(> pre):has(> .source-toolbox):hover .copy-button {
+.boostlook .content:has(> pre):has(> .source-toolbox):hover .copy-button,
+.boostlook .content:has(> pre):has(> .source-toolbox) .copy-button:focus-visible {
   opacity: 1;
-  visibility: visible;
+}
+
+/* Keyboard users can tab to the copy button (kept in the tab order via opacity
+   rather than visibility:hidden) and get a visible focus ring. */
+.boostlook .content:has(> pre):has(> .source-toolbox) .copy-button:focus-visible {
+  outline: 2px solid var(--border-border-blue, #92cbe9);
+  outline-offset: 2px;
 }
 
 /* Mobile: hide copy button (clipboard API requires HTTPS) */
@@ -385,7 +360,6 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook .doc .colist > table code:not(:has(> code)) {
   border-radius: unset;
   padding: unset;
-  /* border: 1px solid var(--border-border-secondary, #d5d7d9); */
   background: transparent !important;
 }
 
@@ -405,53 +379,11 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook .doc p:not(:is(table p)) code:has(> a:only-child),
 .boostlook .doc .colist > table code:has(> a:first-child:last-child),
 .boostlook .doc .colist > table code:has(> a:only-child) {
-  /* transition: all 0.2s ease; */
   border-radius: unset;
   border: none;
   background: transparent !important;
   color: inherit;
 }
-
-/* Applies to links in code in case where only one link tag inside code */
-/* .boostlook code:not(.tableblock code, .table code):has(> a:first-child:last-child) a,
-.boostlook code:not(.tableblock code, .table code):has(> a:only-child) a,
-.boostlook p code:not(.tableblock code, .table code):has(> a:first-child:last-child) a,
-.boostlook p code:not(.tableblock code, .table code):has(> a:only-child) a,
-.boostlook li code:not(.tableblock code, .table code):has(> a:first-child:last-child) a,
-.boostlook li code:not(.tableblock code, .table code):has(> a:only-child) a,
-.boostlook .doc p code:not(.tableblock code, .table code):has(> a:first-child:last-child) a,
-.boostlook .doc p code:not(.tableblock code, .table code):has(> a:only-child) a,
-.boostlook .doc .colist > table code:has(> a:first-child:last-child) a,
-.boostlook .doc .colist > table code:has(> a:only-child) a {
-  text-decoration: none;
-  font: inherit;
-  color: inherit;
-} */
-
-/* .boostlook .doc table.tableblock code a,
-.boostlook:not(:has(.doc)) table.table code a { */
-/* text-decoration-color: transparent; */
-/* color: var(--text-code-blue, #329cd2); */
-/* line-height: var(--typography-line-height-lg, 1.5rem); */
-/* } */
-
-/* Code Link Hover States */
-/* .boostlook p:not(:is(table p)) a:hover code,
-.boostlook li a:hover code,
-.boostlook .doc p:not(:is(table p)) a:hover code,
-.boostlook .doc table a:hover code,
-.boostlook .doc .colist > table a:hover code,
-.boostlook p:not(:is(table p)) code:has(> a:first-child:last-child):hover,
-.boostlook p:not(:is(table p)) code:has(> a:only-child):hover,
-.boostlook li code:has(> a:first-child:last-child):hover,
-.boostlook li code:has(> a:only-child):hover,
-.boostlook .doc p:not(:is(table p)) code:has(> a:first-child:last-child):hover,
-.boostlook .doc p:not(:is(table p)) code:has(> a:only-child):hover,
-.boostlook .doc .colist > table code:has(> a:first-child:last-child):hover,
-.boostlook .doc .colist > table code:has(> a:only-child):hover {
-  border-color: var(--border-border-blue-hover, #329cd2);
-  background: var(--surface-background-main-surface-blue-tetriary, #c2e2f4) !important;
-} */
 
 .boostlook a:hover code {
   color: inherit;

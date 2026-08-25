@@ -339,8 +339,8 @@ html.dark .boostlook nav.pagination > span:hover a {
 .boostlook:not(:has(.doc)) div.caution > table tr:not(:first-child) td p,
 .boostlook:not(:has(.doc)) div.warning > table tr:not(:first-child) td,
 .boostlook:not(:has(.doc)) div.warning > table tr:not(:first-child) td p,
-.boostlook:not(:has(.doc)) div.blurp > table tr:not(:first-child) td,
-.boostlook:not(:has(.doc)) div.blurp > table tr:not(:first-child) td p,
+.boostlook:not(:has(.doc)) div.blurb > table tr:not(:first-child) td,
+.boostlook:not(:has(.doc)) div.blurb > table tr:not(:first-child) td p,
 .boostlook:not(:has(.doc)) p.blurb > table tr:not(:first-child) td,
 .boostlook:not(:has(.doc)) p.blurb > table tr:not(:first-child) td p,
   /* Antora Template Correction*/
@@ -373,7 +373,7 @@ html.dark .boostlook nav.pagination > span:hover a {
 .boostlook #content .admonitionblock.note,
 .boostlook:not(:has(.doc)) div.note,
 .boostlook:not(:has(.doc)) .notices.note {
-  border-color: var(--stroke-weak, rgba(13 14 15 / 0.1));
+  border-color: var(--stroke-weak, rgba(5 8 22 / 0.1));
   background-color: var(--surface-weak, #fff);
 }
 
@@ -390,11 +390,6 @@ html.dark .boostlook nav.pagination > span:hover a {
   border-color: var(--border-border-positive, #f8fefb);
   background-color: var(--surface-background-states-surface-positive-primary, #f6fafd);
 }
-/* .boostlook #content .admonitionblock.tip > table tr td.icon,
-.boostlook:not(:has(.doc)) div.tip > table tr:first-child th,
-.boostlook:not(:has(.doc)) .notices.tip .heading {
-  background: var(--border-border-positive, #bdeed6);
-} */
 .boostlook #content .admonitionblock.tip > table tr td.icon > *,
 .boostlook:not(:has(.doc)) div.tip > table tr:first-child th,
 .boostlook:not(:has(.doc)) .notices.tip .heading {
@@ -410,13 +405,6 @@ html.dark .boostlook nav.pagination > span:hover a {
   border-color: var(--border-border-brand-orange, #ffd897);
   background-color: var(--surface-background-states-surface-warning-primary, #fefcf9);
 }
-/* .boostlook #content .admonitionblock.important > table tr td.icon,
-.boostlook #content .admonitionblock.caution > table tr td.icon,
-.boostlook:not(:has(.doc)) div.important > table tr:first-child th,
-.boostlook:not(:has(.doc)) div.caution > table tr:first-child th,
-.boostlook:not(:has(.doc)) .notices.important {
-  background: var(--surface-background-states-surface-warning-tetriary, #ffd4b3);
-} */
 .boostlook #content .admonitionblock.important > table tr td.icon > *,
 .boostlook #content .admonitionblock.caution > table tr td.icon > *,
 .boostlook:not(:has(.doc)) div.important > table tr:first-child th,
@@ -432,11 +420,6 @@ html.dark .boostlook nav.pagination > span:hover a {
   border-color: var(--border-border-negative, #ffcad2);
   background-color: var(--surface-background-states-surface-negative-primary, #fdf1f3);
 }
-/* .boostlook #content .admonitionblock.warning > table tr td.icon,
-.boostlook:not(:has(.doc)) div.warning > table tr:first-child th,
-.boostlook:not(:has(.doc)) .notices.warning .heading {
-  background: var(--surface-background-states-surface-negative-tetriary, #ffcad2);
-} */
 .boostlook #content .admonitionblock.warning > table tr td.icon > *,
 .boostlook:not(:has(.doc)) div.warning > table tr:first-child th,
 .boostlook:not(:has(.doc)) .notices.warning .heading {
@@ -448,7 +431,7 @@ html.dark .boostlook nav.pagination > span:hover a {
 .boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(dl > dt.hdlist1:only-of-type + dd:last-child) {
   padding: var(--spacing-large, 1rem);
   border-radius: var(--radius-xxl, 1rem);
-  border: 1px solid var(--stroke-weak, rgba(13 14 15 / 0.1));
+  border: 1px solid var(--stroke-weak, rgba(5 8 22 / 0.1));
   background-color: var(--surface-weak, #fff);
   margin-top: var(--padding-padding-sm, 1rem);
 }
@@ -504,7 +487,6 @@ html.dark .boostlook nav.pagination > span:hover a {
   letter-spacing: var(--spacing-size-size-0, 0rem);
   font-weight: 600;
   color: var(--text-main-text-primary, #18191b) !important;
-  /*margin-bottom: var(--spacing-size-2xs, 0.5rem);*/
 }
 .boostlook #content .dlist:not(:first-child):not(.dlist .dlist):has(.hdlist1) dd  a:hover {
   color: var(--text-states-text-warning, #FF9442);
@@ -545,7 +527,6 @@ html.dark .boostlook nav.pagination > span:hover a {
   padding: initial;
   border-radius: initial;
   border: initial;
-  /* border-bottom-left-radius: unset; */
   background: initial;
   color: var(--text-code-text, #050816);
   font-size: var(--typography-font-size-xs, 0.875rem);
@@ -823,77 +804,24 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   color: #c00;
 }
 
-/* Ordered Lists */
+/* Ordered Lists — native numbering (Metalab 2.0, #116-1) */
 .boostlook .olist.arabic > ol,
-.boostlook .olist.loweralpha > ol,
 .boostlook:not(:has(.doc)) .orderedlist > ol {
-  list-style: none;
-  counter-reset: list-counter;
-  padding-left: 0;
+  list-style: decimal;
+  padding-left: 2rem;
   padding-bottom: 1rem;
 }
 
-/* Arabic Ordered List */
+.boostlook .olist.loweralpha > ol {
+  list-style: lower-alpha;
+  padding-left: 2rem;
+  padding-bottom: 1rem;
+}
+
 .boostlook .olist.arabic > ol > li,
+.boostlook .olist.loweralpha > ol > li,
 .boostlook:not(:has(.doc)) .orderedlist > ol > li {
-  position: relative;
-  padding-left: 2rem;
-  counter-increment: list-counter;
   line-height: var(--typography-line-height-lg, 1.5rem);
-}
-
-.boostlook .olist.arabic > ol > li::before,
-.boostlook:not(:has(.doc)) .orderedlist > ol > li::before {
-  content: counter(list-counter)".";
-  position: absolute;
-  left: 0;
-  top: -4px;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-main-text-primary, #18191b);
-  font-size: var(--typography-font-size-sm, 1rem);
-  line-height: var(--typography-line-height-sm, 1rem); /* 133.333% */
-}
-
-.boostlook .olist.arabic > ol > li::after,
-.boostlook:not(:has(.doc)) .orderedlist > ol > li::after {
-  content: "";
-  position: absolute;
-  left: 1px;
-  top: 0px;
-  width: 30px;
-  height: 24px;
-  /*border: 1px solid var(--border-border-tetriary);*/
-  /* Mask to make square brackets for marker to make it look like [ 01 ] */
-  /*clip-path: polygon(0 0, 3px 0, 3px 3px, 27px 3px, 27px 0, 30px 0, 30px 24px, 27px 24px, 27px 21px, 3px 21px, 3px 24px, 0 24px);*/
-}
-
-/* LowerAlfa Ordered List */
-.boostlook .olist.loweralpha > ol > li {
-  position: relative;
-  padding-left: 2rem;
-  counter-increment: list-counter;
-  line-height: var(--typography-line-height-lg, 1.5rem);
-}
-
-.boostlook .olist.loweralpha > ol > li::before {
-  content: counter(list-counter, lower-alpha) ". ";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-main-text-primary, #18191b);
-  font-size: var(--typography-font-size-xs, 0.875rem);
-  font-variation-settings: "wght" 500, "wdth" 87.5;
-  line-height: var(--Typography-line-height-lg, 1.5rem); /* 171.429% */
-  letter-spacing: var(--spacing-size-size-0, 0rem);
 }
 
 /* Conum */
@@ -916,7 +844,6 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
   text-indent: unset;
   color: var(--text-main-text-primary, #18191b);
   text-align: center;
-  /*background: var(--surface-background-main-surface-secondary, #e4e7ea);*/
 }
 .boostlook .doc code .conum[data-value] {
   background: transparent;
