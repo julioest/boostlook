@@ -17,13 +17,26 @@
 
 .boostlook #header .author {
   display: inline-block;
-  margin-top: var(--padding-padding-md, 1.125rem);
-  color: var(--text-main-text-primary, #18191b);
-  font-size: var(--typography-font-size-lg, 1.25rem);
+  margin-top: 0;
+  color: var(--text-main-text-body-tetriary, #71737B);
+  font-size: var(--doc-body-size, 1rem);
   font-style: normal;
-  font-variation-settings: "wght" 500, "wdth" 87.5;
-  line-height: var(--typography-line-height-xl, 1.75rem);
-  letter-spacing: var(--spacing-size-size-0, 0rem);
+  font-variation-settings: "wght" 500, "wdth" 95;
+  line-height: var(--doc-body-line-height, 1.6);
+  letter-spacing: -0.01em;
+}
+
+.boostlook #header .details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--padding-padding-2xs, 0.5rem);
+  color: var(--text-main-text-body-tetriary, #71737B);
+  font-size: var(--doc-small-size, 0.875rem);
+  line-height: var(--doc-body-line-height, 1.6);
+}
+
+.boostlook #header .details br {
+  display: none;
 }
 
 /* Rouge — reset font-style so only comments are italic (handled by 07-global-code.css) */

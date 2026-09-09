@@ -19,7 +19,8 @@
 .boostlook {
   font-family: var(--font-family-body, "Mona Sans") !important;
   font-variation-settings: "wght" 400, "wdth" 95;
-  line-height: 120%;
+  font-size: var(--doc-body-size, 1rem);
+  line-height: var(--doc-body-line-height, 1.6);
   letter-spacing: -0.01em;
   color: var(--text-main-text-body-secondary, #585A64);
   background: var(--surface-background-main-base-primary, #fff);
@@ -44,62 +45,92 @@
   color: var(--text-main-text-primary, #050816);
   display: block;
   font-family: var(--font-family-body, "Mona Sans");
-  line-height: 100%;
-  margin-top: var(--padding-padding-lg, 1.5rem);
-  margin-bottom: 0.5rem;
+  line-height: var(--doc-heading-line-height, 1.2);
+  margin-top: var(--doc-section-gap, 1.5rem);
+  margin-bottom: var(--doc-heading-gap, 0.75rem);
   font-weight: 500;
   font-variation-settings: "wght" 500, "wdth" 87.5;
+  letter-spacing: -0.01em;
   position: relative;
 }
 
-/* Heading Sizes — Metalab 2.0 */
-/* h1: Title / 2XL (48px desktop) */
 .boostlook h1,
 .boostlook .doc h1 {
   font-size: var(--typography-font-size-h1, 2rem);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  margin-top: 0;
+  margin-bottom: var(--doc-heading-gap, 0.75rem);
 }
 
-/* Antora pins its page title via .doc>h1.page:first-child (0,3,1), which beats
-   .boostlook .doc h1 (0,2,1); restate the global h1 size at higher specificity
-   (0,4,1) so the title matches across Antora + AsciiDoctor. */
 .boostlook .doc > h1.page:first-child {
-  font-size: var(--typography-font-size-h1, 3rem);
+  font-size: var(--typography-font-size-h1, 2rem);
+  margin-top: 0;
+  margin-bottom: var(--doc-heading-gap, 0.75rem);
 }
 
-/* h2: Display/Desktop/Medium/Large */
 .boostlook h2,
 .boostlook .doc h2 {
-  font-size: var(--typography-font-size-h2, 1.25rem);
-  letter-spacing: -0.01em;
+  font-size: var(--typography-font-size-h2, 1.5rem);
+  letter-spacing: -0.02em;
+  margin-top: var(--doc-section-gap, 1.5rem);
+  margin-bottom: var(--doc-heading-gap, 0.75rem);
 }
 
-/* h3: Display/Desktop/Medium/M */
 .boostlook h3,
 .boostlook .doc h3 {
-  font-size: var(--typography-font-size-h3, 1.125rem);
-  letter-spacing: -0.01em;
+  font-size: var(--typography-font-size-h3, 1.25rem);
+  margin-top: var(--doc-section-gap, 1.5rem);
+  margin-bottom: var(--doc-heading-gap, 0.75rem);
 }
 
-/* h4: Display/Desktop/Medium/Base */
 .boostlook h4,
 .boostlook .doc h4 {
   font-size: var(--typography-font-size-h4, 1rem);
-  letter-spacing: -0.16px;
 }
 
-/* h5 */
 .boostlook h5,
-.boostlook .doc h5 {
-  font-size: var(--font-size-xs, 0.875rem);
-  letter-spacing: -0.14px;
-}
-
-/* h6 */
+.boostlook .doc h5,
 .boostlook h6,
 .boostlook .doc h6 {
-  font-size: var(--font-size-2xs, 0.75rem);
-  letter-spacing: -0.12px;
+  font-size: var(--doc-small-size, 0.875rem);
+}
+
+.boostlook :is(h1, h2, h3, h4, h5, h6):first-child {
+  margin-top: 0;
+}
+
+.boostlook .doc .sect1,
+.boostlook .doc .sect2,
+.boostlook .doc .sect3,
+.boostlook .doc .sect4,
+.boostlook .doc .sect5,
+.boostlook:not(:has(.doc)) #content .sect1,
+.boostlook:not(:has(.doc)) #content .sect2,
+.boostlook:not(:has(.doc)) #content .sect3,
+.boostlook:not(:has(.doc)) #content .sect4 {
+  margin-top: 0;
+}
+
+.boostlook .doc .sect1 > h2:first-child,
+.boostlook:not(:has(.doc)) #content .sect1 > h2:first-child {
+  margin-top: var(--doc-section-gap, 1.5rem);
+}
+
+.boostlook .doc .sect2 > h3:first-child,
+.boostlook:not(:has(.doc)) #content .sect2 > h3:first-child {
+  margin-top: var(--doc-section-gap, 1.5rem);
+}
+
+.boostlook .doc :is(.sect3, .sect4, .sect5) > :is(h4, h5, h6):first-child,
+.boostlook:not(:has(.doc)) #content :is(.sect3, .sect4) > :is(h4, h5, h6):first-child {
+  margin-top: var(--doc-section-gap, 1.5rem);
+}
+
+.boostlook .doc h2 + .sectionbody > .sect2:first-child > h3:first-child,
+.boostlook:not(:has(.doc)) #content h2 + .sectionbody > .sect2:first-child > h3:first-child,
+.boostlook .doc h3 + .sect3 > h4:first-child,
+.boostlook:not(:has(.doc)) #content h3 + .sect3 > h4:first-child {
+  margin-top: var(--doc-heading-gap, 0.75rem);
 }
 
 /* Document-specific headings adjustments */
@@ -140,7 +171,7 @@
 .boostlook .doc .videoblock,
 .boostlook .doc details,
 .boostlook .doc hr {
-  margin: revert;
+  margin: 0;
 }
 
 /* Intro copy — first paragraph after page title (24px per Figma) */
@@ -150,8 +181,9 @@
 .boostlook .doc h1.page + .sect1 > .sectionbody > .paragraph:first-child > p,
 /* Asciidoctor (non-Antora): first sect1 → first sect2 → first paragraph */
 .boostlook:not(:has(.doc)) #content > .sect1:first-of-type > .sectionbody > .sect2:first-child > .paragraph:first-of-type > p {
-  font-size: 1.5rem;
-  line-height: 133%;
+  font-size: var(--doc-lead-size, 1.125rem);
+  line-height: 1.5;
+  color: var(--text-main-text-body-tetriary, #71737B);
 }
 
 /* Scroll offset for anchor links */

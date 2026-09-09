@@ -53,7 +53,7 @@ div.source-docs-antora.boostlook > #footnotes {
 #boost-legacy-docs-wrapper:not(:has(.doc)):not(:has(> .boostlook)),
 #antora-template-wrapper:not(:has(.doc)):not(:has(> .boostlook)),
 div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) {
-  padding: 0 var(--main-margin, 3rem);
+  padding: 0 var(--spacing-size-lg, 1.5rem);
 }
 
 /* Title Block Common */
@@ -74,11 +74,11 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) {
 .boostlook:not(:has(.doc)) > .book > .titlepage:first-of-type .title,
 .boostlook:not(:has(.doc)) > .article > .titlepage:first-of-type .title {
   color: var(--text-main-text-primary, #18191b);
-  font-size: var(--typography-font-size-2xl, 1.75rem);
+  font-size: var(--typography-font-size-h1, 2rem);
   font-style: normal;
   font-variation-settings: "wght" 500, "wdth" 87.5;
-  line-height: var(--typography-line-height-3xl, 2.5rem);
-  letter-spacing: var(--spacing-size-size-0, 0rem);
+  line-height: var(--doc-heading-line-height, 1.2);
+  letter-spacing: -0.02em;
   margin: 0;
 }
 
@@ -94,12 +94,12 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) {
 .boostlook:not(:has(.doc))#antora-template-wrapper > #content .author,
 div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #content .author {
   margin: 0;
-  color: var(--text-main-text-primary, #18191b);
-  font-size: var(--typography-font-size-lg, 1.25rem);
+  color: var(--text-main-text-body-tetriary, #71737B);
+  font-size: var(--doc-body-size, 1rem);
   font-style: normal;
-  font-variation-settings: "wght" 500, "wdth" 87.5;
-  line-height: var(--typography-line-height-xl, 1.75rem);
-  letter-spacing: var(--spacing-size-size-0, 0rem);
+  font-variation-settings: "wght" 500, "wdth" 95;
+  line-height: var(--doc-body-line-height, 1.6);
+  letter-spacing: -0.01em;
 }
 
 /* Top margin for first Author in title */
@@ -113,7 +113,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 .boostlook:not(:has(.doc))#boost-legacy-docs-wrapper > #content div.author,
 .boostlook:not(:has(.doc))#antora-template-wrapper > #content div.author,
 div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #content div.author {
-  margin-top: var(--padding-padding-md, 1.125rem);
+  margin-top: var(--padding-padding-2xs, 0.5rem);
 }
 
 /* Reduce top margin for next authors in authors group */
@@ -147,11 +147,11 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 .boostlook:not(:has(.doc))#boost-legacy-docs-wrapper > #content .copyright,
 .boostlook:not(:has(.doc))#antora-template-wrapper > #content .copyright,
 div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #content .copyright {
-  color: var(--text-main-text-body-secondary, #494d50);
-  font-size: var(--typography-font-size-xs, 0.875rem);
+  color: var(--text-main-text-body-tetriary, #71737B);
+  font-size: var(--doc-small-size, 0.875rem);
   font-style: normal;
-  line-height: var(--typography-line-height-lg, 1.5rem);
-  margin-top: var(--padding-padding-2xs, 0.5rem);
+  line-height: var(--doc-body-line-height, 1.6);
+  margin-top: var(--padding-padding-3xs, 0.25rem);
 }
 
 /* Remove Top Margin for next .copyright  */
@@ -175,11 +175,11 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #conte
 .boostlook:not(:has(.doc))#boost-legacy-docs-wrapper > #content .legalnotice,
 .boostlook:not(:has(.doc))#antora-template-wrapper > #content .legalnotice,
 div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(>.boostlook)) > #content .legalnotice {
-  color: var(--text-main-text-body-primary, #2a2c30);
-  font-size: var(--typography-font-size-sm, 1rem);
+  color: var(--text-main-text-body-tetriary, #71737B);
+  font-size: var(--doc-small-size, 0.875rem);
   font-style: normal;
-  line-height: var(--typography-line-height-lg, 1.5rem);
-  margin-top: var(--padding-padding-2xs, 0.5rem);
+  line-height: var(--doc-body-line-height, 1.6);
+  margin-top: var(--padding-padding-3xs, 0.25rem);
 }
 
 /* Outcome 2.2 Weird Template fix */
@@ -210,11 +210,12 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) > #cont
 .boostlook:not(:has(.doc)) div.toc > p {
   display: flex;
   padding: var(--spacing-size-3xs, 0.25rem);
+  margin-top: var(--doc-block-gap, 1rem);
   color: var(--text-main-text-primary, #18191b);
-  font-size: var(--typography-font-size-2xs, 0.75rem);
-  font-variation-settings: "wght" 600, "wdth" 87.5;
-  line-height: var(--typography-line-height-sm, 1rem); /* 133.333% */
-  letter-spacing: var(--spacing-size-size-0, 0rem);
+  font-size: var(--doc-small-size, 0.875rem);
+  font-variation-settings: "wght" 500, "wdth" 87.5;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 
 .boostlook:not(:has(.doc)) div.toc > p > * {
@@ -237,9 +238,7 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) > #cont
 .boostlook#boost-legacy-docs-wrapper:not(:has(.doc)):not(:has(> .boostlook)) > *,
 .boostlook#antora-template-wrapper:not(:has(.doc)):not(:has(> .boostlook)) > *,
 div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) > * {
-  /* max-width: var(--main-content-width);
-  margin-left: inherit;
-  margin-right: inherit; */
+  max-width: var(--main-content-width);
   margin: 0 auto;
 }
 
@@ -294,28 +293,6 @@ div.source-docs-antora.boostlook:not(:has(.doc)):not(:has(> .boostlook)) div.spi
 .boostlook:not(:has(.doc)) div:not(.admonitionblock).blurb > table tr:first-child td,
 .boostlook:not(:has(.doc)) p.blurb > table tr:first-child td {
   display: none;
-}
-
-/* Special Blocks Margins */
-.boostlook:not(:has(.doc)) div.note,
-.boostlook:not(:has(.doc)) div.tip,
-.boostlook:not(:has(.doc)) div.important,
-.boostlook:not(:has(.doc)) div.caution,
-.boostlook:not(:has(.doc)) div.warning,
-.boostlook:not(:has(.doc)) div.blurb,
-.boostlook:not(:has(.doc)) p.blurb {
-  margin-top: var(--padding-padding-xs, 0.75rem);
-  margin-bottom: var(--padding-padding-2xs);
-}
-
-.boostlook:not(:has(.doc)) .titlepage + div.note,
-.boostlook:not(:has(.doc)) .titlepage + div.tip,
-.boostlook:not(:has(.doc)) .titlepage + div.important,
-.boostlook:not(:has(.doc)) .titlepage + div.caution,
-.boostlook:not(:has(.doc)) .titlepage + div.warning,
-.boostlook:not(:has(.doc)) .titlepage + div.blurb,
-.boostlook:not(:has(.doc)) .titlepage + p.blurb {
-  margin-top: var(--padding-padding-2xs);
 }
 
 /* Tables */

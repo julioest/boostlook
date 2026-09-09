@@ -78,6 +78,7 @@ html:has(.boostlook):has(#docsiframe)::-webkit-scrollbar {
 .boostlook #toc.toc2 {
   overflow-y: auto;
   scrollbar-color: inherit;
+  border-right: 1px solid var(--stroke-weak, rgba(5 8 22 / 0.1));
 }
 /* TOC Positioning */
 .boostlook #toc.toc2,
@@ -100,9 +101,9 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
   margin: 0;
   padding: 0 0 0 var(--leftbar-paddings-leftbar-padding-2xs, 0.5rem);
   color: var(--text-main-text-body-secondary, #494d50);
-  font-size: var(--typography-font-size-xs, 0.875rem);
+  font-size: var(--doc-small-size, 0.875rem);
   font-style: normal;
-  line-height: var(--typography-line-height-md, 1.25rem);
+  line-height: 1.4;
   list-style: none;
   box-sizing: border-box;
   position: relative;
@@ -125,47 +126,58 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 
 .boostlook .nav-menu .nav-list .nav-link {
   display: inline-block;
-  font-size: var(--typography-font-size-xs);
+  font-size: var(--doc-small-size, 0.875rem);
+  line-height: 1.4;
   color: var(--text-main-text-body-secondary, #494d50);
   text-decoration: none;
   padding: var(--leftbar-paddings-leftbar-padding-3xs, 0.25rem) var(--leftbar-paddings-leftbar-padding-2xs, 0.5rem);
-  border-radius: var(--padding-padding-3xs, 0.25rem);
+  border-radius: var(--corner-radius-s, 0.25rem);
 }
 
 .boostlook .nav-menu li[data-depth="1"]:not(:has(> .nav-item-toggle)) > .nav-link {
   color: var(--text-main-text-primary, #18191b);
-  font-variation-settings: "wght" 600, "wdth" 87.5;
-  line-height: var(--typography-line-height-sm, 1rem);
-  letter-spacing: var(--spacing-size-size-0, 0rem);
+  font-variation-settings: "wght" 500, "wdth" 95;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 
-.boostlook .nav-menu .nav-list li:has(.nav-text),
-.boostlook .nav-menu .nav-list li[data-depth="1"]:not(:has(> .nav-item-toggle)),
 .boostlook #toc > ul.sectlevel1 li:has(> ul):not(:first-of-type) {
   margin-top: var(--leftbar-paddings-leftbar-padding-4xs, 0.125rem);
 }
 
 .boostlook .nav-menu .nav-list li[data-depth="1"]:not(:has(> .nav-item-toggle)) {
+  margin-top: 0;
   padding-left: 0;
+}
+
+.boostlook .nav-menu .nav-item:has(> .nav-item-toggle) + li[data-depth="1"]:not(:has(> .nav-item-toggle)) {
+  border-top: 1px solid var(--border-border-primary, #e4e7ea);
+  padding-top: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
+}
+
+.boostlook .nav-menu .nav-list li[data-depth="1"]:not(:has(> .nav-item-toggle)):has(+ .nav-item > .nav-item-toggle) {
+  padding-bottom: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
 }
 
 .boostlook .nav-text,
 .boostlook #toc > ul.sectlevel1 li:has(> ul) > a,
 .boostlook #toc > ul.sectlevel1 > li:not(:has(> ul)) > a,
-.boostlook .nav-menu .nav-item:has(> .nav-item-toggle) > .nav-link {
+.boostlook .nav-menu .nav-item:has(> .nav-item-toggle) > .nav-link,
+.boostlook #toc .nav-menu .nav-item:has(> .nav-item-toggle) > .nav-link {
   color: var(--text-main-text-primary, #18191b);
-  font-size: var(--typography-font-size-xs);
-  font-variation-settings: "wght" 600, "wdth" 87.5;
-  line-height: var(--typography-line-height-sm, 1rem);
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: var(--doc-small-size, 0.875rem);
+  font-variation-settings: "wght" 500, "wdth" 95;
+  line-height: 1.4;
   padding-left: var(--leftbar-paddings-leftbar-padding-3xs, 0.25rem);
-  letter-spacing: var(--spacing-size-size-0, 0rem);
+  letter-spacing: -0.01em;
 }
 
 /* Section separator lines */
 .boostlook .nav-menu > .nav-list > .nav-item,
 .boostlook .nav-menu .nav-item:has(> .nav-text),
-.boostlook .nav-menu .nav-item:has(> .nav-item-toggle),
-.boostlook .nav-menu li[data-depth="1"]:not(:has(> .nav-item-toggle)) {
+.boostlook .nav-menu .nav-item:has(> .nav-item-toggle) {
   border-top: 1px solid var(--border-border-primary, #e4e7ea);
   margin-top: 0;
   padding-top: var(--leftbar-paddings-leftbar-padding-xs, 0.75rem);
@@ -182,9 +194,9 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 .boostlook #toc a,
 .boostlook:not(:has(.doc)) div.toc a {
   color: var(--text-main-text-body-secondary, #494d50);
-  font-size: var(--typography-font-size-xs, 0.875rem);
+  font-size: var(--doc-small-size, 0.875rem);
   font-style: normal;
-  line-height: var(--typography-line-height-sm, 1rem); /* 142.857% */
+  line-height: 1.4;
   text-decoration: none;
 }
 
@@ -236,11 +248,12 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 .boostlook #toc #toctitle,
 .boostlook .nav-menu h3.title {
   padding: var(--leftbar-paddings-leftbar-padding-3xs, 0.25rem);
+  margin: 0 0 var(--padding-padding-2xs, 0.5rem);
   color: var(--text-main-text-primary, #18191b);
-  font-size: var(--typography-font-size-sm, 0.875rem);
-  line-height: var(--typography-line-height-sm, 1rem);
-  letter-spacing: var(--spacing-size-size-0, 0rem);
-  font-variation-settings: "wght" 600, "wdth" 87.5;
+  font-size: var(--doc-small-size, 0.875rem);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  font-variation-settings: "wght" 500, "wdth" 87.5;
 }
 
 /* TOC code in links */
@@ -259,21 +272,23 @@ div.source-docs-antora.boostlook:not(:has(article.doc)):not(:has(> .boostlook)) 
 /* Content */
 .boostlook #content .doc,
 .boostlook #content > .sect1,
+.boostlook #content > #footnotes,
 .boostlook #header > *,
 .boostlook #footer > * {
   max-width: var(--main-content-width);
-  margin-left: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .boostlook #preamble + .sect1,
 .boostlook .doc .sect1 + .sect1 {
-  margin-top: revert;
+  margin-top: 0;
 }
 
 /* Responsive Design */
 @media screen and (min-width: 768px) {
   .article.toc2.toc-left:has(.boostlook) {
-    padding: 0 1rem 0 1rem;
+    padding: 0 !important;
   }
 
   .boostlook #toggle-toc {

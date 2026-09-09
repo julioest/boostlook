@@ -26,9 +26,9 @@
 .boostlook pre code.hljs,
 .boostlook .doc .content pre code,
 .boostlook .doc pre.highlight code {
-  font-size: var(--typography-font-size-2xs, 0.75rem);
+  font-size: var(--doc-code-size, 0.875rem);
   font-feature-settings: "calt" 1, "liga" 0;
-  line-height: 130%;
+  line-height: var(--doc-code-line-height, 1.6);
   letter-spacing: var(--spacing-size-size-0, 0rem);
   color: var(--text-main-text-primary, #18191b);
   padding: revert;
@@ -44,8 +44,8 @@
 
 .boostlook pre:not(:has(> code)),
 .boostlook pre:not(:has(> code)):has(p, span) {
-  font-size: var(--typography-font-size-xs, 0.875rem);
-  line-height: var(--typography-line-height-lg, 1.5rem); /* 171.429% */
+  font-size: var(--doc-code-size, 0.875rem);
+  line-height: var(--doc-code-line-height, 1.6);
   letter-spacing: var(--spacing-size-size-0, 0rem);
 }
 
@@ -61,17 +61,19 @@
 .boostlook .literalblock > .content > pre:not(.highlight),
 .boostlook .exampleblock > .content,
 .boostlook .sidebarblock {
-  padding: var(--spacing-size-xs, 0.75rem) var(--spacing-size-sm, 1rem);
-  background: var(--atom-one-light-bg, #fafafa) !important;
-  border-radius: 0.5rem; /* 8px — Figma 2.0 code block (#116-5) */
-  border: 1px solid var(--border-border-primary, #e4e7ea);
+  padding: var(--doc-card-padding, 1rem);
+  background: var(--doc-code-surface, #F8F8F8) !important;
+  border-radius: var(--doc-card-radius, 0.5rem);
+  border: none;
   box-shadow: none;
-  line-height: 130%;
+  line-height: var(--doc-code-line-height, 1.6);
 }
 
-.boostlook .sidebarblock {
-  margin-top: 20px;
-  border: 1px solid var(--border-border-secondary, #d5d7d9);
+.boostlook .sidebarblock,
+.boostlook .exampleblock > .content {
+  background: var(--surface-weak, #fff) !important;
+  border: 1px solid var(--stroke-weak, rgba(5 8 22 / 0.1));
+  line-height: var(--doc-body-line-height, 1.6);
 }
 
 /* Dark theme code block background */
@@ -90,7 +92,7 @@ html.dark .boostlook .listingblock > .content > pre,
 html.dark .boostlook .sidebarblock,
 html.dark .boostlook .exampleblock > .content,
 html.dark .boostlook .listingblock > .content > pre {
-  background: var(--atom-one-dark-bg, #282c34) !important;
+  background: var(--doc-code-surface, #2F313D) !important;
 }
 
 .boostlook .doc pre {
@@ -107,18 +109,21 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook pre.synopsis,
 .boostlook pre.literallayout,
 .boostlook#libraryReadMe > pre {
-  border: 1px solid var(--border-border-secondary, #d5d7d9);
+  border: 1px solid var(--stroke-weak, rgba(5 8 22 / 0.1));
 }
 
 /* Code Block Regular Title */
 .boostlook .doc .listingblock .title,
-.boostlook .listingblock .title {
-  color: var(--text-main-text-body-primary, #2a2c30);
-  font-size: var(--typography-font-size-xs, 0.875rem);
+.boostlook .listingblock .title,
+.boostlook .doc :is(.olist, .ulist, .dlist, .imageblock, .exampleblock, .openblock) > .title,
+.boostlook:not(:has(.doc)) div.table .title {
+  color: var(--text-main-text-primary, #050816);
+  font-size: var(--doc-small-size, 0.875rem);
   font-style: normal;
-  font-variation-settings: "wght" 600, "wdth" 87.5;
-  line-height: var(--typography-line-height-md, 1.25rem);
-  letter-spacing: unset;
+  font-weight: 500;
+  font-variation-settings: "wght" 500, "wdth" 87.5;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
   padding-bottom: var(--padding-padding-2xs, 0.5rem);
 }
 
@@ -148,10 +153,12 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook#libraryReadMe > pre,
 .boostlook#libraryReadMe .literalblock:has(pre),
 .boostlook#libraryReadMe div.highlight:has(> pre) {
-  margin: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
   border: none;
   background-color: transparent;
-  padding:0;
+  padding: 0;
 }
 
 /* Apply left margin only if code block not in definition block or in table */
@@ -160,36 +167,12 @@ html.dark .boostlook .listingblock > .content > pre {
 .boostlook#libraryReadMe > pre:not(:is(dd pre, td pre)),
 .boostlook#libraryReadMe .literalblock:has(pre):not(:is(dd pre, td pre)),
 .boostlook#libraryReadMe div.highlight:has(> pre):not(:is(dd pre, td pre)) {
-  background: var(--atom-one-light-bg, #fafafa);
-  margin-top: var(--padding-padding-xs, 0.75rem);
-}
-
-.boostlook#libraryReadMe .literalblock:has(pre):not(:is(dd pre, td pre)) {
-  margin-left: var(--spacing-size-xl);
-  border: 1px solid var(--border-border-secondary, #d5d7d9);
-}
-
-@media screen and (max-width: 767px) {
-  .boostlook#libraryReadMe .literalblock:has(pre):not(:is(dd pre, td pre)) {
-    margin-left: 0;
-  }
-}
-.boostlook .olist.arabic > ol > li .listingblock:has(> .content > pre):not(:is(dd pre, td pre)),
-.boostlook:not(:has(.doc)) .orderedlist > ol > li .listingblock:has(> .content > pre.highlight):not(:is(dd pre, td pre)) {
-  margin-left: 0;
+  background: var(--doc-code-surface, #F8F8F8);
 }
 
 .boostlook .listingblock:has(> .content > pre):not(:is(dd pre, td pre)):has(.title) {
   border: none;
   background: none;
-}
-
-.boostlook .listingblock:has(> .content > pre):not(:last-child),
-.boostlook .listingblock:has(> .content > pre.highlight):not(:last-child),
-.boostlook:not(:has(.doc)) pre.programlisting:not(:last-child),
-.boostlook:not(:has(.doc)) pre.synopsis:not(:last-child),
-.boostlook#libraryReadMe > pre:not(:last-child) {
-  margin-bottom: var(--padding-padding-xs, 0.75rem);
 }
 
 .boostlook .content:has(> pre):has(> .source-toolbox) {
@@ -198,11 +181,15 @@ html.dark .boostlook .listingblock > .content > pre {
   flex-direction: column-reverse;
 }
 
+.boostlook .content:has(> pre):has(> .source-toolbox) > pre {
+  padding-right: 3rem;
+}
+
 .boostlook .highlight pre,
 .boostlook .content:has(> pre) pre.highlight,
 .boostlook .literalblock > .content > pre:not(.highlight) {
-  border: 1px solid var(--border-border-primary, #e4e7ea);
-  border-radius: 0.5rem; /* 8px — Figma 2.0 code block (#116-5) */
+  border: none;
+  border-radius: var(--doc-card-radius, 0.5rem);
 }
 
 .boostlook .content:has(> pre):has(> .source-toolbox) .source-toolbox {
@@ -228,9 +215,6 @@ html.dark .boostlook .listingblock > .content > pre {
   padding: 0 !important;
   margin-bottom: -1px;
 }
-.boostlook .content:has(> pre):has(> .source-toolbox):not(:has(.source-lang)) .source-toolbox .copy-button {
-  top: 0.25rem;
-}
 .boostlook .content:has(> pre):has(> .source-toolbox) .source-lang {
   color: var(--text-main-text-body-quaternary, #949a9e);
   text-align: right;
@@ -251,21 +235,22 @@ html.dark .boostlook .listingblock > .content > pre {
 /* Code Block Copy to Clipboard Icon */
 .boostlook .content:has(> pre):has(> .source-toolbox) .copy-button {
   position: absolute;
-  top: 2.25rem;
-  right: 0.25rem;
+  top: var(--padding-padding-xs, 0.75rem);
+  right: var(--padding-padding-xs, 0.75rem);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   color: inherit;
   outline: none;
   font-size: inherit;
   line-height: inherit;
-  width: 2rem;
-  height: 2rem;
-  padding: var(--spacing-size-3xs, 0.25rem);
-  border-radius: var(--spacing-size-2xs, 0.5rem);
-  border: 1px solid var(--border-border-primary, #e4e7ea);
-  background: var(--surface-background-main-surface-primary, #f5f6f8);
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border-radius: var(--corner-radius-s, 0.25rem);
+  border: 1px solid var(--stroke-weak, rgba(5 8 22 / 0.1));
+  background: var(--surface-weak, #fff);
   opacity: 0;
   transition: all 0.2s ease;
 }
@@ -298,22 +283,25 @@ html.dark .boostlook .listingblock > .content > pre {
 }
 
 .boostlook .content:has(> pre):has(> .source-toolbox) .copy-button::before {
-  content: var(--icon-clipboard);
-  width: var(--icons-24, 1.5rem);
-  height: var(--icons-24, 1.5rem);
+  content: "";
+  width: 1rem;
+  height: 1rem;
   aspect-ratio: 1/1;
+  background: var(--icon-clipboard) center / 1rem 1rem no-repeat;
 }
 
 /* Code Block Copied Toast */
 .boostlook .content:has(> pre):has(> .source-toolbox) .copy-toast {
   flex: none;
-  position: relative;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
   display: inline-flex;
   justify-content: center;
   padding: var(--padding-padding-3xs, 0.25rem) var(--padding-padding-xs, 0.75rem);
   flex-direction: column;
   align-items: center;
-  margin-top: 1em;
+  margin-top: 0;
   background: var(--surface-background-main-surface-primary, #f5f6f8);
   border-radius: var(--spacing-size-2xs, 0.5rem);
   border: 1px solid var(--border-border-secondary, #d5d7d9);

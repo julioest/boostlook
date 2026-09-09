@@ -277,7 +277,7 @@
   --padding-padding-md: var(--spacing-size-sm);
   --main-margin: var(--spacing-size-sm);
   --main-max-width-leftbar: 0rem;
-  --main-content-width: 54rem;
+  --main-content-width: 44rem;
   --icons-24: 1.5rem;
   --icons-20: 1.25rem;
   --icons-16: 1rem;
@@ -299,9 +299,24 @@
 
   /* Heading — Metalab 2.0 (mobile) */
   --typography-font-size-h1: var(--font-size-2xl);
-  --typography-font-size-h2: var(--font-size-lg);
-  --typography-font-size-h3: var(--font-size-sm);
-  --typography-font-size-h4: var(--font-size-xs);
+  --typography-font-size-h2: 1.375rem;
+  --typography-font-size-h3: var(--font-size-md);
+  --typography-font-size-h4: var(--font-size-sm);
+
+  --doc-body-size: 0.9375rem;
+  --doc-body-line-height: 1.6;
+  --doc-lead-size: 1.0625rem;
+  --doc-small-size: var(--font-size-xs);
+  --doc-code-size: 0.8125rem;
+  --doc-code-line-height: 1.6;
+  --doc-heading-line-height: 1.2;
+  --doc-block-gap: 1rem;
+  --doc-list-indent: 1.5rem;
+  --doc-card-padding: var(--spacing-size-sm);
+  --doc-card-radius: var(--corner-radius-l);
+  --doc-heading-gap: 0.75rem;
+  --doc-section-gap: 1.5rem;
+  --doc-code-surface: #F8F8F8;
 
   --typography-line-height-xs: var(--font-line-height-xs);
   --typography-line-height-sm: var(--font-line-height-sm);
@@ -350,8 +365,9 @@
     --leftbar-paddings-leftbar-padding-2xs: var(--spacing-size-2xs);
     --leftbar-paddings-leftbar-padding-3xs: var(--spacing-size-3xs);
     --padding-padding-md: var(--spacing-size-md);
-    --main-margin: 0rem;
+    --main-margin: var(--spacing-size-xl);
     --main-max-width-leftbar: 18.25rem;
+    --main-content-width: 100%;
     --icons-24: 1.5rem;
     --icons-20: 1.25rem;
     --icons-16: 1rem;
@@ -380,10 +396,14 @@
     --typography-line-height-4xl: var(--font-line-height-4xl);
 
     /* Heading — Metalab 2.0 (desktop) */
-    --typography-font-size-h1: 3rem; /* 48px — Figma Title / 2XL */
-    --typography-font-size-h2: var(--font-size-xl); /* 24px — Figma Large */
-    --typography-font-size-h3: var(--font-size-md); /* 18px */
-    --typography-font-size-h4: var(--font-size-sm); /* 16px */
+    --typography-font-size-h1: var(--font-size-3xl);
+    --typography-font-size-h2: var(--font-size-xl);
+    --typography-font-size-h3: var(--font-size-lg);
+    --typography-font-size-h4: var(--font-size-sm);
+
+    --doc-body-size: var(--font-size-sm);
+    --doc-lead-size: var(--font-size-md);
+    --doc-code-size: var(--font-size-xs);
   }
 }
 

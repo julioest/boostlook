@@ -39,7 +39,52 @@
 .boostlook #content table.tableblock:not(:first-child),
 .boostlook:not(:has(.doc)) .table:not(:first-child),
 .boostlook#libraryReadMe > table:not(:first-child) {
-  margin-top: var(--padding-padding-xs, 0.75rem);
+  margin-top: var(--doc-block-gap, 1rem);
+}
+
+.boostlook #content .tablecontainer > table.tableblock:first-child,
+.boostlook #content .tabpanel > table.tableblock:first-child,
+.boostlook #content td > table.tableblock:first-child {
+  margin-top: 0;
+}
+
+.boostlook #content table.tableblock,
+.boostlook:not(:has(.doc)) table.table,
+.boostlook#libraryReadMe > table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--doc-card-radius, 0.5rem);
+  overflow: hidden;
+}
+
+.boostlook #content table.tableblock:has(thead) th:first-child,
+.boostlook #content table.tableblock:not(:has(thead)) tr:first-child td:first-child,
+.boostlook:not(:has(.doc)) table.table:has(thead) th:first-child,
+.boostlook:not(:has(.doc)) table.table:not(:has(thead)) tr:first-child td:first-child,
+.boostlook#libraryReadMe > table:has(thead) th:first-child,
+.boostlook#libraryReadMe > table:not(:has(thead)) tr:first-child td:first-child {
+  border-top-left-radius: var(--doc-card-radius, 0.5rem);
+}
+
+.boostlook #content table.tableblock:has(thead) th:last-child,
+.boostlook #content table.tableblock:not(:has(thead)) tr:first-child td:last-child,
+.boostlook:not(:has(.doc)) table.table:has(thead) th:last-child,
+.boostlook:not(:has(.doc)) table.table:not(:has(thead)) tr:first-child td:last-child,
+.boostlook#libraryReadMe > table:has(thead) th:last-child,
+.boostlook#libraryReadMe > table:not(:has(thead)) tr:first-child td:last-child {
+  border-top-right-radius: var(--doc-card-radius, 0.5rem);
+}
+
+.boostlook #content table.tableblock tr:last-child td:first-child,
+.boostlook:not(:has(.doc)) table.table tr:last-child td:first-child,
+.boostlook#libraryReadMe > table tr:last-child td:first-child {
+  border-bottom-left-radius: var(--doc-card-radius, 0.5rem);
+}
+
+.boostlook #content table.tableblock tr:last-child td:last-child,
+.boostlook:not(:has(.doc)) table.table tr:last-child td:last-child,
+.boostlook#libraryReadMe > table tr:last-child td:last-child {
+  border-bottom-right-radius: var(--doc-card-radius, 0.5rem);
 }
 
 .boostlook #content table.tableblock.stretch,
@@ -82,11 +127,12 @@
 
 .boostlook #content table.tableblock caption,
 .boostlook:not(:has(.doc)) div.table .title {
-  color: var(--text-main-text-body-primary, #2a2c30);
-  font-size: var(--typography-font-size-xs, 0.875rem);
+  color: var(--text-main-text-primary, #050816);
+  font-size: var(--doc-small-size, 0.875rem);
   font-style: normal;
-  font-variation-settings: "wght" 600, "wdth" 87.5;
-  line-height: var(--typography-line-height-md, 1.25rem); /* 142.857% */
+  font-variation-settings: "wght" 500, "wdth" 87.5;
+  line-height: 1.4;
+  text-align: left;
   padding: 0;
   padding-bottom: var(--padding-padding-2xs, 0.5rem);
 }
@@ -174,23 +220,23 @@
 .boostlook#libraryReadMe > table th strong {
   background-color: var(--table-header-bg, #F7F7F8);
   color: var(--text-main-text-primary, #050816);
-  font-size: var(--typography-font-size-xs, 0.875rem);
-  font-variation-settings: "wght" 700, "wdth" 87.5;
-  line-height: 140%;
-  letter-spacing: -0.12px;
+  font-size: var(--doc-small-size, 0.875rem);
+  font-weight: 500;
+  font-variation-settings: "wght" 500, "wdth" 95;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
-/* Table data — Metalab 2.0: 12px per Figma, Text-Secondary */
 .boostlook #content .doc table.tableblock td,
 .boostlook:not(:has(.doc)) #content table.tableblock td,
 .boostlook:not(:has(.doc)) table.table td,
 .boostlook#libraryReadMe > table td {
   background-color: var(--table-bg, #fff);
   color: var(--text-main-text-body-secondary, #585A64);
-  font-size: var(--typography-font-size-2xs, 0.75rem);
+  font-size: var(--doc-small-size, 0.875rem);
   font-style: normal;
-  line-height: 140%;
-  letter-spacing: -0.12px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
 .boostlook#libraryReadMe > table td {
@@ -240,7 +286,7 @@
 .boostlook #content table.tableblock td strong,
 .boostlook:not(:has(.doc)) table.table td strong,
 .boostlook#libraryReadMe > table td strong {
-  font-variation-settings: "wght" 600, "wdth" 87.5;
+  font-variation-settings: "wght" 500, "wdth" 95;
 }
 
 .boostlook #content table.tableblock td code,
@@ -249,7 +295,7 @@
   background: transparent !important;
   padding: 0;
   border: none;
-  font-size: var(--typography-font-size-2xs, 0.75rem);
+  font-size: 0.9em;
 }
 
 .boostlook #content table.tableblock .footnotes tr td,
