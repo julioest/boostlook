@@ -281,6 +281,7 @@ html.dark .boostlook {
   --border-border-blue-hover: var(--colors-secondary-500);
 
   --surface-weak: var(--colors-primary-850);
+  --doc-code-surface: var(--colors-primary-800);
   --stroke-strong: rgba(247 247 248 / 0.21);
   --stroke-mid: rgba(247 247 248 / 0.17);
   --stroke-weak: rgba(247 247 248 / 0.1); /* Figma 2.0 standard 1px stroke (dark) */

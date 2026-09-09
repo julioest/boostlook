@@ -43,26 +43,4 @@
   }
 }
 
-/* === Wide Screens: Expanded Content Width (1536px+) === */
-@media screen and (min-width: 1536px) {
-  :root:not(.v3):has(.boostlook) {
-    --main-content-width: 1100px;
-    --main-content-left-spacing: 2rem;
-  }
-}
-
-/* === Ultra-Wide Screens: Maximum content width (1920px+) === */
-@media screen and (min-width: 1920px) {
-  :root:not(.v3):has(.boostlook) {
-    --main-content-width: 1300px;
-    --main-content-left-spacing: 4rem;
-  }
-
-  .boostlook #content,
-  .boostlook #header > h1,
-  .boostlook #header .author {
-    margin-left: var(--main-content-left-spacing);
-  }
-}
-
 /*----------------- AsciiDoctor-Specific Responsive TOC Layout end -----------------*/
