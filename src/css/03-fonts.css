@@ -68,7 +68,8 @@ html:not(.v3):has(.boostlook) {
   font-weight: 100 900;
   font-stretch: 75% 125%;
   font-display: block;
-  src: url("../font/MonaSansVF.ttf") format("truetype");
+  src: url("../font/MonaSansVF.ttf") format("truetype"),
+    url("/static/font/v3/mona-sans/mona-sans-vf.ttf") format("truetype");
 }
 
 /* Monaspace Neon - Regular */
