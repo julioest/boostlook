@@ -291,7 +291,7 @@
 }
 
 .boostlook .breadcrumbs ul li a:hover {
-  text-decoration: underline;
+  text-decoration-line: underline;
 }
 
 .boostlook .breadcrumbs ul li:first-of-type:not(:only-child) {

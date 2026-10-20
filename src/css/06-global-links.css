@@ -86,6 +86,18 @@
   margin: 0;
 }
 
+/* Underline metrics (#2794). Same normalization as foundations.css — see the
+   comment there for why Firefox needs it — repeated because docs pages load this
+   stylesheet without components.css, so foundations never reaches them. */
+.boostlook {
+  text-decoration-skip-ink: none;
+  text-underline-offset: 2px;
+}
+
+.boostlook :where(*) {
+  text-decoration-thickness: 1px !important;
+}
+
 /* Link Styling */
 .boostlook a,
 .boostlook .doc a {
@@ -102,8 +114,7 @@
 .boostlook .ulist a:not(.anchor),
 .boostlook .olist a:not(.anchor),
 .boostlook .dlist a:not(.anchor) {
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration-line: underline;
 }
 
 /* Link Hover States */
