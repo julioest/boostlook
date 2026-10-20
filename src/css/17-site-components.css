@@ -137,9 +137,7 @@ html.v3 .boostlook {
 
 .boostlook.markdown-content a {
   color: var(--color-text-link-accent);
-  text-decoration: underline;
-  text-decoration-skip-ink: none;
-  text-underline-position: from-font;
+  text-decoration-line: underline;
 }
 
 /* Code blocks defer to boostlook's own code styling; only add horizontal-scroll
@@ -210,7 +208,7 @@ html.v3 .boostlook {
 
 .boostlook.post-detail__body a {
   color: inherit;
-  text-decoration: underline;
+  text-decoration-line: underline;
 }
 
 .boostlook.post-detail__body img {
